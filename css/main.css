@@ -1,0 +1,203 @@
+body {
+    background-color: #000000;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+div.carouselpage {
+	background: #EFEAFF; /* For browsers that do not support gradients */
+	background: -webkit-radial-gradient(#EFEAFF, #CFC1FF); /* Safari 5.1 to 6.0 */
+	background: -o-radial-gradient(#EFEAFF, #CFC1FF); /* For Opera 11.6 to 12.0 */
+	background: -moz-radial-gradient(#EFEAFF, #CFC1FF); /* For Firefox 3.6 to 15 */
+	background: radial-gradient(#EFEAFF, #CFC1FF); /* Standard syntax */
+/* 	background-color: #EFEAFF; */
+	overflow: auto;
+}
+
+div.page {
+	background: #EFEAFF; /* For browsers that do not support gradients */
+	background: -webkit-radial-gradient(#EFEAFF, #CFC1FF); /* Safari 5.1 to 6.0 */
+	background: -o-radial-gradient(#EFEAFF, #CFC1FF); /* For Opera 11.6 to 12.0 */
+	background: -moz-radial-gradient(#EFEAFF, #CFC1FF); /* For Firefox 3.6 to 15 */
+	background: radial-gradient(#EFEAFF, #CFC1FF); /* Standard syntax */
+/* 	background-color: #EFEAFF; */
+	padding: 20px;
+	text-align: left;
+}
+
+div.header {
+	background-color: #CFC1FF;
+	margin-bottom: 20px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+/* div.footer {
+	background-color: #CFC1FF;
+	margin-top: 25px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+} */
+
+div.arttable {
+/* 	border:1px solid #000000; */
+	width: 270px;
+	height: 330px;
+	position: relative;
+	display: inline-block;
+}
+
+div.artrow {
+	width: 270px;
+	height: 270px;
+	display: table-row;
+	float: middle;
+}
+
+div.artcell {
+/* 	border:1px solid #000000; */
+	width: 270px;
+	height: 270px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.labelrow {
+	width: 270px;
+	height: 60px;
+	display: table-row;
+	float: middle;
+}
+
+div.labelcell {
+/* 	border:1px solid #000000; */
+	width: 270px;
+	height:60px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.carouselContainer {
+	margin-top: 20px;
+	height: 330px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .carousel-inner .item img {
+	max-height: 100%;  
+	max-width: 100%; 
+	position: absolute;  
+	top: 0;  
+	bottom: 0;  
+	left: 0;  
+	right: 0;  
+	margin: auto;
+} */
+
+/* div.title {
+	text-align: left;
+	vertical-align: top;
+	display: inline-block;
+	padding-left: 0px;
+	padding-right: 30px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+}
+
+div.symbol {
+	text-align: right;
+	vertical-align: top;
+	display: inline-block;
+	padding-left: 0px;
+	padding-right: 30px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+} */
+
+img { 
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	
+	max-width: 100%;
+	width: auto;
+	height: auto;
+}
+
+img.header { 
+	margin-left: 20px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+img.header-mobile {
+	text-align: center;
+	vertical-align: middle;
+}
+
+img.art {
+	display: block;
+	border: 5px solid #000000;
+	box-shadow: 5px 5px black;
+	margin: auto;
+}
+
+img.artlabel {
+	margin: auto;
+}
+
+/* img.artSite {
+	width: 315px;
+	height: 315px;
+	border:5px solid #000000;
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+} */
+
+img.photo {
+	border:5px solid #000000;
+	box-shadow: 10px 10px black;
+	margin-bottom: 20px;
+}
+
+/* img.e-mail {
+	margin-bottom: 10px;
+}
+
+img.footer {
+	margin-left: 25px;
+	padding-bottom: 5px;
+	border: 0px;
+	vertical-align: middle;
+	display: inline-block;
+} */
+
+p {
+	font-family: Century Gothic, sans-serif;
+	font-size: 16px;
+	display: run-in;
+}
+
+/* div.label {
+	display: table-cell;
+	background-color: #EFEAFF;
+	text-align: center;
+	vertical-align: top;
+	margin: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	border: 0px;
+	height: 50px;
+} */

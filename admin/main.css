@@ -1,0 +1,64 @@
+input[type=number]{
+	width: 50px;
+} 
+
+img {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.cropcontainer {
+	width: 620px;
+	height: 620px;
+	background-color: lightblue;
+	position: relative;
+}
+
+.image {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	width: 500px;
+	height: 500px;
+	display: inline-block;
+	vertical-align: middle;
+	margin: auto;
+}
+
+.side {
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	vertical-align: middle;
+	display: table;
+}
+
+.top {
+	top: 0px;
+	left: 280px;
+}
+
+.bottom {
+	bottom: 0;
+	left: 280px;
+}
+
+.left {
+	top: 280px;
+	left: 0;
+}
+
+.right {
+	top: 280px;	
+	right: 0;
+}
+
+.input {
+	display: table-cell;
+    vertical-align: middle;
+}

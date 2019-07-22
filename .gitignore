@@ -1,0 +1,10 @@
+img/
+admin/upload/
+
+css/bootstrap*
+fonts/
+js/
+
+.git-ftp-ignore
+
+connection.php
