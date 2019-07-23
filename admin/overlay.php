@@ -1,10 +1,11 @@
 <?php
 	session_start();
+	include_once('filenames.php');
 	$filename = $_SESSION['filename'];
 	$imagick1 = new Imagick();
 	$imagick2 = new Imagick();
-	$imagick1->readImage(__DIR__ . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . $filename . ' (cropped).jpg');
-	$imagick2->readImage(__DIR__ . DIRECTORY_SEPARATOR . 'Stamp.png');
+	$imagick1->readImage($uploadroot . $filename . $extcropped);
+	$imagick2->readImage($stamplocation);
 	$dimensions1 = $imagick1->getImageGeometry();
 	$width1 = $dimensions1['width']; 
 	$height1 = $dimensions1['height'];
@@ -26,7 +27,7 @@
 	$imagick2->evaluateImage(Imagick::EVALUATE_MULTIPLY, 0.5, Imagick::CHANNEL_ALPHA);
 	$imagick1->compositeImage($imagick2, Imagick::COMPOSITE_DEFAULT, $xdiff, $ydiff);
 	$imagick1->mergeImageLayers();
-	$imagick1->writeImage(__DIR__ . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . $filename . ' (cropped, stamp).jpg');
+	$imagick1->writeImage($uploadroot . $filename . $extwatermarked);
 	//echo '<img src="upload/' . $filename . ' (cropped, stamp).jpg">';
 	header("Location: index.html");
 	die();

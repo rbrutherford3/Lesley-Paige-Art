@@ -1,5 +1,6 @@
 <?php
-	if (!isset($_SESSION)) { session_start(); }
+	session_start();
+	include_once('filenames.php');
 	//$imagick = new Imagick();
 	//$imagick = clone $_SESSION['image'];
 	$filename = $_SESSION['filename'];

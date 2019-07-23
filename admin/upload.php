@@ -1,52 +1,41 @@
 <?php
-	if (!isset($_SESSION)) { session_start(); }
+	session_start();
+	include_once('filenames.php');
 	if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
 		
-		$file_name = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
-		$file_size = $_FILES['image']['size'];
-		$file_tmp = $_FILES['image']['tmp_name'];
-		$file_type = $_FILES['image']['type'];
-		$file_ext = strtolower(end(explode('.',$_FILES['image']['name'])));
+		$filename = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
+		$filesize = $_FILES['image']['size'];
+		$filetmp = $_FILES['image']['tmp_name'];
+		$filetype = $_FILES['image']['type'];
+		$fileext = strtolower(end(explode('.',$_FILES['image']['name'])));
 
-		$_SESSION['filename'] = $file_name;
+		$_SESSION['filename'] = $filename;
 		
-		//echo $file_tmp;
+		//echo $filetmp;
 		
 		$errors = array();
 		$extensions = array("jpeg","jpg","png","tif","tiff","gif","bmp");
 		$filetypes = array("image/jpeg","image/png","image/tiff","image/gif","image/bmp");
 		
-		if (in_array($file_ext,$extensions)=== false) {
+		if (in_array($fileext,$extensions)=== false) {
 			$errors[] = "extension not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
 		}
 		
-		if (in_array($file_type,$filetypes)=== false) {
+		if (in_array($filetype,$filetypes)=== false) {
 			$errors[] = "filetype not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
 		}
 		
-		if ($file_size > 134217728) {
+		if ($filesize > 134217728) {
 			$errors[] = 'File size must be no greater than 128MB';
 		}
 		
 		if (empty($errors)==true) {
 			$imagick = new Imagick();
-			$imagick->readImage($file_tmp);
+			$imagick->readImage($filetmp);
 			autorotate($imagick);
-			//$imagick->stripImage();
-			//$d = $imagick->getImageGeometry();
-			//$w = $d['width'];
-			//$h = $d['height'];
-			//$imagick->writeImage($_SERVER['DOCUMENT_ROOT'] . '/admin/upload/' . $file_name . '.jpg');
-			//$_SESSION['image'] = new $Imagick();
-			//$_SESSION['image'] = clone $imagick;
-			$imagick->writeImage(__DIR__ . DIRECTORY_SEPARATOR . 'upload' .  DIRECTORY_SEPARATOR . $file_name . '.jpg');
-			//move_uploaded_file($file_tmp,"upload/".$file_name);
-			//echo 'File successfully uploaded';
+			$imagick->writeImage($uploadroot . $filename . $extoriginal);
 			header("Location: cropform.php");
 			die();
-			//echo $imagick->getImageOrientation() . '<br>';
-			//echo Imagick::ORIENTATION_LEFTBOTTOM . '<br>';
-			//echo Imagick::ORIENTATION_TOPLEFT;
 		}
 		else {
 			print_r($errors);
