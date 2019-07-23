@@ -1,48 +1,50 @@
 <?php
 	session_start();
 	include_once('filenames.php');
-	if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
-		
-		$filename = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
-		$filesize = $_FILES['image']['size'];
-		$filetmp = $_FILES['image']['tmp_name'];
-		$filetype = $_FILES['image']['type'];
-		$fileext = strtolower(end(explode('.',$_FILES['image']['name'])));
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+		if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
+			
+			$filename = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
+			$filesize = $_FILES['image']['size'];
+			$filetmp = $_FILES['image']['tmp_name'];
+			$filetype = $_FILES['image']['type'];
+			$fileext = strtolower(end(explode('.',$_FILES['image']['name'])));
 
-		$_SESSION['filename'] = $filename;
-		
-		//echo $filetmp;
-		
-		$errors = array();
-		$extensions = array("jpeg","jpg","png","tif","tiff","gif","bmp");
-		$filetypes = array("image/jpeg","image/png","image/tiff","image/gif","image/bmp");
-		
-		if (in_array($fileext,$extensions)=== false) {
-			$errors[] = "extension not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
-		}
-		
-		if (in_array($filetype,$filetypes)=== false) {
-			$errors[] = "filetype not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
-		}
-		
-		if ($filesize > 134217728) {
-			$errors[] = 'File size must be no greater than 128MB';
-		}
-		
-		if (empty($errors)==true) {
-			$imagick = new Imagick();
-			$imagick->readImage($filetmp);
-			autorotate($imagick);
-			$imagick->writeImage($uploadroot . $filename . $extoriginal);
-			header("Location: cropform.php");
-			die();
+			$_SESSION['filename'] = $filename;
+			
+			//echo $filetmp;
+			
+			$errors = array();
+			$extensions = array("jpeg","jpg","png","tif","tiff","gif","bmp");
+			$filetypes = array("image/jpeg","image/png","image/tiff","image/gif","image/bmp");
+			
+			if (in_array($fileext,$extensions)=== false) {
+				$errors[] = "extension not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
+			}
+			
+			if (in_array($filetype,$filetypes)=== false) {
+				$errors[] = "filetype not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
+			}
+			
+			if ($filesize > 134217728) {
+				$errors[] = 'File size must be no greater than 128MB';
+			}
+			
+			if (empty($errors)==true) {
+				$imagick = new Imagick();
+				$imagick->readImage($filetmp);
+				autorotate($imagick);
+				$imagick->writeImage($uploadroot . $filename . $extoriginal);
+				header("Location: crop.php");
+				die();
+			}
+			else {
+				print_r($errors);
+			}
 		}
 		else {
-			print_r($errors);
+			echo 'Upload failure';
 		}
-	}
-	else {
-		echo 'Upload failure';
 	}
 	
 	function autorotate(Imagick $image) {
@@ -75,8 +77,17 @@
 			break;
 		default: // Invalid orientation
 			break;
+		}
+		$image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
+		return $image;
 	}
-    $image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
-    return $image;
-}
 ?>
+
+<html>
+   <body>
+      <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST" enctype="multipart/form-data">
+         <input type="file" name="image">
+         <input type="submit">
+      </form>
+   </body>
+</html>
