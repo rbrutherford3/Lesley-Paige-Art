@@ -30,6 +30,6 @@
 	$imagick1->setImageFormat($extwatermarked);
 	$imagick1->writeImage($uploadroot . $filename . $filenamewatermarked);
 	//echo '<img src="upload/' . $filename . ' (cropped, stamp).jpg">';
-	header("Location: upload.php");
+	header("Location: resize.php");
 	die();
 ?>
