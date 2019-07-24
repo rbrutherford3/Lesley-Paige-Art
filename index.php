@@ -8,16 +8,13 @@ $names = array();
 $rows = array();
 $ids = array();
 
-$sql = <<<SQL
-    SELECT *
-    FROM `info`
-SQL;
-
-if(!$result = $db->query($sql)){
-    die('There was an error running the query [' . $db->error . ']');
+$sql = "SELECT *
+    FROM `info`";
+$stmt = $db->prepare($sql);
+if(!$stmt->execute()){
+    die('There was an error running the query [' . $db->errorInfo() . ']');
 }
-
-while ($row = $result->fetch_assoc()) {
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 	$rows[] = $row;
 }
 

@@ -6,24 +6,22 @@ include 'connection.php';
 
 $id = $_GET["id"];
 
-$sql = <<<SQL
-    SELECT *
+$sql = "SELECT *
     FROM `info`
-    WHERE `id` = '$id' 
-SQL;
-
-if(!$result = $db->query($sql)){
-    die('There was an error running the query [' . $db->error . ']');
+    WHERE `id` = :id";
+$stmt = $db->prepare($sql);
+$stmt->bindValue(":id", $id, PDO::PARAM_INT);
+if(!$stmt->execute()){
+    die('There was an error running the query [' . $db->errorInfo() . ']');
 }
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$row = $result->fetch_assoc();
 $name = $row['name'];
 $year = $row['year'];
 $size = $row['size'];
 $desc = $row['desc'];
 $famlink = $row['fineartamerica'];
 $etsylink = $row['etsy'];
-
 $filename = $row['filename'];
 
 echo	'	<head>
