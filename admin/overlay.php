@@ -4,7 +4,7 @@
 	$filename = $_SESSION['filename'];
 	$imagick1 = new Imagick();
 	$imagick2 = new Imagick();
-	$imagick1->readImage($uploadroot . $filename . $extcropped);
+	$imagick1->readImage($uploadroot . $filename . $filenamecropped);
 	$imagick2->readImage($stamplocation);
 	$dimensions1 = $imagick1->getImageGeometry();
 	$width1 = $dimensions1['width']; 
@@ -27,8 +27,9 @@
 	$imagick2->evaluateImage(Imagick::EVALUATE_MULTIPLY, 0.5, Imagick::CHANNEL_ALPHA);
 	$imagick1->compositeImage($imagick2, Imagick::COMPOSITE_DEFAULT, $xdiff, $ydiff);
 	$imagick1->mergeImageLayers();
-	$imagick1->writeImage($uploadroot . $filename . $extwatermarked);
+	$imagick1->setImageFormat($extwatermarked);
+	$imagick1->writeImage($uploadroot . $filename . $filenamewatermarked);
 	//echo '<img src="upload/' . $filename . ' (cropped, stamp).jpg">';
-	header("Location: index.html");
+	header("Location: upload.php");
 	die();
 ?>

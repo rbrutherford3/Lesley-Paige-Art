@@ -34,7 +34,8 @@
 				$imagick = new Imagick();
 				$imagick->readImage($filetmp);
 				autorotate($imagick);
-				$imagick->writeImage($uploadroot . $filename . $extoriginal);
+				$imagick->setImageFormat($extoriginal);
+				$imagick->writeImage($uploadroot . $filename . $filenameoriginal);
 				header("Location: crop.php");
 				die();
 			}
@@ -43,7 +44,8 @@
 			}
 		}
 		else {
-			echo 'Upload failure';
+			echo 'Upload failure:<br>';
+			echo $_FILES['image']['error'];
 		}
 	}
 	
