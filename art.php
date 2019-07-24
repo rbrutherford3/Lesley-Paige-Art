@@ -2,6 +2,9 @@
 Site designed by Robert Rutherford, 2014
  -->
  <?php
+ 
+ 
+ 
 include 'connection.php';
 
 $id = $_GET["id"];
@@ -18,7 +21,10 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $name = $row['name'];
 $year = $row['year'];
-$size = $row['size'];
+$widthInteger = floor($row['width']);
+$widthFraction = getFraction($row['width']);
+$heightInteger = floor($row['height']);
+$heightFraction = getFraction($row['height']);
 $desc = $row['desc'];
 $famlink = $row['fineartamerica'];
 $etsylink = $row['etsy'];
@@ -54,7 +60,7 @@ echo	'						<p>
 										', $year, '
 									</p>
 									<p>
-										', $size, '
+										', $widthInteger, $widthFraction, ' x ', $heightInteger, $heightFraction, ' inches
 									</p>
 								</b>
 							</center>
@@ -85,4 +91,22 @@ echo	'		</div>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 			<script src="js/bootstrap.min.js"></script>
 			</body>';
+			
+function getFraction($dimension) {
+	$quarters = ($dimension-floor($dimension))/0.25;
+	switch($quarters){
+		case 1:
+			return ' &frac14';
+			break;
+		case 2: 
+			return ' &frac12';
+			break;
+		case 3:
+			return ' &frac34';
+			break;
+		default:
+			return '';
+	}
+}
+
 ?>
