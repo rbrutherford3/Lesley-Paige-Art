@@ -8,5 +8,6 @@ js/
 .git-ftp-ignore
 
 connection.php
+admin/connection.php
 admin/Stamp.png
 admin/phpinfo.php
