@@ -44,12 +44,12 @@ echo	'			<div class = "row">
 /* include "table-one.php";								
 echo	'						<br> */
 echo	'						<p>
-									<a target="_blank" href = "img/art_big/', $filename, '.png">
-										<img class = "art" src = "img/art/', $filename, '.gif" alt = "', $name, '">
+									<a target="_blank" href = "img/art/', $filename, '.png">
+										<img class = "art" src = "img/thumbnails/', $filename, '.png" alt = "', $name, '">
 									</a>
 								</p>
 								<p>
-									<img class = "artlabel" src = "img/art_labels/', $filename, '.png" alt = "', $name, '">
+									<img class = "artlabel" src = "img/labels/', $filename, '.png" alt = "', $name, '">
 								</p>
 								<b>
 									<p>

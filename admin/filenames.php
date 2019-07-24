@@ -6,7 +6,7 @@
 	$extcropped = 'png';
 	$extborderless = 'png';
 	$extwatermarked = 'png';
-	$extresized = 'gif';
+	$extresized = 'png';
 	
 	$filenameoriginal = '.' . $extoriginal;
 	$filenamecropped = ' (cropped).' . $extcropped;
