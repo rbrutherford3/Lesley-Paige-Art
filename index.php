@@ -9,7 +9,9 @@ $rows = array();
 $ids = array();
 
 $sql = "SELECT *
-    FROM `info`";
+    FROM `info`
+	WHERE `sequence` IS NOT NULL
+	ORDER BY `sequence` ASC;";
 $stmt = $db->prepare($sql);
 if(!$stmt->execute()){
     die('There was an error running the query [' . $db->errorInfo() . ']');

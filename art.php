@@ -11,7 +11,7 @@ $id = $_GET["id"];
 
 $sql = "SELECT *
     FROM `info`
-    WHERE `id` = :id";
+    WHERE `id` = :id;";
 $stmt = $db->prepare($sql);
 $stmt->bindValue(":id", $id, PDO::PARAM_INT);
 if(!$stmt->execute()){
