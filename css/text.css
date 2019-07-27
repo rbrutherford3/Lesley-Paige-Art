@@ -14,11 +14,13 @@ h1 {
 	font-size: 36px;
 	margin: 0px;
 	padding: 5px;
+	word-spacing: -0.1em
 }
 
 h2 {
 	font-family: Lesley;
 	font-size: 24px;
+	word-spacing: -0.1em
 }
 
 .buttontext {
