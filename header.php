@@ -9,24 +9,34 @@
 								<img class="header-mobile" src="img/header/Title-small.png">
 							</div>
 							<br>
-							<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px; font-family: Century Gothic, sans-serif;">
+							<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
 								<a target="_blank" href="http://fineartamerica.com/profiles/1-lesley-rutherford.html" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-									fineartamerica.com
+									<span class="buttontext">
+										fineartamerica.com
+									</span>
 								</a>
 								<a target="_blank" href="https://www.etsy.com/people/LesleyPaige" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-									etsy.com
+									<span class="buttontext">
+										etsy.com
+									</span>
 								</a>
 							</div>
 							<br>
-							<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px; font-family: Century Gothic, sans-serif;">
+							<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
 								<a href="index.php" type="button" class="btn btn-default" style="background: #EFEAFF;">
-									Art
+									<span class="buttontext">
+										Art
+									</span>
 								</a>
 								<a href="bio.php" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-									Bio
+									<span class="buttontext">
+										Bio
+									</span>
 								</a>
 								<a target="_blank" href="mailto:lesleypaigerutherford@gmail.com" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-									E-Mail
+									<span class="buttontext">
+										E-mail
+									</span>
 								</a>
 							</div>
 						</div>

@@ -37,6 +37,7 @@ echo	'	<head>
 			<title>Lesley Paige Art - ', $name, ' </title>
 			<link href="css/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" type="text/css" href="css/main.css">
+			<link rel="stylesheet" type="text/css" href="css/text.css">
 			<link rel="SHORTCUT ICON" href="img/favicon.ico">
 			</head>
 			<body>
@@ -53,7 +54,7 @@ echo	'						<p>
 									</a>
 								</p>
 								<p>
-									<img class = "artlabel" src = "img/labels/', $filename, '.png" alt = "', $name, '">
+									<h1>', $name, '</h1>
 								</p>
 								<b>
 									<p>
@@ -73,12 +74,16 @@ echo	'						<p>
 									<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px; font-family: Century Gothic, sans-serif;">';
 if (!is_null($famlink)) {
 	echo 	'							<a target="_blank" href="', $famlink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-											fineartamerica.com
+											<span class="buttontext">
+												fineartamerica.com
+											</span>
 										</a>';
 }
 if (!is_null($etsylink)) {
 	echo	'							<a target="_blank" href="', $etsylink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-											etsy.com
+											<span class="buttontext">
+												etsy.com
+											</span>
 										</a>';
 }
 echo	'							</div>

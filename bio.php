@@ -9,6 +9,7 @@ echo	'	<head>
 			<title>Lesley Paige Art</title>
 			<link href="css/bootstrap.min.css" rel="stylesheet">
 			<link rel="stylesheet" type="text/css" href="css/main.css">
+			<link rel="stylesheet" type="text/css" href="css/text.css">
 			<link rel="SHORTCUT ICON" href="img/favicon.ico">
 			</head>
 			<body>

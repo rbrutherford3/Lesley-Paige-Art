@@ -2,7 +2,7 @@ img/
 admin/upload/
 
 css/bootstrap*
-fonts/
+fonts/glyphicons*
 js/
 
 .git-ftp-ignore

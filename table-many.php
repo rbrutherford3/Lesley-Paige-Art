@@ -10,7 +10,7 @@
 											<div class="labelrow">
 												<div class="labelcell">
 													<a href = "art.php?id=', $ids[$i], '">
-														<img class = "artlabel" src = "img/labels/', $filenames[$i], '.png" alt = "', $names[$i], '">
+														<h1>', $names[$i], '</h1>
 													</a>
 												</div>
 											</div>
