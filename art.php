@@ -1,10 +1,11 @@
 <!-- 
-Site designed by Robert Rutherford, 2014
+Site designed by Robert Rutherford, 2014 - 2019
  -->
  <?php
  
 include 'connection.php';
 include 'header.php';
+include 'footer.php';
 
 $id = $_GET["id"];
 
@@ -30,59 +31,58 @@ $etsylink = $row['etsy'];
 $filename = $row['filename'];
 
 headerHTML($name);
-echo	'			<div class = "row">
-						<div class="page">
-							<center>';
+echo '
+			<div class = "row">
+				<div class="page">
+					<center>';
 /* include "table-one.php";								
 echo	'						<br> */
-echo	'						<p>
-									<a target="_blank" href = "img/art/', $filename, '.png">
-										<img class = "art" src = "img/thumbnails/', $filename, '.png" alt = "', $name, '">
-									</a>
-								</p>
-								<p>
-									<h1>', $name, '</h1>
-								</p>
-								<b>
-									<p>
-										', $year, '
-									</p>
-									<p>
-										', $widthInteger, $widthFraction, ' x ', $heightInteger, $heightFraction, ' inches
-									</p>
-								</b>
-							</center>
+echo '
+						<p>
+							<a target="_blank" href = "img/art/', $filename, '.png">
+								<img class = "art" src = "img/thumbnails/', $filename, '.png" alt = "', $name, '">
+							</a>
+						</p>
+						<h1>', $name, '</h1>
+						<b>
 							<p>
-								', $desc, '
+								', $year, '
 							</p>
-							<center>
-								<p>
-									Purchase original, prints, or various other products of this piece from:
-									<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px; font-family: Century Gothic, sans-serif;">';
+							<p>
+								', $widthInteger, $widthFraction, ' x ', $heightInteger, $heightFraction, ' inches
+							</p>
+						</b>
+					</center>
+					<p>
+						', $desc, '
+					</p>
+					<center>
+						<p>
+							Purchase original, prints, or various other products of this piece from:
+							<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px; font-family: Century Gothic, sans-serif;">';
 if (!is_null($famlink)) {
-	echo 	'							<a target="_blank" href="', $famlink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-											<span class="buttontext">
-												fineartamerica.com
-											</span>
-										</a>';
+	echo '
+								<a target="_blank" href="', $famlink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+									<span class="buttontext">
+										fineartamerica.com
+									</span>
+								</a>';
 }
 if (!is_null($etsylink)) {
-	echo	'							<a target="_blank" href="', $etsylink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-											<span class="buttontext">
-												etsy.com
-											</span>
-										</a>';
+	echo '
+								<a target="_blank" href="', $etsylink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+									<span class="buttontext">
+										etsy.com
+									</span>
+								</a>';
 }
-echo	'							</div>
-								</p>
-							</center>
-						</div>
-					</div>';
-// include "footer.php";					
-echo	'		</div>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			</body>';
+echo '
+							</div>
+						</p>
+					</center>
+				</div>
+			</div>';
+footerHTML();
 			
 function getFraction($dimension) {
 	$quarters = ($dimension-floor($dimension))/0.25;

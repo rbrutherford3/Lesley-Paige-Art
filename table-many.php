@@ -1,5 +1,6 @@
 <?php
-	echo	'							<div class="arttable">
+echo '
+										<div class="arttable">
 											<div class="artrow">
 												<div class="artcell">
 													<a href = "art.php?id=', $ids[$i], '">

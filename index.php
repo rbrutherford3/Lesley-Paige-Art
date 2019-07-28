@@ -1,9 +1,10 @@
 <!-- 
-Site designed by Robert Rutherford, 2014
+Site designed by Robert Rutherford, 2014 - 2019
  -->
  <?php
 include 'connection.php';
 include 'header.php';
+include 'footer.php';
 
 $names = array();
 $rows = array();
@@ -30,24 +31,25 @@ for ($i=0; $i<$n; $i++) {
 }
 
 headerHTML();
-echo	'			<div class="hidden-xs">
-						<div class = "row">
-							<div class="page">';
+echo '
+			<div class="hidden-xs">
+				<div class = "row">
+					<div class="page">';
 								// <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">';
 for ($i=0; $i<$n; $i++) {
 include 'table-many.php';
 }
 //echo 	'						</div>
-echo	'					</div>
-						</div>
+echo '					
 					</div>
-					<div class="visible-xs">
-						<div class = "row">
-							<div class="carouselpage">
-								<div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding-top:0px;">
-									<!-- Indicators -->
-									<ol class="carousel-indicators">';
-
+				</div>
+			</div>
+			<div class="visible-xs">
+				<div class = "row">
+					<div class="carouselpage">
+						<div id="myCarousel" class="carousel slide" data-ride="carousel" style="padding-top:0px;">
+							<!-- Indicators -->
+							<ol class="carousel-indicators">';
 /* for ($i=0; $i<$n; $i++) {
 	if ($i==0) {	
 		echo 	'				<li data-target="#myCarousel" data-slide-to="', $ids[$i], '" class="active"></li>';
@@ -56,45 +58,50 @@ echo	'					</div>
 		echo	'					<li data-target="#myCarousel" data-slide-to="', $ids[$i], '"></li>';
 	}
 } */
-echo	'							</ol>
-
-									<!-- Wrapper for slides -->
-									<div class="carousel-inner" role="listbox">';
+echo '
+							</ol>
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner" role="listbox">';
 for ($i=0; $i<$n; $i++) {
 	if ($i==0) {									
-		echo 	'						<div class="item active">
-											<div class="carouselContainer img-responsive center-block">';
+		echo '
+								<div class="item active">
+									<div class="carouselContainer img-responsive center-block">';
 		include 'table-many.php';
-		echo	'							</div>
-										</div>';
+		echo '
+									</div>
+								</div>';
 	}
 	else {
-		echo	'						<div class="item">
-											<div class="carouselContainer img-responsive center-block">';
+		echo '
+								<div class="item">
+									<div class="carouselContainer img-responsive center-block">';
 		include 'table-many.php';									
-		echo	'							</div>
-										</div>';
+		echo '
+									</div>
+								</div>';
 	}
 }
-									
-echo	'							</div>
-
-									<!-- Left and right controls -->
-									<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-										<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-										<span class="sr-only">Previous</span>
-									</a>
-									<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-										<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-										<span class="sr-only">Next</span>
-									</a>
-								</div>
+echo '
 							</div>
+							<!-- Left and right controls -->
+							<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+								</span>
+								<span class="sr-only">
+									Previous
+								</span>
+							</a>
+							<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+								</span>
+								<span class="sr-only">
+									Next
+								</span>
+							</a>
 						</div>
-					</div>';
-// include "footer.php";					
-echo	'		</div>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			</body>';
+					</div>
+				</div>
+			</div>';
+footerHTML();
 ?>
