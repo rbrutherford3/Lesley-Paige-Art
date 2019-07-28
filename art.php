@@ -6,7 +6,6 @@ Site designed by Robert Rutherford, 2014
  
  
 include 'connection.php';
-include 'header.php';
 
 $id = $_GET["id"];
 
@@ -31,7 +30,19 @@ $famlink = $row['fineartamerica'];
 $etsylink = $row['etsy'];
 $filename = $row['filename'];
 
-headerHTML($name);
+echo	'	<head>
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<title>Lesley Paige Art - ', $name, ' </title>
+			<link href="css/bootstrap.min.css" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href="css/main.css">
+			<link rel="stylesheet" type="text/css" href="css/text.css">
+			<link rel="SHORTCUT ICON" href="img/favicon.ico">
+			</head>
+			<body>
+				<div class = "container" style = "background-color: #000000;">';
+include	"header.php";
 echo	'			<div class = "row">
 						<div class="page">
 							<center>';

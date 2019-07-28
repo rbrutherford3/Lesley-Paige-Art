@@ -1,28 +1,3 @@
-<?php
-	function headerHTML() {
-		if (!func_num_args()) {
-			$hasTitle = false;
-		}
-		elseif (func_num_args() == 1) {
-			$hasTitle = true;
-			$title = func_get_arg(0);
-		}
-		else {
-			die("Too many arguments passed to header function");
-		}
-		echo	'	
-			<head>
-			<meta charset="utf-8">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<title>Lesley Paige Art', ($hasTitle ? ' - ' . $title : '') , '</title>
-			<link href="css/bootstrap.min.css" rel="stylesheet">
-			<link rel="stylesheet" type="text/css" href="css/main.css">
-			<link rel="stylesheet" type="text/css" href="css/text.css">
-			<link rel="SHORTCUT ICON" href="img/favicon.ico">
-			</head>
-			<body>
-				<div class = "container" style = "background-color: #000000;">
 					<div class = "row">
 						<div class="header">
 							<div class="hidden-xs" style="display:inline-block;">
@@ -65,6 +40,4 @@
 								</a>
 							</div>
 						</div>
-					</div>';
-	}
-?>
+					</div>
