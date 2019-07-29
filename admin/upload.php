@@ -95,7 +95,7 @@
 
 <html>
    <body>
-      <form action="<?=$_SERVER['PHP_SELF'];?>" method="POST" enctype="multipart/form-data">
+      <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" enctype="multipart/form-data">
          <input type="file" name="image">
          <input type="submit">
       </form>

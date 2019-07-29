@@ -64,7 +64,7 @@
 		<script type="text/javascript" src="lines.js"></script>
 	</head>
 	<body>
-		<form action="' . $_SERVER['PHP_SELF'] . '" name="cropform" method="POST" onkeydown="return event.key != \'Enter\';">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="cropform" method="POST" onkeydown="return event.key != \'Enter\';">
 		<input type="radio" name="stepsize" value="20" onchange="newstepsize()" checked>Very Coarse adjustment (every 20px)<br>
 		<input type="radio" name="stepsize" value="10" onchange="newstepsize()">Coarse adjustment (every 10px)<br>
 		<input type="radio" name="stepsize" value="5" onchange="newstepsize()">Fine adjustment (every 5px)<br>
