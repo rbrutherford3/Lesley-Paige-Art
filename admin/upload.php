@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	include_once('filenames.php');
+	include_once('connection.php');
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
 			
@@ -8,7 +9,8 @@
 			$filesize = $_FILES['image']['size'];
 			$filetmp = $_FILES['image']['tmp_name'];
 			$filetype = $_FILES['image']['type'];
-			$fileext = strtolower(end(explode('.',$_FILES['image']['name'])));
+			$temp = explode('.',$_FILES['image']['name']);
+			$fileext = strtolower(end($temp));
 
 			$_SESSION['filename'] = $filename;
 			
@@ -31,6 +33,12 @@
 			}
 			
 			if (empty($errors)==true) {
+				$sql = "INSERT INTO `info` (`filename`) VALUES (:filename);";
+				$stmt = $db->prepare($sql);
+				$stmt->bindValue(":filename", $filename, PDO::PARAM_STR);
+				$stmt->execute();
+				$id = $db->lastInsertId();
+				$_SESSION['id'] = $id;
 				$imagick = new Imagick();
 				$imagick->readImage($filetmp);
 				autorotate($imagick);
