@@ -8,7 +8,8 @@
 			$filesize = $_FILES['image']['size'];
 			$filetmp = $_FILES['image']['tmp_name'];
 			$filetype = $_FILES['image']['type'];
-			$fileext = strtolower(end(explode('.',$_FILES['image']['name'])));
+			$temp = explode('.',$_FILES['image']['name']);
+			$fileext = strtolower(end($temp));
 
 			$_SESSION['filename'] = $filename;
 			
