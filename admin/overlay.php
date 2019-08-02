@@ -1,10 +1,10 @@
 <?php
 	session_start();
 	include_once('filenames.php');
-	$filename = $_SESSION['filename'];
+	$filepath = $_SESSION['filepath'];
 	$imagick1 = new Imagick();
 	$imagick2 = new Imagick();
-	$imagick1->readImage($uploadroot . $filename . $filenamecropped);
+	$imagick1->readImage($filepath . $filenamecropped);
 	$imagick2->readImage($stamplocation);
 	$dimensions1 = $imagick1->getImageGeometry();
 	$width1 = $dimensions1['width']; 
@@ -28,7 +28,7 @@
 	$imagick1->compositeImage($imagick2, Imagick::COMPOSITE_DEFAULT, $xdiff, $ydiff);
 	$imagick1->mergeImageLayers();
 	$imagick1->setImageFormat($extwatermarked);
-	$imagick1->writeImage($uploadroot . $filename . $filenamewatermarked);
+	$imagick1->writeImage($filepath . $filenamewatermarked);
 	//echo '<img src="upload/' . $filename . ' (cropped, stamp).jpg">';
 	header("Location: resize.php");
 	die();

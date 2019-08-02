@@ -32,8 +32,8 @@
 			}
 			$name = $row['name'];
 			$_SESSION['filename'] = $row['filename']; // need to hold the original filename in case it changes and a move is needed
-			$filepath = '/img/thumbnails/' . $row['filename'] . '.' . $extresized;
-			$_SESSION['filepath'] = $filepath;
+			$thumbnail = '/img/thumbnails/' . $row['filename'] . '.' . $extresized;
+			$_SESSION['thumbnail'] = $thumbnail;
 			$year = $row['year'];
 			$width = $row['width'];
 			$height = $row['height'];
@@ -46,8 +46,8 @@
 				unset($_SESSION['id']); // necessary to avoid overwriting an existing record
 				$filename = $_SESSION['filename'];
 				$name = $filename;
-				$filepath = 'upload/' . $filename . $filenameresized;
-				$_SESSION['filepath'] = $filepath;
+				$thumbnail = 'upload/' . $filename . '/' . $filenamethumbnail;
+				$_SESSION['thumbnail'] = $thumbnail;
 				$year = date("Y");
 				$width = 10;
 				$height = 10;
@@ -68,7 +68,7 @@
 	<body>
 		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoform" method="POST" onsubmit="return validateform();" onkeydown="return event.key != \'Enter\';">
 			<p>
-				<img src="' . $filepath . '">
+				<img src="' . $thumbnail . '">
 			</p>
 			<p>
 				<label for="name">Name of piece: </label>

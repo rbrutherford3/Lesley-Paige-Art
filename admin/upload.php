@@ -36,7 +36,18 @@
 				$imagick->readImage($filetmp);
 				autorotate($imagick);
 				$imagick->setImageFormat($extoriginal);
-				$imagick->writeImage($uploadroot . $filename . $filenameoriginal);
+				$filepath = $uploadroot . $filename;
+				// Note that 'filename' is really a directory name in this case:
+				// 'filename' refers to the original name of the file uploaded, and 'filename' 
+				// is also used in artinfo.php for existing pieces, so it was not changed
+				if (file_exists($filepath)) {
+					die("File previously uploaded");
+				}
+				else {
+					mkdir($filepath);
+					$_SESSION['filepath'] = $filepath . $ds;
+				}
+				$imagick->writeImage($_SESSION['filepath'] . $filenameoriginal);
 				header("Location: crop.php");
 				die();
 			}

@@ -1,6 +1,8 @@
 <?php
-	$root = __DIR__ . DIRECTORY_SEPARATOR;
-	$uploadroot = $root . 'upload' . DIRECTORY_SEPARATOR;
+	$ds = DIRECTORY_SEPARATOR;
+
+	$root = __DIR__ . $ds;
+	$uploadroot = $root . 'upload' . $ds;
 	
 	$extoriginal = 'png';
 	$extcropped = 'png';
@@ -8,11 +10,11 @@
 	$extwatermarked = 'png';
 	$extresized = 'png';
 	
-	$filenameoriginal = '.' . $extoriginal;
-	$filenamecropped = ' (cropped).' . $extcropped;
-	$filenameborderless = ' (borderless).' . $extborderless;
-	$filenamewatermarked = ' (watermarked).' . $extwatermarked;
-	$filenameresized = ' (resized).' . $extresized;
+	$filenameoriginal = 'original.' . $extoriginal;
+	$filenamecropped = 'cropped.' . $extcropped;
+	$filenameborderless = 'borderless.' . $extborderless;
+	$filenamewatermarked = 'watermarked.' . $extwatermarked;
+	$filenamethumbnail = 'thumbnail.' . $extresized;
 	
 	$stamplocation = $root . 'Stamp.png';
 ?>

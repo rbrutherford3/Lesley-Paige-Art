@@ -10,8 +10,8 @@
 	die(); */
 	$name = $_SESSION['name'];
 	$filename = $_SESSION['filename'];
-	$filepath = $_SESSION['filepath'];
 	$filenamenew = $_SESSION['filenamenew'];
+	$thumbnail = $_SESSION['thumbnail'];
 	$year = $_SESSION['year'];
 	$width = $_SESSION['width'];
 	$height = $_SESSION['height'];
@@ -94,7 +94,7 @@
 	<body>
 		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoconfirm" method="POST">
 			<p>
-				<img src="' . $filepath . '">
+				<img src="' . $thumbnail . '">
 			</p>
 			<p>
 				' . $name . '

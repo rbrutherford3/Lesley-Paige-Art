@@ -4,6 +4,7 @@
 	//$imagick = new Imagick();
 	//$imagick = clone $_SESSION['image'];
 	$filename = $_SESSION['filename'];
+	$filepath = $_SESSION['filepath'];
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$top = $_POST['top'];
 		$bottom = $_POST['bottom'];
@@ -16,20 +17,20 @@
 		echo $right . '<br>'; */
 		
 		$imagick = new Imagick();
-		$imagick->readImage($uploadroot . $filename . $filenameoriginal); 
+		$imagick->readImage($filepath . $filenameoriginal); 
 		$dimensions = $imagick->getImageGeometry();
 		$width = $dimensions['width']; 
 		$height = $dimensions['height'];
 		$imagick->cropImage($width-$left-$right, $height-$top-$bottom, $left, $top);
 		$imagick->setImageFormat($extcropped);
-		$imagick->writeImage($uploadroot . $filename . $filenamecropped); 
+		$imagick->writeImage($filepath . $filenamecropped); 
 		//echo '<img src="upload/' . $filename . ' (cropped).jpg">';
 		header("Location: overlay.php");
 		die();
 	}
 	else {
 		$imagick = new Imagick();
-		$imagick->readImage(__DIR__ . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . $filename . $filenameoriginal);
+		$imagick->readImage($filepath . $filenameoriginal);
 		//echo '<script>alert("' . Imagick::ORIENTATION_TOPLEFT . '");</script>';
 		//echo '<script>alert("' . $imagick->getImageOrientation() . '");</script>';
 		//$imagick->setImageOrientation(imagick::ORIENTATION_UNDEFINED);
@@ -73,7 +74,7 @@
 		<input type="hidden" id="trueHeight" value=' . $h . ' />
 		<div class="cropcontainer">
 			<div class="cropimage">
-				<img src="upload/' . rawurlencode($filename . $filenameoriginal) . '" width="' .  $dispW. '" height="' . $dispH . '" id="image" alt="' . $filename . '">
+				<img src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameoriginal) . '" width="' .  $dispW. '" height="' . $dispH . '" id="image" alt="' . $filename . '">
 				<canvas id = "canvas" width="' .  $dispW. '" height="' . $dispH . '"></canvas>
 			</div>
 			<div class="side top">
