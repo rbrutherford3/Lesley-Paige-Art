@@ -18,6 +18,6 @@
 	$imagick->resizeImage($newwidth, $newheight, imagick::FILTER_SINC, 1);
 	$imagick->setImageFormat($extresized);
 	$imagick->writeImage($uploadroot . $filename . $filenameresized);
-	header("Location: upload.php");
+	header("Location: artinfo.php");
 	die();
 ?>
