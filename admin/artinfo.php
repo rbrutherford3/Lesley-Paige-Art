@@ -114,6 +114,6 @@
 	}
 
 	function createfilename($filename) {
-		return preg_replace('/[^A-Za-z0-9]/', '', $filename); // Removes special chars.
+		return strtolower(preg_replace('/[^A-Za-z0-9]/', '', $filename)); // Removes special chars.
 	}
 ?>

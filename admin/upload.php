@@ -10,10 +10,9 @@
 			$filetype = $_FILES['image']['type'];
 			$temp = explode('.',$_FILES['image']['name']);
 			$fileext = strtolower(end($temp));
-
-			$_SESSION['filename'] = $filename;
 			
-			//echo $filetmp;
+			$_SESSION['filename'] = $filename;
+			$_SESSION['extoriginal'] = $fileext;
 			
 			$errors = array();
 			$extensions = array("jpeg","jpg","png","tif","tiff","gif","bmp");
@@ -22,34 +21,31 @@
 			if (in_array($fileext,$extensions)=== false) {
 				$errors[] = "extension not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
 			}
-			
 			if (in_array($filetype,$filetypes)=== false) {
 				$errors[] = "filetype not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
 			}
-			
 			if ($filesize > 134217728) {
 				$errors[] = 'File size must be no greater than 128MB';
 			}
-			
 			if (empty($errors)==true) {
-				$imagick = new Imagick();
-				$imagick->readImage($filetmp);
-				autorotate($imagick);
-				$imagick->setImageFormat($extoriginal);
 				$filepath = $uploadroot . $filename;
-				// Note that 'filename' is really a directory name in this case:
-				// 'filename' refers to the original name of the file uploaded, and 'filename' 
-				// is also used in artinfo.php for existing pieces, so it was not changed
 				if (file_exists($filepath)) {
-					die("File previously uploaded");
+					die("This file or one with the same name previously uploaded, but not processed");
 				}
 				else {
-					mkdir($filepath);
-					$_SESSION['filepath'] = $filepath . $ds;
+					if (mkdir($filepath)) {
+						$_SESSION['filepath'] = $filepath . $ds;
+						if (move_uploaded_file($filetmp, $filepath . $ds . $filenameoriginal . $fileext)) {
+							header("Location: crop.php");
+							die();
+						} else {
+							die("There was an error uploading the image");
+						}
+					}
+					else {
+						die("There was an error creating the directory");
+					}
 				}
-				$imagick->writeImage($_SESSION['filepath'] . $filenameoriginal);
-				header("Location: crop.php");
-				die();
 			}
 			else {
 				print_r($errors);
@@ -59,41 +55,6 @@
 			echo 'Upload failure:<br>';
 			echo $_FILES['image']['error'];
 		}
-	}
-	
-	function autorotate(Imagick $image) {
-		switch ($image->getImageOrientation()) {
-		case Imagick::ORIENTATION_TOPLEFT:
-			break;
-		case Imagick::ORIENTATION_TOPRIGHT:
-			$image->flopImage();
-			break;
-		case Imagick::ORIENTATION_BOTTOMRIGHT:
-			$image->rotateImage("#000", 180);
-			break;
-		case Imagick::ORIENTATION_BOTTOMLEFT:
-			$image->flopImage();
-			$image->rotateImage("#000", 180);
-			break;
-		case Imagick::ORIENTATION_LEFTTOP:
-			$image->flopImage();
-			$image->rotateImage("#000", -90);
-			break;
-		case Imagick::ORIENTATION_RIGHTTOP:
-			$image->rotateImage("#000", 90);
-			break;
-		case Imagick::ORIENTATION_RIGHTBOTTOM:
-			$image->flopImage();
-			$image->rotateImage("#000", 90);
-			break;
-		case Imagick::ORIENTATION_LEFTBOTTOM:
-			$image->rotateImage("#000", -90);
-			break;
-		default: // Invalid orientation
-			break;
-		}
-		$image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
-		return $image;
 	}
 ?>
 

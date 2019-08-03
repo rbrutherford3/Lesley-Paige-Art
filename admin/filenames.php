@@ -4,17 +4,14 @@
 	$root = __DIR__ . $ds;
 	$uploadroot = $root . 'upload' . $ds;
 	
-	$extoriginal = 'png';
-	$extcropped = 'png';
-	$extborderless = 'png';
-	$extwatermarked = 'png';
-	$extresized = 'png';
+	//$extoriginal = 'png';
+	$ext = 'png';
 	
-	$filenameoriginal = 'original.' . $extoriginal;
-	$filenamecropped = 'cropped.' . $extcropped;
-	$filenameborderless = 'borderless.' . $extborderless;
-	$filenamewatermarked = 'watermarked.' . $extwatermarked;
-	$filenamethumbnail = 'thumbnail.' . $extresized;
+	$filenameoriginal = 'original.'; //. $extoriginal;
+	$filenameformatted = 'formatted.' . $ext;
+	$filenamecropped = 'cropped.' . $ext;
+	$filenamewatermarked = 'watermarked.' . $ext;
+	$filenamethumbnail = 'thumbnail.' . $ext;
 	
 	$stamplocation = $root . 'Stamp.png';
 ?>

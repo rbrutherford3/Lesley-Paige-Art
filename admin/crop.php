@@ -5,6 +5,7 @@
 	//$imagick = clone $_SESSION['image'];
 	$filename = $_SESSION['filename'];
 	$filepath = $_SESSION['filepath'];
+	$extoriginal = $_SESSION['extoriginal'];
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$top = $_POST['top'];
 		$bottom = $_POST['bottom'];
@@ -17,7 +18,8 @@
 		echo $right . '<br>'; */
 		
 		$imagick = new Imagick();
-		$imagick->readImage($filepath . $filenameoriginal); 
+		$imagick->readImage($filepath . $filenameoriginal . $extoriginal);
+		autorotate($imagick);
 		$dimensions = $imagick->getImageGeometry();
 		$width = $dimensions['width']; 
 		$height = $dimensions['height'];
@@ -30,7 +32,9 @@
 	}
 	else {
 		$imagick = new Imagick();
-		$imagick->readImage($filepath . $filenameoriginal);
+		$imagick->readImage($filepath . $filenameoriginal . $extoriginal);
+		autorotate($imagick);
+		$imagick->writeImage($filepath . $filenameformatted);
 		//echo '<script>alert("' . Imagick::ORIENTATION_TOPLEFT . '");</script>';
 		//echo '<script>alert("' . $imagick->getImageOrientation() . '");</script>';
 		//$imagick->setImageOrientation(imagick::ORIENTATION_UNDEFINED);
@@ -74,7 +78,7 @@
 		<input type="hidden" id="trueHeight" value=' . $h . ' />
 		<div class="cropcontainer">
 			<div class="cropimage">
-				<img src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameoriginal) . '" width="' .  $dispW. '" height="' . $dispH . '" id="image" alt="' . $filename . '">
+				<img src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameformatted) . '" width="' .  $dispW. '" height="' . $dispH . '" id="image" alt="' . $filename . '">
 				<canvas id = "canvas" width="' .  $dispW. '" height="' . $dispH . '"></canvas>
 			</div>
 			<div class="side top">
@@ -103,4 +107,39 @@
 	</body>
 </html>';
 	}
+
+	function autorotate(Imagick $image) {
+		switch ($image->getImageOrientation()) {
+		case Imagick::ORIENTATION_TOPLEFT:
+			break;
+		case Imagick::ORIENTATION_TOPRIGHT:
+			$image->flopImage();
+			break;
+		case Imagick::ORIENTATION_BOTTOMRIGHT:
+			$image->rotateImage("#000", 180);
+			break;
+		case Imagick::ORIENTATION_BOTTOMLEFT:
+			$image->flopImage();
+			$image->rotateImage("#000", 180);
+			break;
+		case Imagick::ORIENTATION_LEFTTOP:
+			$image->flopImage();
+			$image->rotateImage("#000", -90);
+			break;
+		case Imagick::ORIENTATION_RIGHTTOP:
+			$image->rotateImage("#000", 90);
+			break;
+		case Imagick::ORIENTATION_RIGHTBOTTOM:
+			$image->flopImage();
+			$image->rotateImage("#000", 90);
+			break;
+		case Imagick::ORIENTATION_LEFTBOTTOM:
+			$image->rotateImage("#000", -90);
+			break;
+		default: // Invalid orientation
+			break;
+		}
+		$image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
+		return $image;
+	}	
 ?>
