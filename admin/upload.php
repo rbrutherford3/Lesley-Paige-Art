@@ -36,7 +36,7 @@
 					if (mkdir($filepath)) {
 						$_SESSION['filepath'] = $filepath . $ds;
 						if (move_uploaded_file($filetmp, $filepath . $ds . $filenameoriginal . $fileext)) {
-							header("Location: crop.php");
+							header("Location: resize.php");
 							die();
 						} else {
 							die("There was an error uploading the image");
