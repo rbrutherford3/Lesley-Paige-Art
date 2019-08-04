@@ -15,7 +15,7 @@
 	$imagick->resizeImage($newwidth, $newheight, imagick::FILTER_SINC, 1);
 	$imagick->setImageFormat($ext);
 	$imagick->writeImage($filepath . $filenameformatted);
-	header("Location: crop.php");
+	header("Location: rotate.php");
 	die();
 	
 	function autorotate(Imagick $image) {
