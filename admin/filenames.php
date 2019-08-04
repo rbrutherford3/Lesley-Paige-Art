@@ -1,8 +1,8 @@
 <?php
 	$ds = DIRECTORY_SEPARATOR;
 
-	$root = __DIR__ . $ds;
-	$uploadroot = $root . 'upload' . $ds;
+	$rootpath = __DIR__ . $ds;
+	$uploadpath = $rootpath . 'upload' . $ds;
 	
 	//$extoriginal = 'png';
 	$ext = 'png';
@@ -13,5 +13,13 @@
 	$filenamewatermarked = 'watermarked.' . $ext;
 	$filenamethumbnail = 'thumbnail.' . $ext;
 	
-	$stamplocation = $root . 'Stamp.png';
+	$imgpath = dirname(__DIR__, 1) . $ds . 'img' . $ds;
+	
+	$originalspath = $imgpath . 'originals' . $ds;
+	$formattedpath = $imgpath . 'formatted' . $ds;
+	$croppedpath = $imgpath . 'cropped' . $ds;
+	$watermarkedpath = $imgpath . 'watermarked' . $ds;
+	$thumbnailspath = $imgpath . 'thumbnails' . $ds;
+	
+	$stamplocation = $rootpath . 'Stamp.png';
 ?>

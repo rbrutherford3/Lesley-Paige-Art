@@ -28,7 +28,7 @@
 				$errors[] = 'File size must be no greater than 128MB';
 			}
 			if (empty($errors)==true) {
-				$filepath = $uploadroot . $filename;
+				$filepath = $uploadpath . $filename;
 				if (file_exists($filepath)) {
 					die("This file or one with the same name previously uploaded, but not processed");
 				}

@@ -80,8 +80,8 @@
 				die($db->errorInfo());
 			}
 		}
-		header("Location: upload.php");
-		die("SUCCESS");
+		header("Location: movefiles.php");
+		die();
 	}
 	else {
 

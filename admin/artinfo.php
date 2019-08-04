@@ -32,7 +32,7 @@
 			}
 			$name = $row['name'];
 			$_SESSION['filename'] = $row['filename']; // need to hold the original filename in case it changes and a move is needed
-			$thumbnail = '/img/thumbnails/' . $row['filename'] . '.' . $extresized;
+			$thumbnail = '/img/thumbnails/' . $row['filename'] . '.' . $ext;
 			$_SESSION['thumbnail'] = $thumbnail;
 			$year = $row['year'];
 			$width = $row['width'];
