@@ -10,10 +10,10 @@ function newline(side) {
 	
 	var canvas = document.getElementById("canvas");
 	
-	canvas.style.position = "absolute";
+	/* canvas.style.position = "absolute";
 	
 	canvas.style.top = img.offsetTop + "px";
-	canvas.style.left = img.offsetLeft + "px";
+	canvas.style.left = img.offsetLeft + "px"; */
 	
 	var lInput = document.getElementById("left");
 	var rInput = document.getElementById("right");

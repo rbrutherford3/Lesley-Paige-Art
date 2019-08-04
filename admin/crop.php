@@ -56,20 +56,28 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="main.css">
-		<script type="text/javascript" src="lines.js"></script>
+		<script type="text/javascript" src="crop.js"></script>
 	</head>
 	<body>
 		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="cropform" method="POST" onkeydown="return event.key != \'Enter\';">
-		<input type="radio" name="stepsize" value="20" onchange="newstepsize()" checked>Very Coarse adjustment (every 20px)<br>
-		<input type="radio" name="stepsize" value="10" onchange="newstepsize()">Coarse adjustment (every 10px)<br>
-		<input type="radio" name="stepsize" value="5" onchange="newstepsize()">Fine adjustment (every 5px)<br>
-		<input type="radio" name="stepsize" value="1" onchange="newstepsize()">Very fine adjustment (every 1px)<br>
+		<input type="radio" name="stepsize" id="step20" value="20" onchange="newstepsize()" checked>
+		<label for="step20">Very Coarse adjustment (every 20px)</label>
+		<br>
+		<input type="radio" name="stepsize" id="step10" value="10" onchange="newstepsize()">
+		<label for="step10">Coarse adjustment (every 10px)</label>
+		<br>
+		<input type="radio" name="stepsize" id="step5" value="5" onchange="newstepsize()">
+		<label for="step5">Fine adjustment (every 5px)</label>
+		<br>
+		<input type="radio" name="stepsize" id="step1" value="1" onchange="newstepsize()">
+		<label for="step1">Very fine adjustment (every 1px)</label>
+		<br>
 		<input type="hidden" id="trueWidth" value=' . $w . ' />
 		<input type="hidden" id="trueHeight" value=' . $h . ' />
-		<div class="cropcontainer">
-			<div class="cropimage">
-				<img src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameformatted) . '" width="' .  $dispW. '" height="' . $dispH . '" id="image" alt="' . $filename . '">
-				<canvas id = "canvas" width="' .  $dispW. '" height="' . $dispH . '"></canvas>
+		<div class="outer crop">
+			<div class="image middle">
+				<img class="centered" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameformatted) . '" width="' .  $dispW . '" height="' . $dispH . '" id="image" alt="' . $filename . '">
+				<canvas class="canvas centered" id="canvas" width="' .  $dispW . '" height="' . $dispH . '"></canvas>
 			</div>
 			<div class="side top">
 				<div class="input">
