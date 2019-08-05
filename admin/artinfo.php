@@ -32,10 +32,12 @@
 		die();
 	}
 	else {
-		// if a re-attempt (i.e.: checkunique function failed), repopulate the fields with what was previously entered
-		if (isset($_SESSION['infoerror'])) {
-			echo '<script>alert("' . $_SESSION['infoerror'] . '");</script>';
-			unset($_SESSION['infoerror']);
+		// if information previously entered, then repopulate fields with previous entries
+		if (isset($_SESSION['name'])) {
+			if (isset($_SESSION['infoerror'])) {
+				echo '<script>alert("' . $_SESSION['infoerror'] . '");</script>';
+				unset($_SESSION['infoerror']);
+			}
 			$thumbnail = $_SESSION['thumbnail'];
 			$name = $_SESSION['name'];
 			$year = $_SESSION['year'];
