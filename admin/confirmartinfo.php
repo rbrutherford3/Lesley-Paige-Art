@@ -1,6 +1,7 @@
 <?php
 	session_start();	
 	include_once('filenames.php');
+	include_once('connection.php');
 /* 	if (isset($_SESSION['id'])) {
 		echo '<script>alert("' . $_SESSION['id'] . '");</script>';
 	}
@@ -19,7 +20,6 @@
 	$etsy = $_SESSION['etsy'];
 	$fineartamerica = $_SESSION['fineartamerica'];
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
-		include_once('connection.php');
 		if (isset($_SESSION['id'])) {
 			$id = $_SESSION['id'];
 			$sql = "UPDATE `info`

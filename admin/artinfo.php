@@ -1,5 +1,20 @@
 <?php
 	session_start();
+	include_once('filenames.php');
+	include_once('connection.php');
+	if (isset($_SESSION['id'])) {
+		$new = false;
+		$id = $_SESSION['id'];
+	}
+	elseif (isset($_GET['id'])) {
+		$new = false;
+		$id = $_GET['id'];
+		$_SESSION['id'] = $id;
+	}
+	else {
+		$new = true;
+		$id = null;
+	}
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$_SESSION['name'] = $_POST['name'];
 		$_SESSION['filenamenew'] = createfilename($_SESSION['name']);
@@ -9,54 +24,69 @@
 		$_SESSION['desc'] = ($_POST['desc'] == '' ? null : $_POST['desc']);
 		$_SESSION['etsy'] = ($_POST['etsy'] == '' ? null : $_POST['etsy']);
 		$_SESSION['fineartamerica'] = ($_POST['fineartamerica'] == '' ? null : $_POST['fineartamerica']);
+		checkunique($db, 'name', $_SESSION['name'], $id);
+		checkunique($db, 'filename', $_SESSION['filenamenew'], $id);
+		checkunique($db, 'etsy', $_SESSION['etsy'], $id);
+		checkunique($db, 'fineartamerica', $_SESSION['fineartamerica'], $id);
 		header("Location: confirmartinfo.php");
 		die();
 	}
 	else {
-		include_once('filenames.php');
-		include_once('connection.php');
-		if (isset($_GET['id'])) {
-			$id = $_GET['id'];
-			$_SESSION['id'] = $id;
-			$sql = "SELECT * FROM `info` WHERE `id` = :id";
-			$stmt = $db->prepare($sql);
-			$stmt->bindValue(":id", $id, PDO::PARAM_INT);
-			if(!$stmt->execute()) {
-				die($db->errorInfo());
-			}
-			if ($stmt->rowCount() > 0) {
-				$row = $stmt->fetch();
-			}
-			else {
-				die("No entry exists with that ID");
-			}
-			$name = $row['name'];
-			$_SESSION['filename'] = $row['filename']; // need to hold the original filename in case it changes and a move is needed
-			$thumbnail = '/img/thumbnails/' . $row['filename'] . '.' . $ext;
-			$_SESSION['thumbnail'] = $thumbnail;
-			$year = $row['year'];
-			$width = $row['width'];
-			$height = $row['height'];
-			$desc = $row['description'];
-			$etsy = $row['etsy'];
-			$fineartamerica = $row['fineartamerica'];
+		// if a re-attempt (i.e.: checkunique function failed), repopulate the fields with what was previously entered
+		if (isset($_SESSION['infoerror'])) {
+			echo '<script>alert("' . $_SESSION['infoerror'] . '");</script>';
+			unset($_SESSION['infoerror']);
+			$thumbnail = $_SESSION['thumbnail'];
+			$name = $_SESSION['name'];
+			$year = $_SESSION['year'];
+			$width = $_SESSION['width'];
+			$height = $_SESSION['height'];
+			$desc = $_SESSION['desc'];
+			$etsy = $_SESSION['etsy'];
+			$fineartamerica = $_SESSION['fineartamerica'];
 		}
 		else {
-			if (isset($_SESSION['filename'])) {
-				unset($_SESSION['id']); // necessary to avoid overwriting an existing record
-				$filename = $_SESSION['filename'];
-				$name = $filename;
-				$thumbnail = 'upload/' . $filename . '/' . $filenamethumbnail;
+			if (!$new) {
+				$sql = "SELECT * FROM `info` WHERE `id` = :id";
+				$stmt = $db->prepare($sql);
+				$stmt->bindValue(":id", $id, PDO::PARAM_INT);
+				if(!$stmt->execute()) {
+					die($db->errorInfo());
+				}
+				if ($stmt->rowCount() > 0) {
+					$row = $stmt->fetch();
+				}
+				else {
+					die("No entry exists with that ID");
+				}
+				$name = $row['name'];
+				$_SESSION['filename'] = $row['filename']; // need to hold the original filename in case it changes and a move is needed
+				$thumbnail = '/img/thumbnails/' . $row['filename'] . '.' . $ext;
 				$_SESSION['thumbnail'] = $thumbnail;
-				$year = date("Y");
-				$width = 10;
-				$height = 10;
-				$desc = "";
-				$etsy = "";
-				$fineartamerica = "";
+				$year = $row['year'];
+				$width = $row['width'];
+				$height = $row['height'];
+				$desc = $row['description'];
+				$etsy = $row['etsy'];
+				$fineartamerica = $row['fineartamerica'];
 			}
 			else {
-				die("No ID or filename provided");
+				if (isset($_SESSION['filename'])) {
+					unset($_SESSION['id']); // necessary to avoid overwriting an existing record
+					$filename = $_SESSION['filename'];
+					$name = $filename;
+					$thumbnail = 'upload/' . $filename . '/' . $filenamethumbnail;
+					$_SESSION['thumbnail'] = $thumbnail;
+					$year = date("Y");
+					$width = 10;
+					$height = 10;
+					$desc = "";
+					$etsy = "";
+					$fineartamerica = "";
+				}
+				else {
+					die("No ID or filename provided");
+				}
 			}
 		}
 		echo '
@@ -115,5 +145,34 @@
 
 	function createfilename($filename) {
 		return strtolower(preg_replace('/[^A-Za-z0-9]/', '', $filename)); // Removes special chars.
+	}
+	
+	function checkunique($db, $fieldname, $value, $id) {
+		if (is_null($id)) {
+			$sql = "SELECT `id` FROM `info` WHERE `" . $fieldname . "` = :value;";			
+		}
+		else {
+			$sql = "SELECT `id` FROM `info` WHERE `" . $fieldname . "` = :value AND id <> :id;";
+		}
+		$stmt = $db->prepare($sql);
+		$stmt->bindValue(":value", $value, PDO::PARAM_STR);
+		if (!is_null($id)) {
+			$stmt->bindValue(":id", $id, PDO::PARAM_INT);
+		}
+		if(!$stmt->execute()) {
+			die($db->errorInfo());
+		}
+		else {
+			if ($stmt->rowCount() > 0) {
+				$_SESSION['infoerror'] = $value . ' already exists as an entry for another artpiece, please try again.';
+				if (is_null($id)) {	// to maintain URL only, not necessary if $_SESSION['id'] is set
+					header("Location: artinfo.php");
+				}
+				else {
+					header("Location: artinfo.php?id=" . $id);
+				}
+				die();
+			}
+		}
 	}
 ?>
