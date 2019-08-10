@@ -1,15 +1,16 @@
 <?php
 	session_start();
 	include_once('filenames.php');
-	$filename = $_SESSION['filename'];
-	$filepath = $_SESSION['filepath'];
+	include_once('functions.php');
+	$filename = $_SESSION['upload']['dirname'];
+	$filepath = $_SESSION['upload']['dirpathds'];
 	$imagick = new Imagick();
-	$imagick->readImage($filepath . $filenameformatted);
+	$imagick->readImage($filepath . $filenameextformatted);
 	
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$angle = $_POST['angle'];
 		$imagick->rotateImage("#000", (int)$angle);
-		$imagick->writeImage($filepath . $filenameformatted);
+		$imagick->writeImage($filepath . $filenameextformatted);
 		header("Location: crop.php");
 		die();
 	}
@@ -17,26 +18,9 @@
 		$d = $imagick->getImageGeometry();
 		$w = $d['width']; 
 		$h = $d['height'];
-		if ($w > $h) {
-			if ($w > 500) {
-				$dispW = 500;
-				$dispH = (int)(500/$w*$h);
-			}
-			else {
-				$dispW = $w;
-				$dispH = $y;
-			}
-		}
-		else {
-			if ($h > 500) {
-				$dispH = 500;
-				$dispW = (int)(500/$h*$w);
-			}
-			else {
-				$dispW = $w;
-				$dispH = $h;
-			}
-		}		
+		$dispD = scaleimage($w, $h);
+		$dispW = $dispD[0];
+		$dispH = $dispD[1];
 		echo '
 	<html>
 	<head>
@@ -50,7 +34,7 @@
 			</p>
 			<div class="outer rotate">
 				<div class="image">
-					<img class="centered" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameformatted) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
+					<img class="centered" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameextformatted) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
 				</div>
 			</div>
 			<input type="hidden" name="angle" id="angle" value=0>

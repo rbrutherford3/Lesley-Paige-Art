@@ -1,11 +1,11 @@
 <?php
 	session_start();
 	include_once('filenames.php');
-	$filepath = $_SESSION['filepath'];
-	$extoriginal = $_SESSION['extoriginal'];
+	$filepath = $_SESSION['upload']['dirpathds'];
+	$extoriginal = $_SESSION['upload']['extoriginal'];
 	
 	$scalefactor = 1/4;
-	$imagick = new Imagick($filepath . $filenameoriginal . $extoriginal);
+	$imagick = new Imagick($filepath . $filenameoriginal . '.' . $extoriginal);
 	autorotate($imagick);
 	$dimensions = $imagick->getImageGeometry();
 	$width = $dimensions['width'];
@@ -14,7 +14,7 @@
 	$newheight = round($height*$scalefactor);
 	$imagick->resizeImage($newwidth, $newheight, imagick::FILTER_SINC, 1);
 	$imagick->setImageFormat($ext);
-	$imagick->writeImage($filepath . $filenameformatted);
+	$imagick->writeImage($filepath . $filenameextformatted);
 	header("Location: rotate.php");
 	die();
 	

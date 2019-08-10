@@ -2,6 +2,7 @@
 	session_start();	
 	include_once('filenames.php');
 	include_once('connection.php');
+	include_once('functions.php');
 /* 	if (isset($_SESSION['id'])) {
 		echo '<script>alert("' . $_SESSION['id'] . '");</script>';
 	}
@@ -9,23 +10,24 @@
 		echo '<script>alert("NO ID SET");</script>';
 	}
 	die(); */
-	$name = $_SESSION['name'];
-	$filename = $_SESSION['filename'];
-	$filenamenew = $_SESSION['filenamenew'];
-	$thumbnail = $_SESSION['thumbnail'];
-	$year = $_SESSION['year'];
-	$width = $_SESSION['width'];
-	$height = $_SESSION['height'];
-	$desc = $_SESSION['desc'];
-	$etsy = $_SESSION['etsy'];
-	$fineartamerica = $_SESSION['fineartamerica'];
+	$name = $_SESSION['artinfo']['name'];
+	$filename = $_SESSION['artinfo']['filename'];
+	$extoriginal = $_SESSION['artinfo']['extoriginal'];
+	$year = $_SESSION['artinfo']['year'];
+	$width = $_SESSION['artinfo']['width'];
+	$height = $_SESSION['artinfo']['height'];
+	$desc = $_SESSION['artinfo']['desc'];
+	$etsy = $_SESSION['artinfo']['etsy'];
+	$fineartamerica = $_SESSION['artinfo']['fineartamerica'];
+	$thumbnailHTML = $_SESSION['thumbnailHTML'];
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
-		if (isset($_SESSION['id'])) {
-			$id = $_SESSION['id'];
+		if (isset($_SESSION['database'])) {
+			$id = $_SESSION['database']['id'];
 			$sql = "UPDATE `info`
 				SET 
 				`name` = :name, 
 				`filename` = :filename, 
+				`extoriginal` = :extoriginal, 
 				`year` = :year, 
 				`width` = :width, 
 				`height` = :height, 
@@ -36,7 +38,8 @@
 				`id` = :id;";
 			$stmt = $db->prepare($sql);
 			$stmt->bindValue(":name", $name, PDO::PARAM_STR);
-			$stmt->bindValue(":filename", $filenamenew, PDO::PARAM_STR);
+			$stmt->bindValue(":filename", $filename, PDO::PARAM_STR);
+			$stmt->bindValue(":extoriginal", $extoriginal, PDO::PARAM_STR);
 			$stmt->bindValue(":year", $year, PDO::PARAM_INT);
 			$stmt->bindValue(":width", $width, PDO::PARAM_STR);
 			$stmt->bindValue(":height", $height, PDO::PARAM_STR);
@@ -52,6 +55,7 @@
 			$sql = "INSERT INTO `info` 
 				(`name`, 
 				`filename`, 
+				`extoriginal`, 
 				`year`, 
 				`width`, 
 				`height`, 
@@ -61,6 +65,7 @@
 				VALUES 
 				(:name, 
 				:filename, 
+				:extoriginal, 
 				:year, 
 				:width, 
 				:height, 
@@ -69,7 +74,8 @@
 				:fineartamerica);";
 			$stmt = $db->prepare($sql);
 			$stmt->bindValue(":name", $name, PDO::PARAM_STR);
-			$stmt->bindValue(":filename", $filenamenew, PDO::PARAM_STR);
+			$stmt->bindValue(":filename", $filename, PDO::PARAM_STR);
+			$stmt->bindValue(":extoriginal", $extoriginal, PDO::PARAM_STR);
 			$stmt->bindValue(":year", $year, PDO::PARAM_INT);
 			$stmt->bindValue(":width", $width, PDO::PARAM_STR);
 			$stmt->bindValue(":height", $height, PDO::PARAM_STR);
@@ -94,7 +100,7 @@
 	<body>
 		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoconfirm" method="POST">
 			<p>
-				<img src="' . $thumbnail . '">
+				<img src="' . $thumbnailHTML . '">
 			</p>
 			<p>
 				' . $name . '
@@ -103,7 +109,7 @@
 				' . $year . '
 			</p>
 			<p>
-				' . floor($width) . ' ' . getFraction($width) . ' x ' . floor($height) . ' ' . getFraction($height) . ' inches
+				' . floor($width) . ' ' . getfraction($width) . ' x ' . floor($height) . ' ' . getfraction($height) . ' inches
 			</p>
 			<p>
 				' . $desc . '
@@ -122,23 +128,6 @@
 		</form>
 	</body>
 </html>';		
-	}
-	
-	function getFraction($dimension) {
-		$quarters = ($dimension-floor($dimension))/0.25;
-		switch($quarters){
-			case 1:
-				return ' &frac14';
-				break;
-			case 2: 
-				return ' &frac12';
-				break;
-			case 3:
-				return ' &frac34';
-				break;
-			default:
-				return '';
-		}
 	}
 
 ?>

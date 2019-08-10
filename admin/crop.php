@@ -1,8 +1,9 @@
 <?php
 	session_start();
 	include_once('filenames.php');
-	$filename = $_SESSION['filename'];
-	$filepath = $_SESSION['filepath'];
+	include_once('functions.php');
+	$filename = $_SESSION['upload']['dirname'];
+	$filepath = $_SESSION['upload']['dirpathds'];
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$top = $_POST['top'];
 		$bottom = $_POST['bottom'];
@@ -15,42 +16,25 @@
 		echo $right . '<br>'; */
 		
 		$imagick = new Imagick();
-		$imagick->readImage($filepath . $filenameformatted);
+		$imagick->readImage($filepath . $filenameextformatted);
 		$dimensions = $imagick->getImageGeometry();
 		$width = $dimensions['width']; 
 		$height = $dimensions['height'];
 		$imagick->cropImage($width-$left-$right, $height-$top-$bottom, $left, $top);
-		$imagick->writeImage($filepath . $filenamecropped); 
+		$imagick->writeImage($filepath . $filenameextcropped); 
 		//echo '<img src="upload/' . $filename . ' (cropped).jpg">';
 		header("Location: overlay.php");
 		die();
 	}
 	else {
 		$imagick = new Imagick();
-		$imagick->readImage($filepath . $filenameformatted);
+		$imagick->readImage($filepath . $filenameextformatted);
 		$d = $imagick->getImageGeometry();
 		$w = $d['width']; 
 		$h = $d['height'];
-		if ($w > $h) {
-			if ($w > 500) {
-				$dispW = 500;
-				$dispH = (int)(500/$w*$h);
-			}
-			else {
-				$dispW = $w;
-				$dispH = $y;
-			}
-		}
-		else {
-			if ($h > 500) {
-				$dispH = 500;
-				$dispW = (int)(500/$h*$w);
-			}
-			else {
-				$dispW = $w;
-				$dispH = $h;
-			}
-		}
+		$dispD = scaleimage($w, $h);
+		$dispW = $dispD[0];
+		$dispH = $dispD[1];
 		//$buffer 
 		echo '
 <html>
@@ -76,7 +60,7 @@
 		<input type="hidden" id="trueHeight" value=' . $h . ' />
 		<div class="outer crop">
 			<div class="image middle">
-				<img class="centered" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameformatted) . '" width="' .  $dispW . '" height="' . $dispH . '" id="image" alt="' . $filename . '">
+				<img class="centered" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameextformatted) . '" width="' .  $dispW . '" height="' . $dispH . '" id="image" alt="' . $filename . '">
 				<canvas class="canvas centered" id="canvas" width="' .  $dispW . '" height="' . $dispH . '"></canvas>
 			</div>
 			<div class="side top">

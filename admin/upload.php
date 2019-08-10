@@ -1,7 +1,19 @@
 <?php
 	session_start();
 	include_once('filenames.php');
+	include_once('connection.php');
+	include_once('functions.php');
     if($_SERVER['REQUEST_METHOD'] == "POST") {
+		if (isset($_SESSION['upload']['dirname'])) {
+			removefolder($_SESSION['upload']['dirpath'], true);
+			unset($_SESSION['upload']);
+		}
+		if (isset($_POST['id'])) {
+			$id = $_POST['id'];
+			if ($id != "new") {
+				getdatabase($id, $db, "upload.php");
+			}
+		}
 		if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
 			
 			$filename = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
@@ -11,8 +23,6 @@
 			$temp = explode('.',$_FILES['image']['name']);
 			$fileext = strtolower(end($temp));
 			
-			$_SESSION['filename'] = $filename;
-			$_SESSION['extoriginal'] = $fileext;
 			
 			$errors = array();
 			$extensions = array("jpeg","jpg","png","tif","tiff","gif","bmp");
@@ -28,14 +38,20 @@
 				$errors[] = 'File size must be no greater than 128MB';
 			}
 			if (empty($errors)==true) {
-				$filepath = $uploadpath . $filename;
+				$filenamenew = createfilename($filename);
+				$filepath = $uploadpathds . $filenamenew;
+				$filepathds = $filepath . $ds;
 				if (file_exists($filepath)) {
 					die("This file or one with the same name previously uploaded, but not processed");
 				}
 				else {
 					if (mkdir($filepath)) {
-						$_SESSION['filepath'] = $filepath . $ds;
-						if (move_uploaded_file($filetmp, $filepath . $ds . $filenameoriginal . $fileext)) {
+						if (move_uploaded_file($filetmp, $filepathds . $filenameoriginal . '.' . $fileext)) {
+							$_SESSION['upload']['originalname'] = $filename;
+							$_SESSION['upload']['dirname'] = $filenamenew;
+							$_SESSION['upload']['extoriginal'] = $fileext;
+							$_SESSION['upload']['dirpath'] = $filepath;
+							$_SESSION['upload']['dirpathds'] = $filepathds;
 							header("Location: resize.php");
 							die();
 						} else {
@@ -49,6 +65,7 @@
 			}
 			else {
 				print_r($errors);
+				die();
 			}
 		}
 		else {
@@ -56,13 +73,53 @@
 			echo $_FILES['image']['error'];
 		}
 	}
-?>
-
+	else {
+		if (isset($_SESSION['artinfo'])) {
+			$options = false;
+		}
+		else {
+			$options = true;
+			$sql = "SELECT `name`, `id` FROM `info` ORDER BY `name` ASC;";
+			$stmt = $db->prepare($sql);
+			if(!$stmt->execute()) {
+				die("Error executing general query: " . $db->errorInfo());
+			}
+			if ($stmt->rowCount() > 0) {
+				$empty = false;
+				$rows = $stmt->fetchAll();
+			}
+			else {
+				$empty = true;
+			}
+		}
+		echo '
 <html>
-   <body>
-      <form action="<?=htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" enctype="multipart/form-data">
-         <input type="file" name="image">
-         <input type="submit">
-      </form>
-   </body>
-</html>
+	<body>
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST" enctype="multipart/form-data">
+			<p>
+				<input type="file" name="image">
+			</p>';
+		if ($options && !$empty) {
+			echo '
+			<p>
+				Select artpiece uploading, if not new:
+				<br>
+				<select name="id">
+					<option value="new">***New Art Piece***</option>';
+			foreach ($rows as $row) {
+				echo '
+					<option value="' . $row['id'] . '">' . htmlspecialchars($row['name']) . '</option>';
+			}
+			echo '
+				</select>
+			</p>';
+		}
+		echo '
+			<p>
+				<input type="submit">
+			</p>
+		</form>
+	</body>
+</html>';
+	}
+?>

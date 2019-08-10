@@ -1,60 +1,110 @@
 <?php
 	session_start();
 	include_once('filenames.php');
-	$filename = $_SESSION['filename'];
-	$filenamenew = $_SESSION['filenamenew'];
+	include_once('functions.php');
+	$filename = $_SESSION['artinfo']['filename'];
+	$filenamefull = $filename . '.' . $ext;
 	
-	if (isset($_SESSION['id'])) {
-		if ($filename != $filenamenew) {
-			// Original image upload could have one of many file extensions:
-			$results = glob($originalspath . $filename . '.*');
-			$numresults = sizeof($results);
-			if ($numresults == 0) {
-				die('Originally uploaded image file not found!');
+	if (isset($_SESSION['database'])) {
+		$filenameold = $_SESSION['database']['filename'];
+		$filenamefullold = $filenameold . '.' . $ext;
+		$extoriginalold = $_SESSION['database']['extoriginal'];
+		$filenamefulloriginalold = $filenameold . '.' . $extoriginalold;
+		
+		
+		if (isset($_SESSION['upload'])) {
+			removefile($originalspath . $filenamefulloriginalold);
+			removefile($formattedpath . $filenamefullold);
+			removefile($croppedpath . $filenamefullold);
+			removefile($watermarkedpath . $filenamefullold);
+			removefile($thumbnailspath . $filenamefullold);
+		}
+		else {
+			if ($filenameold != $filename) {
+				$filenamefulloriginal = $filename . '.' . $extoriginalold;
+				
+				movefile($originalspath . $filenamefulloriginalold, $originalspath . $filenamefulloriginal, false);
+				movefile($formattedpath . $filenamefullold, $formattedpath . $filenamefull, false);
+				movefile($croppedpath . $filenamefullold, $croppedpath . $filenamefull, false);
+				movefile($watermarkedpath . $filenamefullold, $watermarkedpath . $filenamefull, false);
+				movefile($thumbnailspath . $filenamefullold, $thumbnailspath . $filenamefull, false);
 			}
-			elseif ($numresults == 1) {
-				$pathoriginal = $results[0];
-				$extoriginal = pathinfo($pathoriginal, PATHINFO_EXTENSION);
-				$pathdestination = $originalspath . $filenamenew . '.' . $extoriginal;
-				movefile($pathoriginal, $pathdestination);
-			}
-			else {
-				die('Multiple files of different types found with originally uploaded filename!');
-			}
+		}
+	}
+	
+	if (isset($_SESSION['upload'])) {
+		$uploadedpath = $_SESSION['upload']['dirpath'];
+		$uploadedpathds = $_SESSION['upload']['dirpathds'];
+		$extoriginal = $_SESSION['upload']['extoriginal'];
+		
+		$filenamefulloriginal = $filename . '.' . $extoriginal;
+		
+		movefile($uploadedpathds . $filenameoriginal . '.' . $extoriginal, $originalspath . $filenamefulloriginal, true);
+		movefile($uploadedpathds . $filenameextformatted, $formattedpath . $filenamefull, true);
+		movefile($uploadedpathds . $filenameextcropped, $croppedpath . $filenamefull, true);
+		movefile($uploadedpathds . $filenameextwatermarked, $watermarkedpath . $filenamefull, true);
+		movefile($uploadedpathds . $filenameextthumbnail, $thumbnailspath . $filenamefull, true);
+		
+		removefolder($uploadedpath, true);
+	}
+	
+/* 	if (isset($_SESSION['database'])) {
+		$filenameold = $_SESSION['database']['filename'];
+		$filenamefullold = $filenameold . '.' . $ext;
+		$extoriginalold = $_SESSION['database']['extoriginal']
+		$filenamefulloriginalold = $filenameold . '.' . $extoriginalold;
+				
+		if (isset($_SESSION['upload'])) {
+			$uploadedpath = $_SESSION['upload']['dirpath'];
+			$uploadedpathds = $_SESSION['upload']['dirpathds'];
+			$extoriginal = $_SESSION['upload']['extoriginal'];
 			
-			$filenamefull = $filename . '.' . $ext;
-			$filenamefullnew = $filenamenew . '.' . $ext;
-			movefile($formattedpath . $filenamefull, $formattedpath . $filenamefullnew);
-			movefile($croppedpath . $filenamefull, $croppedpath . $filenamefullnew);
-			movefile($watermarkedpath . $filenamefull, $watermarkedpath . $filenamefullnew);
-			movefile($thumbnailspath . $filenamefull, $thumbnailspath . $filenamefullnew);
+			$filenamefulloriginal = $filename . '.' . $extoriginal;
+			
+			removefile($originalspath . $filenamefulloriginalold);
+			removefile($formattedpath . $filenamefullold);
+			removefile($croppedpath . $filenamefullold);
+			removefile($watermarkedpath . $filenamefullold);
+			removefile($thumbnailspath . $filenamefullold);
+			
+			movefile($uploadedpathds . $filenameoriginal . '.' . $extoriginal, $originalspath . $filenamefulloriginal);
+			movefile($uploadedpathds . $filenameextformatted, $formattedpath . $filenamefull);
+			movefile($uploadedpathds . $filenameextcropped, $croppedpath . $filenamefull);
+			movefile($uploadedpathds . $filenameextwatermarked, $watermarkedpath . $filenamefull);
+			movefile($uploadedpathds . $filenameextthumbnail, $thumbnailspath . $filenamefull);
+			
+			removefolder($uploadedpath, true);
+		}
+		else {			
+			if ($filenameold != $filename) {
+				
+				$filenamefulloriginal = $filename . '.' . $extoriginalold;
+				
+				movefile($originalspath . $filenamefulloriginalold, $originalspath . $filenamefulloriginal);
+				movefile($formattedpath . $filenamefullold, $formattedpath . $filenamefull);
+				movefile($croppedpath . $filenamefullold, $croppedpath . $filenamefull);
+				movefile($watermarkedpath . $filenamefullold, $watermarkedpath . $filenamefull);
+				movefile($thumbnailspath . $filenamefullold, $thumbnailspath . $filenamefull);
+			}
 		}
 	}
 	else {
-		$filepath = $_SESSION['filepath'];
-		$extoriginal = $_SESSION['extoriginal'];
-		movefile($filepath . $filenameoriginal . $extoriginal, $originalspath . $filenamenew . '.' . $extoriginal);
-		movefile($filepath . $filenameformatted, $formattedpath . $filenamenew . '.' . $ext);
-		movefile($filepath . $filenamecropped, $croppedpath . $filenamenew . '.' . $ext);
-		movefile($filepath . $filenamewatermarked, $watermarkedpath . $filenamenew . '.' . $ext);
-		movefile($filepath . $filenamethumbnail, $thumbnailspath . $filenamenew . '.' . $ext);
-		if (rmdir($uploadpath . $filename)) {
-			// done
-		}
-		else {
-			die('Could not delete upload folder, possibly due to other file in it');
-		}
-		header("Location: movefiles.php");
-		die();
-	}
+		$uploadedpath = $_SESSION['upload']['dirpath'];
+		$uploadedpathds = $_SESSION['upload']['dirpathds'];
+		$extoriginal = $_SESSION['upload']['extoriginal'];
+		
+		$filenamefulloriginal = $filename . '.' . $extoriginal;
+		
+		movefile($uploadedpathds . $filenameoriginal . '.' . $extoriginal, $originalspath . $filenamefulloriginal);
+		movefile($uploadedpathds . $filenameextformatted, $formattedpath . $filenamefull);
+		movefile($uploadedpathds . $filenameextcropped, $croppedpath . $filenamefull);
+		movefile($uploadedpathds . $filenameextwatermarked, $watermarkedpath . $filenamefull);
+		movefile($uploadedpathds . $filenameextthumbnail, $thumbnailspath . $filenamefull);
+		
+		removefolder($uploadedpath, true);
+	} */
 	
-	function movefile($frompath, $topath) {
-		if (!file_exists($frompath)) {
-			die('File not found!: ' . $frompath);
-		}
-		if (file_exists($topath)) {
-			die('File exists at: ' . $topath);
-		}
-		rename($frompath, $topath);
-	}
+	session_destroy();
+	echo '<script>alert("Success!"); window.location = "artinfo.php?id=37";</script>';
+	
 ?>
