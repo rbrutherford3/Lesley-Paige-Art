@@ -6,6 +6,7 @@
 	
 	$scalefactor = 1/4;
 	$imagick = new Imagick($filepath . $filenameoriginal . '.' . $extoriginal);
+	$imagick->mergeImageLayers(imagick::LAYERMETHOD_UNDEFINED);
 	autorotate($imagick);
 	$dimensions = $imagick->getImageGeometry();
 	$width = $dimensions['width'];
