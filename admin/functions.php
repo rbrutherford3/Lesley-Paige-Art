@@ -95,6 +95,7 @@
 			$row = $stmt->fetch();
 		}
 		else {
+			session_destroy();
 			die("No database entry with id=" . $id);
 		}
 		$_SESSION['database']['sequence'] = $row['sequence'];

@@ -80,6 +80,7 @@
 					$fineartamerica = "";
 				}
 				else {
+					session_destroy();
 					die("No ID or filename provided");
 				}
 			}
@@ -108,6 +109,7 @@
 			$_SESSION['thumbnailHTML'] = $thumbnailHTML;
 		}
 		else {
+			session_destroy();
 			die("Nothing uploaded and no existing piece referenced, please restart process");
 		}
 		echo '
