@@ -48,62 +48,6 @@
 		removefolder($uploadedpath, true);
 	}
 	
-/* 	if (isset($_SESSION['database'])) {
-		$filenameold = $_SESSION['database']['filename'];
-		$filenamefullold = $filenameold . '.' . $ext;
-		$extoriginalold = $_SESSION['database']['extoriginal']
-		$filenamefulloriginalold = $filenameold . '.' . $extoriginalold;
-				
-		if (isset($_SESSION['upload'])) {
-			$uploadedpath = $_SESSION['upload']['dirpath'];
-			$uploadedpathds = $_SESSION['upload']['dirpathds'];
-			$extoriginal = $_SESSION['upload']['extoriginal'];
-			
-			$filenamefulloriginal = $filename . '.' . $extoriginal;
-			
-			removefile($originalspath . $filenamefulloriginalold);
-			removefile($formattedpath . $filenamefullold);
-			removefile($croppedpath . $filenamefullold);
-			removefile($watermarkedpath . $filenamefullold);
-			removefile($thumbnailspath . $filenamefullold);
-			
-			movefile($uploadedpathds . $filenameoriginal . '.' . $extoriginal, $originalspath . $filenamefulloriginal);
-			movefile($uploadedpathds . $filenameextformatted, $formattedpath . $filenamefull);
-			movefile($uploadedpathds . $filenameextcropped, $croppedpath . $filenamefull);
-			movefile($uploadedpathds . $filenameextwatermarked, $watermarkedpath . $filenamefull);
-			movefile($uploadedpathds . $filenameextthumbnail, $thumbnailspath . $filenamefull);
-			
-			removefolder($uploadedpath, true);
-		}
-		else {			
-			if ($filenameold != $filename) {
-				
-				$filenamefulloriginal = $filename . '.' . $extoriginalold;
-				
-				movefile($originalspath . $filenamefulloriginalold, $originalspath . $filenamefulloriginal);
-				movefile($formattedpath . $filenamefullold, $formattedpath . $filenamefull);
-				movefile($croppedpath . $filenamefullold, $croppedpath . $filenamefull);
-				movefile($watermarkedpath . $filenamefullold, $watermarkedpath . $filenamefull);
-				movefile($thumbnailspath . $filenamefullold, $thumbnailspath . $filenamefull);
-			}
-		}
-	}
-	else {
-		$uploadedpath = $_SESSION['upload']['dirpath'];
-		$uploadedpathds = $_SESSION['upload']['dirpathds'];
-		$extoriginal = $_SESSION['upload']['extoriginal'];
-		
-		$filenamefulloriginal = $filename . '.' . $extoriginal;
-		
-		movefile($uploadedpathds . $filenameoriginal . '.' . $extoriginal, $originalspath . $filenamefulloriginal);
-		movefile($uploadedpathds . $filenameextformatted, $formattedpath . $filenamefull);
-		movefile($uploadedpathds . $filenameextcropped, $croppedpath . $filenamefull);
-		movefile($uploadedpathds . $filenameextwatermarked, $watermarkedpath . $filenamefull);
-		movefile($uploadedpathds . $filenameextthumbnail, $thumbnailspath . $filenamefull);
-		
-		removefolder($uploadedpath, true);
-	} */
-	
 	session_destroy();
 	echo '<script>alert("Success!"); window.location = "artinfo.php?id=37";</script>';
 	
