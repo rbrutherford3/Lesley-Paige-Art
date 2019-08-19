@@ -85,6 +85,14 @@
 			if(!$stmt->execute()) {
 				die($db->errorInfo());
 			}
+			
+			$sqlid = "SELECT LAST_INSERT_ID() AS `lastid`";
+			$stmtid = $db->prepare($sqlid);
+			if(!$stmtid->execute()) {
+				die($db->errorInfo());
+			}
+			$rowid = $stmtid->fetch();
+			$_SESSION['newid'] = $rowid['lastid'];
 		}
 		header("Location: movefiles.php");
 		die();

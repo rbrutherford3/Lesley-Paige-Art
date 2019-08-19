@@ -6,11 +6,11 @@
 	$filenamefull = $filename . '.' . $ext;
 	
 	if (isset($_SESSION['database'])) {
+		$id = $_SESSION['database']['id'];
 		$filenameold = $_SESSION['database']['filename'];
 		$filenamefullold = $filenameold . '.' . $ext;
 		$extoriginalold = $_SESSION['database']['extoriginal'];
 		$filenamefulloriginalold = $filenameold . '.' . $extoriginalold;
-		
 		
 		if (isset($_SESSION['upload'])) {
 			removefile($originalspath . $filenamefulloriginalold);
@@ -48,7 +48,11 @@
 		removefolder($uploadedpath, true);
 	}
 	
+	if (!isset($id)) {
+		$id = $_SESSION['newid'];
+	}
+	
 	session_destroy();
-	echo '<script>alert("Success!"); window.location = "artinfo.php?id=37";</script>';
+	echo '<script>window.location = "sequence.php#' . $id . '";</script>';
 	
 ?>
