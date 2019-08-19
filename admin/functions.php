@@ -20,28 +20,16 @@
 		}
 	}
 
-	function scaleimage($w, $h) {
-		if ($w > $h) {
-			if ($w > 500) {
-				$dispW = 500;
-				$dispH = (int)(500/$w*$h);
-			}
-			else {
-				$dispW = $w;
-				$dispH = $y;
-			}
+	function scaleimage($w, $h, $targetw, $targeth) {
+		if (($h/$w) > ($targeth/$targetw)) {
+			$disph = $targeth;
+			$dispw = (int)($targetw/$h*$w);
 		}
 		else {
-			if ($h > 500) {
-				$dispH = 500;
-				$dispW = (int)(500/$h*$w);
-			}
-			else {
-				$dispW = $w;
-				$dispH = $h;
-			}
+			$dispw = $targetw;
+			$disph = (int)($targeth/$w*$h);
 		}
-		return array($dispW, $dispH);
+		return array($dispw, $disph);
 	}
 	
 	function movefile($frompath, $topath, $overwrite) {

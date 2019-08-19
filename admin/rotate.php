@@ -18,7 +18,7 @@
 		$d = $imagick->getImageGeometry();
 		$w = $d['width']; 
 		$h = $d['height'];
-		$dispD = scaleimage($w, $h);
+		$dispD = scaleimage($w, $h, 500, 500);
 		$dispW = $dispD[0];
 		$dispH = $dispD[1];
 		echo '
