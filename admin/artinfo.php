@@ -3,13 +3,13 @@
 	include_once('filenames.php');
 	include_once('connection.php');
 	include_once('functions.php');
-	if (isset($_SESSION['database'])) {
-		$new = false;
-		$id = $_SESSION['database']['id'];
-	}
-	elseif (isset($_GET['id'])) {
+	if (isset($_GET['id'])) {
 		$new = false;
 		$id = $_GET['id'];
+	}
+	elseif (isset($_SESSION['database'])) {
+		$new = false;
+		$id = $_SESSION['database']['id'];
 	}
 	else {
 		$new = true;
