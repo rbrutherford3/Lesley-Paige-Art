@@ -95,7 +95,6 @@
 <html>
 	<head>
 		<script type="text/javascript" src="validateform.js"></script>
-	<invlude
 	</head>
 	<body>
 		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoconfirm" method="POST">
