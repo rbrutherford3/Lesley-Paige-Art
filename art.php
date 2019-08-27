@@ -39,7 +39,7 @@ echo '
 echo	'						<br> */
 echo '
 						<p>
-							<a target="_blank" href = "img/watermarked/', $filename, '.png">
+							<a href = "artfull.php?id=' . $id . '">
 								<img class = "art" src = "img/thumbnails/', $filename, '.png" alt = "', $name, '">
 							</a>
 						</p>

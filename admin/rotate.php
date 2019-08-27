@@ -21,27 +21,40 @@
 		$dispD = scaleimage($w, $h, 500, 500);
 		$dispW = $dispD[0];
 		$dispH = $dispD[1];
-		echo '
-	<html>
+		if (isset($_SESSION['artinfo'])) {
+			$title = $_SESSION['artinfo']['name'];
+		}
+		elseif (isset($_SESSION['database'])) {
+			$title = $_SESSION['database']['name'];
+		}
+		elseif (isset($_SESSION['upload'])) {
+			$title = $_SESSION['upload']['originalname'];
+		}
+		echo '<!DOCTYPE HTML>
+<html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="main.css">
+		<title>Crop image' . (isset($title) ? ' for ' . $title : '') . '</title>
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/css/text.css">
+		<link rel="stylesheet" type="text/css" href="admin.css">
 		<script type="text/javascript" src="rotate.js"></script>
 	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="rotateform" method="POST">
-			<p>
-				Click image to rotate, click submit when complete
-			</p>
-			<div class="outer rotate">
-				<div class="image">
-					<img class="centered" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameextformatted) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
+		<div class="page">
+			<h1>Rotate piece:</h1>
+			<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="rotateform" method="POST">
+				<p>
+					Click image to rotate, click submit when complete
+				</p>
+				<div class="box-child">
+					<img class="thickborder" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameextformatted) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
 				</div>
-			</div>
-			<input type="hidden" name="angle" id="angle" value=0>
-			<p>
-				<input type="submit" name="submit">
-			</p>
-		</form>
+				<input type="hidden" name="angle" id="angle" value=0>
+				<div class="float">
+					<input type="submit" name="submit">
+				</div>
+			</form>
+		</div>
 	</body>
 </html>';
 	}

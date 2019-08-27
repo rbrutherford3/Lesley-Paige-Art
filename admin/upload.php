@@ -92,33 +92,47 @@
 				$empty = true;
 			}
 		}
-		echo '
+		if (isset($_SESSION['artinfo'])) {
+			$title = $_SESSION['artinfo']['name'];
+		}
+		elseif (isset($_SESSION['database'])) {
+			$title = $_SESSION['database']['name'];
+		}
+		echo '<!DOCTYPE HTML>
 <html>
+	<head>
+		<title>Upload an image file' . (isset($title) ? ' for ' . $title : '') . '</title>
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/css/text.css">	
+	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST" enctype="multipart/form-data">
-			<p>
-				<input type="file" name="image">
-			</p>';
+		<div class="page">
+			<h1>Upload file:</h1>
+			<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST" enctype="multipart/form-data">
+				<p>
+					<input type="file" name="image">
+				</p>';
 		if ($options && !$empty) {
 			echo '
-			<p>
-				Select artpiece uploading, if not new:
-				<br>
-				<select name="id">
-					<option value="new">***New Art Piece***</option>';
-			foreach ($rows as $row) {
+				<p>
+					Select artpiece uploading, if not new:
+					<br>
+					<select name="id">
+						<option value="new">***New Art Piece***</option>';
+				foreach ($rows as $row) {
 				echo '
-					<option value="' . $row['id'] . '">' . htmlspecialchars($row['name']) . '</option>';
+						<option value="' . $row['id'] . '">' . htmlspecialchars($row['name']) . '</option>';
 			}
 			echo '
-				</select>
-			</p>';
+					</select>
+				</p>';
 		}
 		echo '
-			<p>
-				<input type="submit">
-			</p>
-		</form>
+				<p>
+					<input type="submit">
+				</p>
+			</form>
+		</div>
 	</body>
 </html>';
 	}

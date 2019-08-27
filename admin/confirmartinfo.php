@@ -98,41 +98,46 @@
 		die();
 	}
 	else {
-
-		echo '
+		echo '<!DOCTYPE HTML>
 <html>
 	<head>
+		<title>Confirm information for "' . $_SESSION['artinfo']['name'] . '"</title>
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/css/text.css">		
 		<script type="text/javascript" src="validateform.js"></script>
 	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoconfirm" method="POST">
-			<p>
-				<img src="' . $thumbnailHTML . '">
-			</p>
-			<p>
-				' . $name . '
-			</p>
-			<p>
-				' . $year . '
-			</p>
-			<p>
-				' . floor($width) . ' ' . getfraction($width) . ' x ' . floor($height) . ' ' . getfraction($height) . ' inches
-			</p>
-			<p>
-				' . $desc . '
-			</p>
-			<p>
-				etsy.com URL: 
-				<br>
-				' . $etsy . '
-			</p>
-			<p>
-				fineartamerica.com URL:
-				<br>
-				' . $fineartamerica . '
-			</p>
-			<input type="submit" name="submit">
-		</form>
+		<div class="page">
+		<h1>Confirm information:</h1>
+			<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoconfirm" method="POST">
+				<p>
+					<img src="' . $thumbnailHTML . '">
+				</p>
+				<p>
+					' . $name . '
+				</p>
+				<p>
+					' . $year . '
+				</p>
+				<p>
+					' . floor($width) . ' ' . getfraction($width) . ' x ' . floor($height) . ' ' . getfraction($height) . ' inches
+				</p>
+				<p>
+					' . $desc . '
+				</p>
+				<p>
+					etsy.com URL: 
+					<br>
+					' . (empty($etsy) ? '***none***' : $etsy) . '
+				</p>
+				<p>
+					fineartamerica.com URL:
+					<br>
+					' . (empty($fineartamerica) ? '***none***' : $fineartamerica) . '
+				</p>
+				<input type="submit" name="submit">
+			</form>
+		</div>
 	</body>
 </html>';		
 	}

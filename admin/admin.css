@@ -1,0 +1,106 @@
+/* Styles associated with large images and their structure (when rotating or cropping, for example) */
+
+input[type=number]{
+	width: 50px;
+}
+
+.thickborder {
+	border-style: solid;
+	border-width: 5px;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-rows: min-content min-content min-content;
+	grid-template-columns: min-content min-content min-content;
+}
+
+.grid-item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+}
+
+.item-middle {
+	grid-column: 2;
+	grid-row: 2;
+}
+
+.item-top {
+	grid-column: 1 / span 3;
+	grid-row: 1;
+}
+
+.item-bottom {
+	grid-column: 1 / span 3;
+	grid-row: 3;
+}
+
+.item-left {
+	grid-column: 1;
+	grid-row: 1 / span 3;
+}
+
+.item-right {
+	grid-column: 3;
+	grid-row: 1 / span 3;
+}
+
+.below {
+	position: absolute;
+	z-index: 1;
+}
+
+.above {
+	position: relative;
+    z-index: 20;
+}
+
+/* CSS for sequence.php */
+
+.item {
+	width: 310px;
+	margin: 5px;
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	background-color: #EFEAFF;
+}
+
+img.thumbnail {
+    object-fit: contain;
+	max-width: 100px;
+	max-height: 100px;
+	border-style: solid;
+	border-width: 1px;	
+}
+
+div.thumbnail {
+	width: 200px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.buttons {
+	width: 100px;
+	display: inline-block;
+	vertical-align: middle;	
+	text-align: center;
+}
+ 
+.button {
+	height: 30px;
+}
+
+.updown {
+	width: 100px;
+}
+
+.float {
+	position: fixed;
+	z-index: 100;
+	left: 550px;
+	top: 100px;
+	border: 1px solid black;
+}

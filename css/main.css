@@ -5,7 +5,7 @@ body {
 	text-align: center;
 }
 
-div.carouselpage {
+.carouselpage {
 	background: #EFEAFF; /* For browsers that do not support gradients */
 	background: -webkit-radial-gradient(#EFEAFF, #CFC1FF); /* Safari 5.1 to 6.0 */
 	background: -o-radial-gradient(#EFEAFF, #CFC1FF); /* For Opera 11.6 to 12.0 */
@@ -15,7 +15,7 @@ div.carouselpage {
 	overflow: auto;
 }
 
-div.page {
+.page {
 	background: #EFEAFF; /* For browsers that do not support gradients */
 	background: -webkit-radial-gradient(#EFEAFF, #CFC1FF); /* Safari 5.1 to 6.0 */
 	background: -o-radial-gradient(#EFEAFF, #CFC1FF); /* For Opera 11.6 to 12.0 */
@@ -26,7 +26,7 @@ div.page {
 	text-align: left;
 }
 
-div.header {
+.header {
 	background-color: #CFC1FF;
 	margin-bottom: 20px;
 	padding-top: 20px;
@@ -42,7 +42,7 @@ div.header {
 	text-align: center;
 } */
 
-div.arttable {
+.arttable {
 /* 	border:1px solid #000000; */
 	width: 270px;
 	height: 330px;
@@ -50,14 +50,14 @@ div.arttable {
 	display: inline-block;
 }
 
-div.artrow {
+.artrow {
 	width: 270px;
 	height: 270px;
 	display: table-row;
 	float: middle;
 }
 
-div.artcell {
+.artcell {
 /* 	border:1px solid #000000; */
 	width: 270px;
 	height: 270px;
@@ -66,14 +66,14 @@ div.artcell {
     justify-content: center;
 }
 
-div.labelrow {
+.labelrow {
 	width: 270px;
 	height: 60px;
 	display: table-row;
 	float: middle;
 }
 
-div.labelcell {
+.labelcell {
 /* 	border:1px solid #000000; */
 	width: 270px;
 	height:60px;
@@ -82,7 +82,7 @@ div.labelcell {
     justify-content: center;
 }
 
-div.carouselContainer {
+.carouselContainer {
 	margin-top: 20px;
 	height: 330px;
 	display: flex;
@@ -123,7 +123,7 @@ div.symbol {
 	margin: 0px;
 } */
 
-img { 
+img.fullsize { 
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
@@ -151,9 +151,9 @@ img.art {
 	margin: auto;
 }
 
-img.artlabel {
+/* img.artlabel {
 	margin: auto;
-}
+} */
 
 /* img.artSite {
 	width: 315px;

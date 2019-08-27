@@ -104,14 +104,19 @@ else {
 	echo '<!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="sequence.css">
+		<title>Edit art pieces</title>
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="/css/text.css">
+		<link rel="stylesheet" type="text/css" href="admin.css">		
 		<script type="text/javascript" src="sequence.js"></script>
 	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="sequence" method="POST">
-			<input type="hidden" name="numpublished" id="numpublished" value="' . $numpublished . '">
-			<input type="hidden" name="numunpublished" id="numunpublished" value="' . $numunpublished . '">	
-			<input type="hidden" name="anychanged" id="anychanged" value="0">';
+		<div class="page">
+			<h1>Edit artwork (click a title to edit an individual piece):</h1>
+			<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="sequence" method="POST">
+				<input type="hidden" name="numpublished" id="numpublished" value="' . $numpublished . '">
+				<input type="hidden" name="numunpublished" id="numunpublished" value="' . $numunpublished . '">	
+				<input type="hidden" name="anychanged" id="anychanged" value="0">';
 		
 	$count=0;
 	$invisibleHTML = ' style="display: none;"';
@@ -121,9 +126,12 @@ else {
 	// Still need a "published" container even if there were no published items
 	if ($numpublished == 0) {
 		echo '
-			<div id="published">
-			</div>
-			<hr>';
+				<div id="published">
+				<h2>
+					Published pieces:
+				</h2>
+				</div>
+				<hr>';
 	}
 	
 	// Display each piece of art, along with appropriate buttons
@@ -163,11 +171,17 @@ else {
 		// Create "published"/"unpublished" containers if first of each type
 		if (($count == 1) && ($numpublished > 0)) {
 			echo '
-			<div id="published">';
+				<div id="published">
+				<h2>
+					Published pieces:
+				</h2>';
 		}
 		if (($count == $numpublished + 1) && ($numunpublished > 0)) {
 			echo '
-			<div id="unpublished">';
+				<div id="unpublished">
+				<h2>
+					Unpublished pieces:
+				</h2>';
 		}
 		
 		// It is possible that there are gaps in the sequence which should be corrected
@@ -181,56 +195,64 @@ else {
 		// Display artpiece and buttons and link buttons to javascript actions.  
 		// Note that the hidden fields contain the data to be submitted.
 		echo '
-				<div class="item" id="' . $id . '">
-					<input type="hidden" name="sequence[' . $id . ']" id="sequence' . $id . '" value="' . ($count > $numpublished ? '' : $count ) . '">
-					<input type="hidden" name="changed[' . $id . ']" id="changed' . $id . '" value="' . ($mismatch ? '1' : '0') . '">
-					<div class="thumbnail">
-						<div>
-							<img src="' . $thumbnailHTML . '">
+					<div class="item" id="' . $id . '">
+						<input type="hidden" name="sequence[' . $id . ']" id="sequence' . $id . '" value="' . ($count > $numpublished ? '' : $count ) . '">
+						<input type="hidden" name="changed[' . $id . ']" id="changed' . $id . '" value="' . ($mismatch ? '1' : '0') . '">
+						<div class="thumbnail">
+							<div>
+								<img class="thumbnail" src="' . $thumbnailHTML . '">
+							</div>
+							<div>
+								<a style="text-decoration: underline;" href="artinfo.php?id=' . $id . '">
+								' . $name . '
+								</a>
+							</div>
 						</div>
-						<div>
-							' . $name . '
+						<div class="buttons">
+							<div class="button">
+								<input type="button" id="up' . $id . '" onclick="swaporder(this,true);" class="updown" value="MOVE UP"' . $upbuttonvisibility . '>
+							</div>
+							<div class="button">
+								<input type="button" id="publish' . $id . '" onclick="swappublished(this, true);" value="Publish" ' . $publishbuttonvisibility . '>
+								<input type="button" id="unpublish' . $id . '" onclick="swappublished(this, false);" value="Unpublish" ' . $unpublishbuttonvisibility . '>
+							</div>
+							<div class="button">
+								<input type="button" id="down' . $id . '" onclick="swaporder(this,false);" class="updown" value="MOVE DOWN"' . $downbuttonvisibility . '>
+							</div>
 						</div>
-					</div>
-					<div class="buttons">
-						<div class="button">
-							<input type="button" id="up' . $id . '" onclick="swaporder(this,true);" class="updown" value="MOVE UP"' . $upbuttonvisibility . '>
-						</div>
-						<div class="button">
-							<input type="button" id="publish' . $id . '" onclick="swappublished(this, true);" value="Publish" ' . $publishbuttonvisibility . '>
-							<input type="button" id="unpublish' . $id . '" onclick="swappublished(this, false);" value="Unpublish" ' . $unpublishbuttonvisibility . '>
-						</div>
-						<div class="button">
-							<input type="button" id="down' . $id . '" onclick="swaporder(this,false);" class="updown" value="MOVE DOWN"' . $downbuttonvisibility . '>
-						</div>
-					</div>
-				</div>';
+					</div>';
 				
 		// Close "published"/"unpublished" containers if last of each type
 		if (($count == $numpublished) && ($numpublished > 0)) {
 			echo '
-			</div>
-			<hr>';
+				</div>
+				<hr>';
 		}
 		if (($count == $numpublished + $numunpublished) && ($numunpublished > 0)) {
 			echo '
-			</div>';
+				</div>';
 		}
 	}
 	
 	// Still need an "unpublished" container even if there were no unpublished items
 	if ($numunpublished == 0) {
 		echo '
-			<div id="unpublished">
-			</div>';
+				<div id="unpublished">
+					<h2>
+						Unpublished pieces:
+					</h2>
+				</div>';
 	}
 	
 	// Float the submit button so it is always visible
 	echo '
-			<div class="float">
-				<input type="submit">
-			</div>
-		</form>
+				<div class="float">
+					<a href="upload.php"><input type="button" value="Add new artpiece"></a>
+					<br>
+					<input type="submit">
+				</div>
+			</form>
+		</div>
 	</body>
 </html>';
 }
