@@ -43,13 +43,13 @@ function swaporder(elem,up){
 		// flag the pieces as changed
 		var changedinput = document.getElementById("changed" + String(divid));
 		var changedinput2 = document.getElementById("changed" + String(div2id));
-		var anychanged = document.getElementById("anychanged");
 		changedinput.value = true;
 		changedinput2.value = true;
-		anychanged.value = true;
 		
 		setbuttonsvisilibity(div);
 		setbuttonsvisilibity(div2);
+		
+		changesmade();
 	}
 }
 
@@ -100,7 +100,6 @@ function swappublished(elem, publish){
 	numpublishedinput.value = numpublished;
 	numunpublishedinput.value = numunpublished;
 	changedinput.value = true;
-	document.getElementById("anychanged").value = true;
 	
 	// move div, and grab the last published entries for updating button appearance
 	divlastpublishedbefore = divpublished.lastElementChild;
@@ -111,6 +110,8 @@ function swappublished(elem, publish){
 	setbuttonsvisilibity(divlastpublishedbefore);
 	setbuttonsvisilibity(divlastpublishedafter);
 	setbuttonsvisilibity(div);
+	
+	changesmade();
 }
 
 // Update the appareance of the buttons in a piece's container, indiscriminate of the triggering action
@@ -150,4 +151,9 @@ function setbuttonsvisilibity(div) {
 		publishbutton.style.display = "none";
 		unpublishbutton.style.display = "block";
 	}
+}
+
+function changesmade() {
+	document.getElementById("anychanged").value = "true";
+	document.getElementById("submit").style.display = "block";
 }

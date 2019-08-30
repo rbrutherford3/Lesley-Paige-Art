@@ -49,7 +49,7 @@
 	
 	function removefile($path) {
 		if (!unlink($path)) {
-			die('Attempted to delete file but it was not found, or deletion failed');
+			echo 'Attempted to delete file but it was not found, or deletion failed';
 		}
 	}
 	

@@ -1,7 +1,7 @@
 <!-- 
 Site designed by Robert Rutherford, 2014 - 2019
  -->
- <?php
+<?php
 include 'connection.php';
 include 'header.php';
 include 'footer.php';

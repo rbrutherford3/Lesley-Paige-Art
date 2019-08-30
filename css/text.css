@@ -37,6 +37,8 @@ p {
 }
 
 a:link, a:visited, a:hover, a:active {
+	font-family: Lesley;
+	font-size: 20px;
 	color: black;
 	text-decoration: none;
 }

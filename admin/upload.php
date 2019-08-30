@@ -104,6 +104,7 @@
 		<title>Upload an image file' . (isset($title) ? ' for ' . $title : '') . '</title>
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/css/text.css">	
+		<link rel="stylesheet" type="text/css" href="admin.css">
 	</head>
 	<body>
 		<div class="page">

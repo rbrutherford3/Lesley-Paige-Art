@@ -199,14 +199,14 @@ else {
 						<input type="hidden" name="sequence[' . $id . ']" id="sequence' . $id . '" value="' . ($count > $numpublished ? '' : $count ) . '">
 						<input type="hidden" name="changed[' . $id . ']" id="changed' . $id . '" value="' . ($mismatch ? '1' : '0') . '">
 						<div class="thumbnail">
-							<div>
-								<img class="thumbnail" src="' . $thumbnailHTML . '">
-							</div>
-							<div>
-								<a style="text-decoration: underline;" href="artinfo.php?id=' . $id . '">
-								' . $name . '
-								</a>
-							</div>
+							<a href="artinfo.php?id=' . $id . '">
+								<div>
+									<img class="thumbnail" src="' . $thumbnailHTML . '">
+								</div>
+								<div>
+									' . $name . '
+								</div>
+							</a>
 						</div>
 						<div class="buttons">
 							<div class="button">
@@ -249,7 +249,7 @@ else {
 				<div class="float">
 					<a href="upload.php"><input type="button" value="Add new artpiece"></a>
 					<br>
-					<input type="submit">
+					<input type="submit" id="submit" value="Submit unsaved changes" ' . $invisibleHTML . '>
 				</div>
 			</form>
 		</div>

@@ -104,6 +104,7 @@
 		<title>Confirm information for "' . $_SESSION['artinfo']['name'] . '"</title>
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
 		<link rel="stylesheet" type="text/css" href="/css/text.css">		
+		<link rel="stylesheet" type="text/css" href="admin.css">		
 		<script type="text/javascript" src="validateform.js"></script>
 	</head>
 	<body>
@@ -126,12 +127,16 @@
 					' . $desc . '
 				</p>
 				<p>
-					etsy.com URL: 
+					<b>
+						etsy.com URL:
+					</b>
 					<br>
 					' . (empty($etsy) ? '***none***' : $etsy) . '
 				</p>
 				<p>
-					fineartamerica.com URL:
+					<b>
+						fineartamerica.com URL:
+					</b>
 					<br>
 					' . (empty($fineartamerica) ? '***none***' : $fineartamerica) . '
 				</p>
