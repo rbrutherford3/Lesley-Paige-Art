@@ -5,7 +5,7 @@
 	$imagick = new Imagick();
 	$imagick->readImage($filepath . $filenameextcropped);
 	$dimensions = $imagick->getImageGeometry();
-	$width = $dimensions['width']; 
+	$width = $dimensions['width'];
 	$height = $dimensions['height'];
 	if ($height > $width) {
 		$newheight = 250;

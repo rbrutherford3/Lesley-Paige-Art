@@ -40,7 +40,7 @@ for ($i=0; $i<$n; $i++) {
 include 'table-many.php';
 }
 //echo 	'						</div>
-echo '					
+echo '
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@ echo '
 							<!-- Indicators -->
 							<ol class="carousel-indicators">';
 /* for ($i=0; $i<$n; $i++) {
-	if ($i==0) {	
+	if ($i==0) {
 		echo 	'				<li data-target="#myCarousel" data-slide-to="', $ids[$i], '" class="active"></li>';
 	}
 	else {
@@ -63,7 +63,7 @@ echo '
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner" role="listbox">';
 for ($i=0; $i<$n; $i++) {
-	if ($i==0) {									
+	if ($i==0) {
 		echo '
 								<div class="item active">
 									<div class="carouselContainer img-responsive center-block">';
@@ -76,7 +76,7 @@ for ($i=0; $i<$n; $i++) {
 		echo '
 								<div class="item">
 									<div class="carouselContainer img-responsive center-block">';
-		include 'table-many.php';									
+		include 'table-many.php';
 		echo '
 									</div>
 								</div>';

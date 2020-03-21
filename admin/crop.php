@@ -9,14 +9,14 @@
 		$bottom = $_POST['bottom'];
 		$left = $_POST['left'];
 		$right = $_POST['right'];
-		
+
 		$imagick = new Imagick();
 		$imagick->readImage($filepath . $filenameextformatted);
 		$dimensions = $imagick->getImageGeometry();
-		$width = $dimensions['width']; 
+		$width = $dimensions['width'];
 		$height = $dimensions['height'];
 		$imagick->cropImage($width-$left-$right, $height-$top-$bottom, $left, $top);
-		$imagick->writeImage($filepath . $filenameextcropped); 
+		$imagick->writeImage($filepath . $filenameextcropped);
 		//echo '<img src="upload/' . $filename . ' (cropped).jpg">';
 		header("Location: overlay.php");
 		die();
@@ -25,7 +25,7 @@
 		$imagick = new Imagick();
 		$imagick->readImage($filepath . $filenameextformatted);
 		$d = $imagick->getImageGeometry();
-		$w = $d['width']; 
+		$w = $d['width'];
 		$h = $d['height'];
 		$dispD = scaleimage($w, $h, 500, 500);
 		$dispW = $dispD[0];
@@ -34,7 +34,7 @@
 		$contH = $dispH + 160;
 		$sideX = round($contW/2-30);
 		$sideY = round($contH/2-30);
-		//$buffer 
+		//$buffer
 		if (isset($_SESSION['artinfo'])) {
 			$title = $_SESSION['artinfo']['name'];
 		}
@@ -48,9 +48,9 @@
 <html>
 	<head>
 		<title>Crop image' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/css/text.css">
-		<link rel="stylesheet" type="text/css" href="admin.css">
+		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
 		<script type="text/javascript" src="crop.js"></script>
 	</head>
 	<body>

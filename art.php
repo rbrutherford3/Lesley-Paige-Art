@@ -35,7 +35,7 @@ echo '
 			<div class = "row">
 				<div class="page">
 					<center>';
-/* include "table-one.php";								
+/* include "table-one.php";
 echo	'						<br> */
 echo '
 						<p>
@@ -83,7 +83,7 @@ echo '
 				</div>
 			</div>';
 footerHTML();
-			
+
 function getFraction($dimension) {
 	$quarters = ($dimension-floor($dimension))/0.25;
 	switch($quarters){

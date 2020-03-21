@@ -2,14 +2,14 @@
 	function createfilename($filename) {
 		return strtolower(preg_replace('/[^A-Za-z0-9]/', '', $filename)); // Removes special chars.
 	}
-		
+
 	function getfraction($dimension) {
 		$quarters = ($dimension-floor($dimension))/0.25;
 		switch($quarters){
 			case 1:
 				return ' &frac14';
 				break;
-			case 2: 
+			case 2:
 				return ' &frac12';
 				break;
 			case 3:
@@ -31,7 +31,7 @@
 		}
 		return array($dispw, $disph);
 	}
-	
+
 	function movefile($frompath, $topath, $overwrite) {
 		if (!file_exists($frompath)) {
 			die('File not found!: ' . $frompath);
@@ -46,13 +46,13 @@
 		}
 		rename($frompath, $topath);
 	}
-	
+
 	function removefile($path) {
 		if (!unlink($path)) {
 			echo 'Attempted to delete file but it was not found, or deletion failed';
 		}
 	}
-	
+
 	function removefolder($path, $recursive) {
 		$deletefolder = true;
 		$items = scandir($path);
@@ -82,7 +82,7 @@
 			}
 		}
 	}
-	
+
 	function getdatabase($id, $db, $page) {
 		$_SESSION['database']['id'] = $id;
 		$sql = "SELECT * FROM `info` WHERE `id` = :id;";
@@ -96,6 +96,7 @@
 		}
 		else {
 			session_destroy();
+			$_SESSION = array();
 			die("No database entry with id=" . $id);
 		}
 		$_SESSION['database']['sequence'] = $row['sequence'];

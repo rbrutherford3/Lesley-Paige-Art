@@ -1,32 +1,32 @@
 function newline(side) {
-	
+
 	var img = document.getElementById("image");
 
 	var w = img.width;
 	var h = img.height;
 
 	var tw = document.getElementById("trueWidth").value;
-	var th = document.getElementById("trueHeight").value;	
-	
+	var th = document.getElementById("trueHeight").value;
+
 	var canvas = document.getElementById("canvas");
-	
+
 	/* canvas.style.position = "absolute";
-	
+
 	canvas.style.top = img.offsetTop + "px";
 	canvas.style.left = img.offsetLeft + "px"; */
-	
+
 	var lInput = document.getElementById("left");
 	var rInput = document.getElementById("right");
 	var tInput = document.getElementById("top");
 	var bInput = document.getElementById("bottom");
-	
+
 	var lVal = lInput.value;
 	var rVal = rInput.value;
 	var tVal = tInput.value;
 	var bVal = bInput.value;
-	
+
 	stepsize = getstepsize()
-	
+
 	if ((side=="l") && (lVal > tw-rVal)) {
 		alert('Left margin value too high, resetting');
 		lInput.value = Math.floor((tw-rVal)/stepsize)*stepsize;
@@ -46,13 +46,13 @@ function newline(side) {
 		alert('Bottom margin value too high, resetting');
 		bInput.value = Math.floor((th-tVal)/stepsize)*stepsize;
 		bVal = bInput.value;
-	}	
-	
+	}
+
 	l = lVal*w/tw;
 	r = rVal*w/tw;
 	t = tVal*h/th;
 	b = bVal*h/th;
-	
+
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -60,22 +60,22 @@ function newline(side) {
 	ctx.moveTo(l, 0);
 	ctx.lineTo(l, canvas.height);
 	ctx.stroke();
-	
+
 	ctx.beginPath();
 	ctx.moveTo(canvas.width-r, 0);
 	ctx.lineTo(canvas.width-r, canvas.height);
 	ctx.stroke();
-	
+
 	ctx.beginPath();
 	ctx.moveTo(0, t);
 	ctx.lineTo(canvas.width, t);
 	ctx.stroke();
-	
+
 	ctx.beginPath();
 	ctx.moveTo(0, canvas.height-b);
 	ctx.lineTo(canvas.width, canvas.height-b);
 	ctx.stroke();
-	
+
 	lInput.max = tw-rVal;
 	rInput.max = tw-lVal;
 	tInput.max = th-bVal;
@@ -104,7 +104,7 @@ function getstepsize() {
 }
 
 document.addEventListener('keyup', (e) => {
-  var key = e.charCode || e.keyCode || 0;     
+  var key = e.charCode || e.keyCode || 0;
   if (key == 13) {
     e.preventDefault();
   }

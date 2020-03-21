@@ -3,7 +3,7 @@
 	include_once('filenames.php');
 	include_once('connection.php');
 	include_once('functions.php');
-    if($_SERVER['REQUEST_METHOD'] == "POST") {
+	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_SESSION['upload']['dirname'])) {
 			removefolder($_SESSION['upload']['dirpath'], true);
 			unset($_SESSION['upload']);
@@ -15,19 +15,18 @@
 			}
 		}
 		if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
-			
+
 			$filename = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
 			$filesize = $_FILES['image']['size'];
 			$filetmp = $_FILES['image']['tmp_name'];
 			$filetype = $_FILES['image']['type'];
 			$temp = explode('.',$_FILES['image']['name']);
 			$fileext = strtolower(end($temp));
-			
-			
+
 			$errors = array();
 			$extensions = array("jpeg","jpg","png","tif","tiff","gif","bmp");
 			$filetypes = array("image/jpeg","image/png","image/tiff","image/gif","image/bmp");
-			
+
 			if (in_array($fileext,$extensions)=== false) {
 				$errors[] = "extension not allowed, please choose a JPEG, PNG, TIF, GIF, or BMP file.";
 			}
@@ -102,9 +101,9 @@
 <html>
 	<head>
 		<title>Upload an image file' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/css/text.css">	
-		<link rel="stylesheet" type="text/css" href="admin.css">
+		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
 	</head>
 	<body>
 		<div class="page">

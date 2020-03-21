@@ -2,21 +2,22 @@
 include_once('filenames.php');
 include_once('connection.php');
 include_once('functions.php');
+include_once('reset.php'); // destroy session for good measure
 
 // "Sequence" form processing
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-	
+
 	// Only do anything if there were any changes
 	if ($_POST['anychanged']) {
-		
+
 		// Grab counts
 		$numpublished = $_POST['numpublished'];
 		$numunpublished = $_POST['numunpublished'];
 		$numentries = $numpublished + $numunpublished;
-		
+
 		// Because this process may require many update queries, perform them all at once at the end
 		$db->beginTransaction();
-		
+
 		// Get all available ids
 		$sqlids = "SELECT `id` FROM `info`;";
 		$stmtids = $db->prepare($sqlids);
@@ -24,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			die('Error executing id collection query: ' . $db->errorInfo());
 		}
 		$rowsids = $stmtids->fetchAll();
-		
-		// Because `sequence` is requires unique entries, those values must 
+
+		// Because `sequence` is requires unique entries, those values must
 		// first be set to null to avoid duplicate entry errors
 		foreach ($rowsids as $rowid) {
 			$id = $rowid['id'];
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				}
 			}
 		}
-		
+
 		// Update all affected art pieces with their new sequence, or lack thereof
 		foreach ($rowsids as $rowid) {
 			$id = $rowid['id'];
@@ -57,18 +58,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				}
 			}
 		}
-		
+
 		// Perform previous queries, all at once
 		$db->commit();
 	}
-	
+
 	header("Location: sequence.php");
 	die();
 }
 
 // "Sequence" form HTML
 else {
-	
+
 	// Grab information for all pieces of artwork
 	$sql = "SELECT `id`, `sequence`, `name`, `filename` FROM `info` ORDER BY `sequence` IS NULL, `sequence` ASC, `name` ASC;";
 	$stmt = $db->prepare($sql);
@@ -82,7 +83,7 @@ else {
 	else {
 		echo '<script>alert("Database is empty");</script>';
 	}
-	
+
 	// Tally the number of published vs. unpublished
 	$numpublished = 0;
 	$numunpublished = 0;
@@ -94,20 +95,20 @@ else {
 			$numpublished++;
 		}
 	}
-	
+
 	// Validate the count
 	if ($numpublished + $numunpublished <> $numentries) {
 		die("There was an error with the entry count");
 	}
-	
+
 	// Header info and beginning of form
 	echo '<!DOCTYPE html>
 <html>
 	<head>
 		<title>Edit art pieces</title>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/css/text.css">
-		<link rel="stylesheet" type="text/css" href="admin.css">		
+		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
 		<script type="text/javascript" src="sequence.js"></script>
 	</head>
 	<body>
@@ -115,14 +116,14 @@ else {
 			<h1>Edit artwork (click a title to edit an individual piece):</h1>
 			<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="sequence" method="POST">
 				<input type="hidden" name="numpublished" id="numpublished" value="' . $numpublished . '">
-				<input type="hidden" name="numunpublished" id="numunpublished" value="' . $numunpublished . '">	
+				<input type="hidden" name="numunpublished" id="numunpublished" value="' . $numunpublished . '">
 				<input type="hidden" name="anychanged" id="anychanged" value="0">';
-		
+
 	$count=0;
 	$invisibleHTML = ' style="display: none;"';
 	$visibleHTML = ' style="display: block;"';
 	//$visibleHTML = '';
-	
+
 	// Still need a "published" container even if there were no published items
 	if ($numpublished == 0) {
 		echo '
@@ -133,11 +134,11 @@ else {
 				</div>
 				<hr>';
 	}
-	
+
 	// Display each piece of art, along with appropriate buttons
 	foreach ($rows as $row) {
 		$count++;
-		
+
 		// Set initial button visibility
 		if (($count == 1) || ($count > $numpublished)) {
 			$upbuttonvisibility = $invisibleHTML;
@@ -159,15 +160,15 @@ else {
 			$publishbuttonvisibility = $visibleHTML;
 			$unpublishbuttonvisibility = $invisibleHTML;
 		}
-		
+
 		// Save information from database and create thumbnail path
 		$id = $row['id'];
 		$name = $row['name'];
 		$sequence = $row['sequence'];
 		$filename = $row['filename'];
 		$thumbnail = $thumbnailspath . $filename . '.' . $ext;
-		$thumbnailHTML = '/img/thumbnails/' . $filename . '.' . $ext;
-		
+		$thumbnailHTML = $thumbnailspathHTML . $filename . '.' . $ext;
+
 		// Create "published"/"unpublished" containers if first of each type
 		if (($count == 1) && ($numpublished > 0)) {
 			echo '
@@ -183,7 +184,7 @@ else {
 					Unpublished pieces:
 				</h2>';
 		}
-		
+
 		// It is possible that there are gaps in the sequence which should be corrected
 		if (($count <= $numpublished) && ($count <> $sequence)) {
 			$mismatch = true;
@@ -191,8 +192,8 @@ else {
 		else {
 			$mismatch = false;
 		}
-		
-		// Display artpiece and buttons and link buttons to javascript actions.  
+
+		// Display artpiece and buttons and link buttons to javascript actions.
 		// Note that the hidden fields contain the data to be submitted.
 		echo '
 					<div class="item" id="' . $id . '">
@@ -221,7 +222,7 @@ else {
 							</div>
 						</div>
 					</div>';
-				
+
 		// Close "published"/"unpublished" containers if last of each type
 		if (($count == $numpublished) && ($numpublished > 0)) {
 			echo '
@@ -233,7 +234,7 @@ else {
 				</div>';
 		}
 	}
-	
+
 	// Still need an "unpublished" container even if there were no unpublished items
 	if ($numunpublished == 0) {
 		echo '
@@ -243,7 +244,7 @@ else {
 					</h2>
 				</div>';
 	}
-	
+
 	// Float the submit button so it is always visible
 	echo '
 				<div class="float">

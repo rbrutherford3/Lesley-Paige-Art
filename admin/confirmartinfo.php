@@ -1,5 +1,5 @@
 <?php
-	session_start();	
+	session_start();
 	include_once('filenames.php');
 	include_once('connection.php');
 	include_once('functions.php');
@@ -24,16 +24,16 @@
 		if (isset($_SESSION['database'])) {
 			$id = $_SESSION['database']['id'];
 			$sql = "UPDATE `info`
-				SET 
-				`name` = :name, 
-				`filename` = :filename, 
-				`extoriginal` = :extoriginal, 
-				`year` = :year, 
-				`width` = :width, 
-				`height` = :height, 
-				`description` = :desc, 
-				`etsy` = :etsy, 
-				`fineartamerica` = :fineartamerica 
+				SET
+				`name` = :name,
+				`filename` = :filename,
+				`extoriginal` = :extoriginal,
+				`year` = :year,
+				`width` = :width,
+				`height` = :height,
+				`description` = :desc,
+				`etsy` = :etsy,
+				`fineartamerica` = :fineartamerica
 				WHERE
 				`id` = :id;";
 			$stmt = $db->prepare($sql);
@@ -52,25 +52,25 @@
 			}
 		}
 		else {
-			$sql = "INSERT INTO `info` 
-				(`name`, 
-				`filename`, 
-				`extoriginal`, 
-				`year`, 
-				`width`, 
-				`height`, 
-				`description`, 
-				`etsy`, 
+			$sql = "INSERT INTO `info`
+				(`name`,
+				`filename`,
+				`extoriginal`,
+				`year`,
+				`width`,
+				`height`,
+				`description`,
+				`etsy`,
 				`fineartamerica`)
-				VALUES 
-				(:name, 
-				:filename, 
-				:extoriginal, 
-				:year, 
-				:width, 
-				:height, 
-				:desc, 
-				:etsy, 
+				VALUES
+				(:name,
+				:filename,
+				:extoriginal,
+				:year,
+				:width,
+				:height,
+				:desc,
+				:etsy,
 				:fineartamerica);";
 			$stmt = $db->prepare($sql);
 			$stmt->bindValue(":name", $name, PDO::PARAM_STR);
@@ -85,7 +85,7 @@
 			if(!$stmt->execute()) {
 				die($db->errorInfo());
 			}
-			
+
 			$sqlid = "SELECT LAST_INSERT_ID() AS `lastid`";
 			$stmtid = $db->prepare($sqlid);
 			if(!$stmtid->execute()) {
@@ -102,9 +102,9 @@
 <html>
 	<head>
 		<title>Confirm information for "' . $_SESSION['artinfo']['name'] . '"</title>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/css/text.css">		
-		<link rel="stylesheet" type="text/css" href="admin.css">		
+		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
 		<script type="text/javascript" src="validateform.js"></script>
 	</head>
 	<body>
@@ -144,7 +144,7 @@
 			</form>
 		</div>
 	</body>
-</html>';		
+</html>';
 	}
 
 ?>

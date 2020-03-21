@@ -3,7 +3,7 @@
 	include_once('filenames.php');
 	$filepath = $_SESSION['upload']['dirpathds'];
 	$extoriginal = $_SESSION['upload']['extoriginal'];
-	
+
 	$scalefactor = 1/4;
 	$imagick = new Imagick($filepath . $filenameoriginal . '.' . $extoriginal);
 	$imagick->mergeImageLayers(imagick::LAYERMETHOD_UNDEFINED);
@@ -18,7 +18,7 @@
 	$imagick->writeImage($filepath . $filenameextformatted);
 	header("Location: rotate.php");
 	die();
-	
+
 	function autorotate(Imagick $image) {
 		switch ($image->getImageOrientation()) {
 		case Imagick::ORIENTATION_TOPLEFT:

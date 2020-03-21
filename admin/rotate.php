@@ -6,7 +6,7 @@
 	$filepath = $_SESSION['upload']['dirpathds'];
 	$imagick = new Imagick();
 	$imagick->readImage($filepath . $filenameextformatted);
-	
+
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$angle = $_POST['angle'];
 		$imagick->rotateImage("#000", (int)$angle);
@@ -16,7 +16,7 @@
 	}
 	else {
 		$d = $imagick->getImageGeometry();
-		$w = $d['width']; 
+		$w = $d['width'];
 		$h = $d['height'];
 		$dispD = scaleimage($w, $h, 500, 500);
 		$dispW = $dispD[0];
@@ -34,9 +34,9 @@
 <html>
 	<head>
 		<title>Crop image' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/css/text.css">
-		<link rel="stylesheet" type="text/css" href="admin.css">
+		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
 		<script type="text/javascript" src="rotate.js"></script>
 	</head>
 	<body>

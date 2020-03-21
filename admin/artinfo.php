@@ -81,6 +81,7 @@
 				}
 				else {
 					session_destroy();
+					$_SESSION = array();
 					die("No ID or filename provided");
 				}
 			}
@@ -105,11 +106,12 @@
 		}
 		elseif (isset($_SESSION['database'])) {
 			$extoriginal = $_SESSION['database']['extoriginal'];
-			$thumbnailHTML = '/img/thumbnails/' . $_SESSION['database']['filename'] . '.' . $ext;
+			$thumbnailHTML = $thumbnailspathHTML . $_SESSION['database']['filename'] . '.' . $ext;
 			$_SESSION['thumbnailHTML'] = $thumbnailHTML;
 		}
 		else {
 			session_destroy();
+			$_SESSION = array();
 			die("Nothing uploaded and no existing piece referenced, please restart process");
 		}
 		if (isset($_SESSION['artinfo']['name'])) {
@@ -125,9 +127,9 @@
 <html>
 	<head>
 		<title>Enter information' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-		<link rel="stylesheet" type="text/css" href="/css/text.css">		
-		<link rel="stylesheet" type="text/css" href="admin.css">
+		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
+		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
 		<script type="text/javascript" src="validateform.js"></script>
 	</head>
 	<body>
@@ -183,10 +185,10 @@
 	</body>
 </html>';
 	}
-	
+
 	function checkunique($db, $fieldname, $value, $id) {
 		if (is_null($id)) {
-			$sql = "SELECT `id` FROM `info` WHERE `" . $fieldname . "` = :value;";			
+			$sql = "SELECT `id` FROM `info` WHERE `" . $fieldname . "` = :value;";
 		}
 		else {
 			$sql = "SELECT `id` FROM `info` WHERE `" . $fieldname . "` = :value AND id <> :id;";

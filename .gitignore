@@ -16,3 +16,4 @@ admin/test*
 admin/delete.php
 
 makelive
+*.sql

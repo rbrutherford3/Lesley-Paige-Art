@@ -9,7 +9,7 @@ function swaporder(elem,up){
 	else {
 		var div2 = div.nextElementSibling;
 	}
-	
+
 	if (!div2) {
 		alert("No piece to swap with!");
 	}
@@ -17,13 +17,13 @@ function swaporder(elem,up){
 		// save div ids
 		var divid = div.id;
 		var div2id = div2.id;
-		
+
 		// scroll up or down by distance between divs
 		//var rect = div.getBoundingClientRect();
 		//var rect2 = div2.getBoundingClientRect();
 		//var diff = rect.top - rect2.top;
 		//window.scrollBy(0, -diff);
-		
+
 		// swap divs
 		if (up) {
 			div.parentNode.insertBefore(div,div2);
@@ -31,7 +31,7 @@ function swaporder(elem,up){
 		else {
 			div.parentNode.insertBefore(div2,div);
 		}
-		
+
 		// swap sequence values
 		var sequenceinput = document.getElementById("sequence" + String(divid));
 		var sequenceinput2 = document.getElementById("sequence" + String(div2id));
@@ -39,23 +39,23 @@ function swaporder(elem,up){
 		var sequence2 = sequenceinput2.value;
 		sequenceinput.value = sequence2;
 		sequenceinput2.value = sequence;
-		
+
 		// flag the pieces as changed
 		var changedinput = document.getElementById("changed" + String(divid));
 		var changedinput2 = document.getElementById("changed" + String(div2id));
 		changedinput.value = true;
 		changedinput2.value = true;
-		
+
 		setbuttonsvisilibity(div);
 		setbuttonsvisilibity(div2);
-		
+
 		changesmade();
 	}
 }
 
 // Either publish or unpublish a piece
 function swappublished(elem, publish){
-	
+
 	// grab elements
 	var div = elem.parentNode.parentNode.parentNode;
 	var divid = div.id;
@@ -63,13 +63,13 @@ function swappublished(elem, publish){
 	var changedinput = document.getElementById("changed" + String(divid));
 	var divpublished = document.getElementById("published");
 	var divunpublished = document.getElementById("unpublished");
-	
+
 	// grab published/unpublished counts
 	var numpublishedinput = document.getElementById("numpublished");
 	var numunpublishedinput = document.getElementById("numunpublished");
 	var numpublished = Number(numpublishedinput.value);
 	var numunpublished = Number(numunpublishedinput.value);
-	
+
 	// update counts and item's sequence value
 	if (publish) {
 		divgroup = divpublished;
@@ -86,7 +86,7 @@ function swappublished(elem, publish){
 		sequenceinput.value = "";
 
 		// update sequences (+1) for all remaining published pieces, and mark as changed
-		divnext = div.nextElementSibling;		
+		divnext = div.nextElementSibling;
 		while(divnext) {
 			idnext = divnext.id;
 			document.getElementById("sequence" + String(idnext)).value = sequence;
@@ -95,12 +95,12 @@ function swappublished(elem, publish){
 			divnext = divnext.nextElementSibling;
 		}
 	}
-	
+
 	// save counts and flag as changed
 	numpublishedinput.value = numpublished;
 	numunpublishedinput.value = numunpublished;
 	changedinput.value = true;
-	
+
 	// move div, and grab the last published entries for updating button appearance
 	divlastpublishedbefore = divpublished.lastElementChild;
 	divgroup.appendChild(div);
@@ -110,13 +110,13 @@ function swappublished(elem, publish){
 	setbuttonsvisilibity(divlastpublishedbefore);
 	setbuttonsvisilibity(divlastpublishedafter);
 	setbuttonsvisilibity(div);
-	
+
 	changesmade();
 }
 
 // Update the appareance of the buttons in a piece's container, indiscriminate of the triggering action
 function setbuttonsvisilibity(div) {
-	
+
 	// Grab buttons and more
 	var numpublished = Number(document.getElementById("numpublished").value);
 	var id = Number(div.id);
@@ -125,7 +125,7 @@ function setbuttonsvisilibity(div) {
 	var downbutton = document.getElementById("down" + String(id));
 	var publishbutton = document.getElementById("publish" + String(id));
 	var unpublishbutton = document.getElementById("unpublish" + String(id));
-	
+
 	// Show "up" button unless first published piece or unpublished
 	if ((sequence == 1) || (!sequence)) {
 		upbutton.style.display = "none";
@@ -133,7 +133,7 @@ function setbuttonsvisilibity(div) {
 	else {
 		upbutton.style.display = "block";
 	}
-	
+
 	// Show "down" unless last published piece or unpublished
 	if ((sequence == numpublished) || (!sequence)) {
 		downbutton.style.display = "none";
@@ -141,7 +141,7 @@ function setbuttonsvisilibity(div) {
 	else {
 		downbutton.style.display = "block";
 	}
-	
+
 	// Show "published" button if upublished, "unpublish" button if published
 	if (!sequence) {
 		publishbutton.style.display = "block";

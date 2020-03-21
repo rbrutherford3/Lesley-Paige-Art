@@ -7,10 +7,10 @@
 	$imagick1->readImage($filepath . $filenameextcropped);
 	$imagick2->readImage($stamplocation);
 	$dimensions1 = $imagick1->getImageGeometry();
-	$width1 = $dimensions1['width']; 
+	$width1 = $dimensions1['width'];
 	$height1 = $dimensions1['height'];
 	$dimensions2 = $imagick2->getImageGeometry();
-	$width2 = $dimensions2['width']; 
+	$width2 = $dimensions2['width'];
 	$height2 = $dimensions2['height'];
 	$scaleadjustment = 0.9;
 	if (($width1/$width2) > ($height1/$height2)) {
