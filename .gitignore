@@ -14,6 +14,6 @@ admin/Stamp.png
 admin/phpinfo.php
 admin/test*
 admin/delete.php
+admin/reset.php
 
-makelive
-*.sql
+sys/
