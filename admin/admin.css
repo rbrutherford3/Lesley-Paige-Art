@@ -43,21 +43,25 @@ input[type=button], input[type=submit] {
 .item-top {
 	grid-column: 1 / span 3;
 	grid-row: 1;
+	flex-direction: column;
 }
 
 .item-bottom {
 	grid-column: 1 / span 3;
 	grid-row: 3;
+	flex-direction: column;
 }
 
 .item-left {
 	grid-column: 1;
 	grid-row: 1 / span 3;
+	flex-direction: row;
 }
 
 .item-right {
 	grid-column: 3;
 	grid-row: 1 / span 3;
+	flex-direction: row;
 }
 
 .below {

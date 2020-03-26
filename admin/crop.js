@@ -1,57 +1,28 @@
-function newline(side) {
+function newline() {
 
 	var img = document.getElementById("image");
 
 	var w = img.width;
 	var h = img.height;
 
-	var tw = document.getElementById("trueWidth").value;
-	var th = document.getElementById("trueHeight").value;
+	var tw = parseInt(document.getElementById("trueWidth").value);
+	var th = parseInt(document.getElementById("trueHeight").value);
 
 	var canvas = document.getElementById("canvas");
-
-	/* canvas.style.position = "absolute";
-
-	canvas.style.top = img.offsetTop + "px";
-	canvas.style.left = img.offsetLeft + "px"; */
-
 	var lInput = document.getElementById("left");
 	var rInput = document.getElementById("right");
 	var tInput = document.getElementById("top");
 	var bInput = document.getElementById("bottom");
 
-	var lVal = lInput.value;
-	var rVal = rInput.value;
-	var tVal = tInput.value;
-	var bVal = bInput.value;
+	var lVal = parseInt(lInput.value);
+	var rVal = parseInt(rInput.value);
+	var tVal = parseInt(tInput.value);
+	var bVal = parseInt(bInput.value);
 
-	stepsize = getstepsize()
-
-	if ((side=="l") && (lVal > tw-rVal)) {
-		alert('Left margin value too high, resetting');
-		lInput.value = Math.floor((tw-rVal)/stepsize)*stepsize;
-		lVal = lInput.value;
-	}
-	if ((side=="r") && (rVal > tw-lVal)) {
-		alert('Right margin value too high, resetting');
-		rInput.value = Math.floor((tw-lVal)/stepsize)*stepsize;
-		rVal = rInput.value;
-	}
-	if ((side=="t") && (tVal > th-bVal)) {
-		alert('Top margin value too high, resetting');
-		tInput.value = Math.floor((th-bVal)/stepsize)*stepsize;
-		tVal = tInput.value;
-	}
-	if ((side=="b") && (bVal > th-tVal)) {
-		alert('Bottom margin value too high, resetting');
-		bInput.value = Math.floor((th-tVal)/stepsize)*stepsize;
-		bVal = bInput.value;
-	}
-
-	l = lVal*w/tw;
-	r = rVal*w/tw;
-	t = tVal*h/th;
-	b = bVal*h/th;
+	l = Math.floor(lVal*w/tw);
+	r = Math.floor(rVal*w/tw);
+	t = Math.floor(tVal*h/th);
+	b = Math.floor(bVal*h/th);
 
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,35 +30,30 @@ function newline(side) {
 	ctx.beginPath();
 	ctx.moveTo(l, 0);
 	ctx.lineTo(l, canvas.height);
+	ctx.strokeStyle = "#39ff14";
+	ctx.lineWidth = 2;
 	ctx.stroke();
 
 	ctx.beginPath();
 	ctx.moveTo(canvas.width-r, 0);
 	ctx.lineTo(canvas.width-r, canvas.height);
+	ctx.strokeStyle = "#39ff14";
+	ctx.lineWidth = 2;
 	ctx.stroke();
 
 	ctx.beginPath();
 	ctx.moveTo(0, t);
 	ctx.lineTo(canvas.width, t);
+	ctx.strokeStyle = "#39ff14";
+	ctx.lineWidth = 2;
 	ctx.stroke();
 
 	ctx.beginPath();
 	ctx.moveTo(0, canvas.height-b);
 	ctx.lineTo(canvas.width, canvas.height-b);
+	ctx.strokeStyle = "#39ff14";
+	ctx.lineWidth = 2;
 	ctx.stroke();
-
-	lInput.max = tw-rVal;
-	rInput.max = tw-lVal;
-	tInput.max = th-bVal;
-	bInput.max = th-tVal;
-}
-
-function newstepsize() {
-	var stepsize = getstepsize();
-	document.getElementById("left").step = stepsize;
-	document.getElementById("right").step = stepsize;
-	document.getElementById("top").step = stepsize;
-	document.getElementById("bottom").step = stepsize;
 }
 
 function getstepsize() {
@@ -100,12 +66,62 @@ function getstepsize() {
 			break;
 		}
 	}
-	return stepsize;
+	return parseInt(stepsize);
 }
 
-document.addEventListener('keyup', (e) => {
-  var key = e.charCode || e.keyCode || 0;
-  if (key == 13) {
-    e.preventDefault();
-  }
-})
+function changecrop(btn) {
+	side = btn.id.substr(0,1);
+	direction = btn.id.substr(1,3);
+	stepsize = getstepsize();
+	var valInput;
+	var oppInput;
+	var dimInput;
+	switch(side) {
+		case "t":
+			valInput = document.getElementById("top");
+			oppInput = document.getElementById("bottom");
+			dimInput = document.getElementById("trueHeight");
+			break;
+		case "b":
+			valInput = document.getElementById("bottom");
+			oppInput = document.getElementById("top");
+			dimInput = document.getElementById("trueHeight");
+			break;
+		case "l":
+			valInput = document.getElementById("left");
+			oppInput = document.getElementById("right");
+			dimInput = document.getElementById("trueWidth");
+			break;
+			
+		case "r":
+			valInput = document.getElementById("right");
+			oppInput = document.getElementById("left");
+			dimInput = document.getElementById("trueWidth");
+			break;
+	}
+	
+	var val = parseInt(valInput.value);
+	var opp = parseInt(oppInput.value);
+	var dim = parseInt(dimInput.value);
+	var newval;
+	
+	switch(direction) {
+		case "inc":
+			newval = val + stepsize;
+			break;
+		case "dec":
+			newval = val - stepsize;
+			break;
+	}
+
+	if (newval < 0) {
+		newval = 0;
+	}
+	else if ((newval + opp) > dim) {
+		alert("Can't increase crop margin further");
+	}
+	else {
+		valInput.value = String(newval);
+		newline();
+	}
+}

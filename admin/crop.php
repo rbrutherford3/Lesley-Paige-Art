@@ -59,16 +59,16 @@
 			<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="cropform" method="POST" onkeydown="return event.key != \'Enter\';">
 				<p>
 					<input type="radio" name="stepsize" id="step20" value="20" onchange="newstepsize()" checked>
-					<label for="step20">Very Coarse adjustment (every 20px)</label>
+					<label for="step20">Very Coarse adjustment (every 20 pixels)</label>
 					<br>
 					<input type="radio" name="stepsize" id="step10" value="10" onchange="newstepsize()">
-					<label for="step10">Coarse adjustment (every 10px)</label>
+					<label for="step10">Coarse adjustment (every 10 pixels)</label>
 					<br>
 					<input type="radio" name="stepsize" id="step5" value="5" onchange="newstepsize()">
-					<label for="step5">Fine adjustment (every 5px)</label>
+					<label for="step5">Fine adjustment (every 5 pixels)</label>
 					<br>
 					<input type="radio" name="stepsize" id="step1" value="1" onchange="newstepsize()">
-					<label for="step1">Very fine adjustment (every 1px)</label>
+					<label for="step1">Very fine adjustment (every pixel)</label>
 					<br>
 					<input type="hidden" id="trueWidth" value=' . $w . ' />
 					<input type="hidden" id="trueHeight" value=' . $h . ' />
@@ -80,16 +80,25 @@
 							<canvas class="above" id="canvas" width="' .  $dispW . '" height="' . $dispH . '"></canvas>
 						</div>
 						<div class="grid-item item-top">
-							<input type="number" name="top" id="top" step=20 value=0 min=0 max=' . $h . ' onchange="newline(\'t\')" />
+							<input type="hidden" id="top" name="top" value="0" />
+							<input type="button" id="tdec" value="&#9650;" onclick="changecrop(this);" />
+							<input type="button" id="tinc" value="&#9660;" onclick="changecrop(this);" />
+							
 						</div>
 						<div class="grid-item item-bottom">
-							<input type="number" name="bottom" id="bottom" step=20 value=0 min=0 max=' . $h . ' onchange="newline(\'b\')" />
+							<input type="hidden" id="bottom" name="bottom" value="0" />
+							<input type="button" id="binc" value="&#9650;" onclick="changecrop(this);" />
+							<input type="button" id="bdec" value="&#9660;" onclick="changecrop(this);" />
 						</div>
 						<div class="grid-item item-left">
-							<input type="number" name="left" id="left" step=20 value=0 min=0 max=' . $w . ' onchange="newline(\'l\')" />
+							<input type="hidden" id="left" name="left" value="0" />
+							<input type="button" id="ldec" value="&#9668;" onclick="changecrop(this);" />
+							<input type="button" id="linc" value="&#9658;" onclick="changecrop(this);" />
 						</div>
 						<div class="grid-item item-right">
-							<input type="number" name="right" id="right" step=20 value=0 min=0 max=' . $w . ' onchange="newline(\'r\')" />
+							<input type="hidden" id="right" name="right" value="0" />
+							<input type="button" id="rinc" value="&#9668;" onclick="changecrop(this);" />
+							<input type="button" id="rdec" value="&#9658;" onclick="changecrop(this);" />
 						</div>
 					</div>
 				</p>
