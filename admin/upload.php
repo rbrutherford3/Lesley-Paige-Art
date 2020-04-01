@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	include_once('filenames.php');
-	include_once('connection.php');
-	include_once('functions.php');
+	require_once '../paths.php';
+	require_once 'connection.php';
+	require_once 'functions.php';
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		if (isset($_SESSION['upload']['dirname'])) {
 			removefolder($_SESSION['upload']['dirpath'], true);
@@ -38,20 +38,20 @@
 			}
 			if (empty($errors)==true) {
 				$filenamenew = createfilename($filename);
-				$filepath = $uploadpathds . $filenamenew;
-				$filepathds = $filepath . $ds;
+				$filepath = UPLOAD . $filenamenew;
+				$filepathds = $filepath . DS;
 				if (file_exists($filepath)) {
 					die("This file or one with the same name previously uploaded, but not processed");
 				}
 				else {
 					if (mkdir($filepath)) {
-						if (move_uploaded_file($filetmp, $filepathds . $filenameoriginal . '.' . $fileext)) {
+						if (move_uploaded_file($filetmp, $filepathds . UPLOAD_ORIGINAL . '.' . $fileext)) {
 							$_SESSION['upload']['originalname'] = $filename;
 							$_SESSION['upload']['dirname'] = $filenamenew;
 							$_SESSION['upload']['extoriginal'] = $fileext;
 							$_SESSION['upload']['dirpath'] = $filepath;
 							$_SESSION['upload']['dirpathds'] = $filepathds;
-							header("Location: resize.php");
+							header('Location: ' . ADMIN_HTML . 'resize.php');
 							die();
 						} else {
 							die("There was an error uploading the image");
@@ -101,9 +101,9 @@
 <html>
 	<head>
 		<title>Upload an image file' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
 	</head>
 	<body>
 		<div class="page">
@@ -129,7 +129,7 @@
 		}
 		echo '
 				<p>
-					<input type="submit">
+					<input type="submit" value="Upload">
 				</p>
 			</form>
 		</div>

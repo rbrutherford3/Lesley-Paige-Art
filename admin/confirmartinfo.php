@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	include_once('filenames.php');
-	include_once('connection.php');
-	include_once('functions.php');
+	require_once '../paths.php';
+	require_once 'connection.php';
+	require_once 'functions.php';
 /* 	if (isset($_SESSION['id'])) {
 		echo '<script>alert("' . $_SESSION['id'] . '");</script>';
 	}
@@ -94,7 +94,7 @@
 			$rowid = $stmtid->fetch();
 			$_SESSION['newid'] = $rowid['lastid'];
 		}
-		header("Location: movefiles.php");
+		header('Location:' . ADMIN_HTML . 'movefiles.php');
 		die();
 	}
 	else {
@@ -102,10 +102,10 @@
 <html>
 	<head>
 		<title>Confirm information for "' . $_SESSION['artinfo']['name'] . '"</title>
-		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
-		<script type="text/javascript" src="validateform.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
+		<script type="text/javascript" src="' . ADMIN_HTML . 'validateform.js"></script>
 	</head>
 	<body>
 		<div class="page">
@@ -140,7 +140,7 @@
 					<br>
 					' . (empty($fineartamerica) ? '***none***' : $fineartamerica) . '
 				</p>
-				<input type="submit" name="submit">
+				<input type="submit" name="submit" value="Confirm">
 			</form>
 		</div>
 	</body>

@@ -2,10 +2,11 @@
 Site designed by Robert Rutherford, 2014 - 2019
  -->
  <?php
- 
-include 'connection.php';
-include 'header.php';
-include 'footer.php';
+
+require_once 'paths.php';
+require_once 'connection.php';
+require_once 'header.php';
+require_once 'footer.php';
 
 $id = $_GET["id"];
 
@@ -39,8 +40,8 @@ echo '
 echo	'						<br> */
 echo '
 						<p>
-							<a href = "artfull.php?id=' . $id . '">
-								<img class = "art" src = "img/thumbnails/', $filename, '.png" alt = "', $name, '">
+							<a href = "' . ROOT_HTML . 'artfull.php?id=' . $id . '">
+								<img class = "art" src = "' . THUMBNAILS_HTML . $filename . '.' . EXT . '" alt = "', $name, '">
 							</a>
 						</p>
 						<h1>', $name, '</h1>

@@ -1,11 +1,11 @@
 <?php
 	session_start();
-	include_once('filenames.php');
+	require_once '../paths.php';
 	$filepath = $_SESSION['upload']['dirpathds'];
 	$imagick1 = new Imagick();
 	$imagick2 = new Imagick();
-	$imagick1->readImage($filepath . $filenameextcropped);
-	$imagick2->readImage($stamplocation);
+	$imagick1->readImage($filepath . UPLOAD_CROPPED . '.' . EXT);
+	$imagick2->readImage(STAMP_FULL);
 	$dimensions1 = $imagick1->getImageGeometry();
 	$width1 = $dimensions1['width'];
 	$height1 = $dimensions1['height'];
@@ -27,9 +27,9 @@
 	$imagick2->evaluateImage(Imagick::EVALUATE_MULTIPLY, 0.5, Imagick::CHANNEL_ALPHA);
 	$imagick1->compositeImage($imagick2, Imagick::COMPOSITE_DEFAULT, $xdiff, $ydiff);
 	$imagick1->mergeImageLayers();
-	$imagick1->setImageFormat($extwatermarked);
-	$imagick1->writeImage($filepath . $filenameextwatermarked);
+	$imagick1->setImageFormat(EXT);
+	$imagick1->writeImage($filepath . UPLOAD_WATERMARKED . '.' . EXT);
 	//echo '<img src="upload/' . $filename . ' (cropped, stamp).jpg">';
-	header("Location: thumbnail.php");
+	header('Location: ' . ADMIN_HTML . 'thumbnail.php');
 	die();
 ?>

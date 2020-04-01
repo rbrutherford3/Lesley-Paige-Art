@@ -1,8 +1,9 @@
 <?php
 
-include 'connection.php';
-include 'header.php';
-include 'footer.php';
+require_once 'paths.php';
+require_once 'connection.php';
+require_once 'header.php';
+require_once 'footer.php';
 
 $id = $_GET['id'];
 $sql = "SELECT `name`, `filename` FROM `info` WHERE `id` = :id;";
@@ -17,7 +18,7 @@ $name = $row['name'];
 $filename = $row['filename'];
 
 headerHTML($name);
-echo '<img class="fullsize" src="img/watermarked/', $filename, '.png">';
+echo '<img class="fullsize" src="', WATERMARKED_HTML, $filename, '.', EXT, '">';
 footerHTML();
 
 ?>

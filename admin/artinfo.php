@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	include_once('filenames.php');
-	include_once('connection.php');
-	include_once('functions.php');
+	require_once '../paths.php';
+	require_once 'connection.php';
+	require_once 'functions.php';
 	if (isset($_GET['id'])) {
 		$new = false;
 		$id = $_GET['id'];
@@ -33,11 +33,11 @@
 			checkunique($db, 'filename', $_SESSION['artinfo']['filename'], $id);
 			checkunique($db, 'etsy', $_SESSION['artinfo']['etsy'], $id);
 			checkunique($db, 'fineartamerica', $_SESSION['artinfo']['fineartamerica'], $id);
-			header("Location: confirmartinfo.php");
+			header('Location: ' . ADMIN_HTML . 'confirmartinfo.php');
 		}
 		elseif (isset($_POST['image_x'])) {
 			// SAVE SESSION VARIABLES, IF NECESSARY
-			header("Location: upload.php");
+			header('Location: ' . ADMIN_HTML . 'upload.php');
 			die();
 		}
 		die();
@@ -101,12 +101,12 @@
 		//SET UP FILE INFORMATION:
 		if (isset($_SESSION['upload'])) {
 			$extoriginal = $_SESSION['upload']['extoriginal'];
-			$thumbnailHTML = 'upload/' . $_SESSION['upload']['dirname'] . '/' . $filenameextthumbnail;
+			$thumbnailHTML = UPLOAD_HTML . $_SESSION['upload']['dirname'] . '/' . UPLOAD_THUMBNAIL . '.' . EXT;
 			$_SESSION['thumbnailHTML'] = $thumbnailHTML;
 		}
 		elseif (isset($_SESSION['database'])) {
 			$extoriginal = $_SESSION['database']['extoriginal'];
-			$thumbnailHTML = $thumbnailspathHTML . $_SESSION['database']['filename'] . '.' . $ext;
+			$thumbnailHTML = THUMBNAILS_HTML . $_SESSION['database']['filename'] . '.' . EXT;
 			$_SESSION['thumbnailHTML'] = $thumbnailHTML;
 		}
 		else {
@@ -127,10 +127,10 @@
 <html>
 	<head>
 		<title>Enter information' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
-		<script type="text/javascript" src="validateform.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
+		<script type="text/javascript" src="' . ADMIN_HTML . 'validateform.js"></script>
 	</head>
 	<body>
 		<div class="page">
@@ -179,7 +179,7 @@
 					<br>
 					<input type="text" name="fineartamerica" id="fineartamerica" value="' . $fineartamerica . '" size="40">
 				</p>
-				<input type="submit" name="submit">
+				<input type="submit" name="submit" value="Save">
 			</form>
 		</div>
 	</body>
@@ -205,10 +205,10 @@
 			if ($stmt->rowCount() > 0) {
 				$_SESSION['infoerror'] = $value . ' already exists as an entry for another artpiece, please try again.';
 				if (is_null($id)) {	// to maintain URL only, not necessary if $_SESSION['id'] is set
-					header("Location: artinfo.php");
+					header('Location: ' . ADMIN_HTML . 'artinfo.php');
 				}
 				else {
-					header("Location: artinfo.php?id=" . $id);
+					header('Location: ' . ADMIN_HTML . 'artinfo.php?id=' . $id);
 				}
 				die();
 			}

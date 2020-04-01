@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	include_once('filenames.php');
-	include_once('functions.php');
+	require_once '../paths.php';
+	require_once 'functions.php';
 	$filename = $_SESSION['upload']['dirname'];
 	$filepath = $_SESSION['upload']['dirpathds'];
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -11,19 +11,19 @@
 		$right = $_POST['right'];
 
 		$imagick = new Imagick();
-		$imagick->readImage($filepath . $filenameextformatted);
+		$imagick->readImage($filepath . UPLOAD_FORMATTED . '.' . EXT);
 		$dimensions = $imagick->getImageGeometry();
 		$width = $dimensions['width'];
 		$height = $dimensions['height'];
 		$imagick->cropImage($width-$left-$right, $height-$top-$bottom, $left, $top);
-		$imagick->writeImage($filepath . $filenameextcropped);
+		$imagick->writeImage($filepath . UPLOAD_CROPPED . '.' . EXT);
 		//echo '<img src="upload/' . $filename . ' (cropped).jpg">';
-		header("Location: overlay.php");
+		header('Location: ' . ADMIN_HTML . 'overlay.php');
 		die();
 	}
 	else {
 		$imagick = new Imagick();
-		$imagick->readImage($filepath . $filenameextformatted);
+		$imagick->readImage($filepath . UPLOAD_FORMATTED . '.' . EXT);
 		$d = $imagick->getImageGeometry();
 		$w = $d['width'];
 		$h = $d['height'];
@@ -48,10 +48,10 @@
 <html>
 	<head>
 		<title>Crop image' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
-		<script type="text/javascript" src="crop.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
+		<script type="text/javascript" src="' . ADMIN_HTML . 'crop.js"></script>
 	</head>
 	<body>
 		<div class="page">
@@ -76,7 +76,7 @@
 				<p>
 					<div class="grid-container">
 						<div class="grid-item item-middle">
-							<img class="thickborder below" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameextformatted) . '" width="' .  $dispW . '" height="' . $dispH . '" id="image" alt="' . $filename . '">
+							<img class="thickborder below" src="' . UPLOAD_HTML . rawurlencode($filename) . '/' . rawurlencode(UPLOAD_FORMATTED . '.' . EXT) . '" width="' .  $dispW . '" height="' . $dispH . '" id="image" alt="' . $filename . '">
 							<canvas class="above" id="canvas" width="' .  $dispW . '" height="' . $dispH . '"></canvas>
 						</div>
 						<div class="grid-item item-top">
@@ -103,7 +103,7 @@
 					</div>
 				</p>
 				<div class="float">
-					<input type="submit" value="Submit">
+					<input type="submit" value="Apply Crop">
 				</div>
 			</form>
 		</div>

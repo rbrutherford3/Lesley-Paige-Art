@@ -1,5 +1,7 @@
 <?php
 
+require_once 'paths.php';
+
 function headerHTML() {
 	if (!func_num_args()) {
 		$hasTitle = false;
@@ -18,22 +20,22 @@ function headerHTML() {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Lesley Paige Art', ($hasTitle ? ' - ' . $title : '') , '</title>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/text.css">
-		<link rel="SHORTCUT ICON" href="img/favicon.ico">
+		<link href="' . BOOTSTRAP_CSS_HTML . '" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
+		<link rel="SHORTCUT ICON" href="' . FAVICON_HTML . '">
 	</head>
 	<body>
 		<div class = "container" style = "background-color: #000000;">
 			<div class = "row">
 				<div class="header">
 					<div class="hidden-xs" style="display:inline-block;">
-						<img class="header" src="img/header/photo-circle.png">
-						<img class="header" src="img/header/Title.png">
-						<img class="header" src="img/header/Stamp.png">
+						<img class="header" src="' . PHOTO_HTML . '">
+						<img class="header" src="' . TITLE_HTML . '">
+						<img class="header" src="' . STAMP_HTML . '">
 					</div>
 					<div class="visible-xs" style="display:inline-block;">
-						<img class="header-mobile" src="img/header/Title-small.png">
+						<img class="header-mobile" src="' . TITLE_SMALL_HTML . '">
 					</div>
 					<br>
 					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
@@ -50,12 +52,12 @@ function headerHTML() {
 					</div>
 					<br>
 					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
-						<a href="index.php" type="button" class="btn btn-default" style="background: #EFEAFF;">
+						<a href="' . ROOT_HTML . 'index.php" type="button" class="btn btn-default" style="background: #EFEAFF;">
 							<span class="buttontext">
 								Art
 							</span>
 						</a>
-						<a href="bio.php" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+						<a href="' . ROOT_HTML . 'bio.php" type="button" class="btn btn-default" style="background: #EFEAFF; ">
 							<span class="buttontext">
 								Bio
 							</span>

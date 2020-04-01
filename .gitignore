@@ -10,10 +10,12 @@ js/
 
 connection.php
 admin/connection.php
-admin/Stamp.png
+admin/stamp.png
 admin/phpinfo.php
 admin/test*
 admin/delete.php
 admin/reset.php
+*artpiece*
+pathsnew.php
 
 sys/

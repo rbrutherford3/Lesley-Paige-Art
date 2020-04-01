@@ -1,8 +1,8 @@
 <?php
-include_once('filenames.php');
-include_once('connection.php');
-include_once('functions.php');
-include_once('reset.php'); // destroy session for good measure
+include_once 'reset.php'; // destroy session for good measure
+require_once '../paths.php';
+require_once 'connection.php';
+require_once 'functions.php';
 
 // "Sequence" form processing
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		$db->commit();
 	}
 
-	header("Location: sequence.php");
+	header('Location: ' . ADMIN_HTML . 'sequence.php');
 	die();
 }
 
@@ -106,10 +106,10 @@ else {
 <html>
 	<head>
 		<title>Edit art pieces</title>
-		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
-		<script type="text/javascript" src="sequence.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
+		<script type="text/javascript" src="' .  ADMIN_HTML . 'sequence.js"></script>
 	</head>
 	<body>
 		<div class="page">
@@ -166,8 +166,8 @@ else {
 		$name = $row['name'];
 		$sequence = $row['sequence'];
 		$filename = $row['filename'];
-		$thumbnail = $thumbnailspath . $filename . '.' . $ext;
-		$thumbnailHTML = $thumbnailspathHTML . $filename . '.' . $ext;
+		$thumbnail = THUMBNAILS . $filename . '.' . EXT;
+		$thumbnailHTML = THUMBNAILS_HTML . $filename . '.' . EXT;
 
 		// Create "published"/"unpublished" containers if first of each type
 		if (($count == 1) && ($numpublished > 0)) {
@@ -200,7 +200,7 @@ else {
 						<input type="hidden" name="sequence[' . $id . ']" id="sequence' . $id . '" value="' . ($count > $numpublished ? '' : $count ) . '">
 						<input type="hidden" name="changed[' . $id . ']" id="changed' . $id . '" value="' . ($mismatch ? '1' : '0') . '">
 						<div class="thumbnail">
-							<a href="artinfo.php?id=' . $id . '">
+							<a href="' . ADMIN_HTML . 'artinfo.php?id=' . $id . '">
 								<div>
 									<img class="thumbnail" src="' . $thumbnailHTML . '">
 								</div>
@@ -248,7 +248,7 @@ else {
 	// Float the submit button so it is always visible
 	echo '
 				<div class="float">
-					<a href="upload.php"><input type="button" value="Add new artpiece"></a>
+					<a href="' . ADMIN_HTML . 'upload.php"><input type="button" value="Add new artpiece"></a>
 					<br>
 					<input type="submit" id="submit" value="Submit unsaved changes" ' . $invisibleHTML . '>
 				</div>

@@ -1,17 +1,17 @@
 <?php
 	session_start();
-	include_once('filenames.php');
-	include_once('functions.php');
+	require_once '../paths.php';
+	require_once 'functions.php';
 	$filename = $_SESSION['upload']['dirname'];
 	$filepath = $_SESSION['upload']['dirpathds'];
 	$imagick = new Imagick();
-	$imagick->readImage($filepath . $filenameextformatted);
+	$imagick->readImage($filepath . UPLOAD_FORMATTED . '.' . EXT);
 
 	if($_SERVER['REQUEST_METHOD'] == "POST") {
 		$angle = $_POST['angle'];
 		$imagick->rotateImage("#000", (int)$angle);
-		$imagick->writeImage($filepath . $filenameextformatted);
-		header("Location: crop.php");
+		$imagick->writeImage($filepath . UPLOAD_FORMATTED . '.' . EXT);
+		header('Location: ' . ADMIN_HTML . 'crop.php');
 		die();
 	}
 	else {
@@ -34,24 +34,24 @@
 <html>
 	<head>
 		<title>Crop image' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . $cssmainpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $csstextpath . '">
-		<link rel="stylesheet" type="text/css" href="' . $cssadminpath . '">
-		<script type="text/javascript" src="rotate.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
+		<script type="text/javascript" src="' . ADMIN_HTML . 'rotate.js"></script>
 	</head>
 	<body>
 		<div class="page">
 			<h1>Rotate piece:</h1>
 			<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="rotateform" method="POST">
 				<p>
-					Click image to rotate, click submit when complete
+					Click image to rotate, click button when complete
 				</p>
 				<div class="box-child">
-					<img class="thickborder" src="upload/' . rawurlencode($filename) . '/' . rawurlencode($filenameextformatted) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
+					<img class="thickborder" src="' . UPLOAD_HTML . rawurlencode($filename) . '/' . rawurlencode(UPLOAD_FORMATTED . '.' . EXT) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
 				</div>
 				<input type="hidden" name="angle" id="angle" value=0>
 				<div class="float">
-					<input type="submit" name="submit">
+					<input type="submit" name="submit" value="Apply Rotation">
 				</div>
 			</form>
 		</div>

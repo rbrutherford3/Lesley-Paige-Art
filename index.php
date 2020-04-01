@@ -1,10 +1,12 @@
 <!-- 
-Site designed by Robert Rutherford, 2014 - 2019
+Site designed by Robert Rutherford, 2014 - 2020
  -->
 <?php
-include 'connection.php';
-include 'header.php';
-include 'footer.php';
+
+require_once 'paths.php';
+require_once 'connection.php';
+require_once 'header.php';
+require_once 'footer.php';
 
 $names = array();
 $rows = array();

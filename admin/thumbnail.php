@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	include_once('filenames.php');
+	require_once '../paths.php';
 	$filepath = $_SESSION['upload']['dirpathds'];
 	$imagick = new Imagick();
-	$imagick->readImage($filepath . $filenameextcropped);
+	$imagick->readImage($filepath . UPLOAD_CROPPED . '.' . EXT);
 	$dimensions = $imagick->getImageGeometry();
 	$width = $dimensions['width'];
 	$height = $dimensions['height'];
@@ -16,8 +16,8 @@
 		$newheight = (int)(250/$width*$height);
 	}
 	$imagick->resizeImage($newwidth, $newheight, imagick::FILTER_SINC, 1);
-	$imagick->setImageFormat($extresized);
-	$imagick->writeImage($filepath . $filenameextthumbnail);
-	header("Location: artinfo.php");
+	$imagick->setImageFormat(EXT);
+	$imagick->writeImage($filepath . UPLOAD_THUMBNAIL . '.' . EXT);
+	header('Location: ' . ADMIN_HTML . 'artinfo.php');
 	die();
 ?>

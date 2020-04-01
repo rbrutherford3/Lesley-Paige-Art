@@ -2,15 +2,17 @@
 Site designed by Robert Rutherford, 2014 - 2019
  -->
  <?php
-include	'header.php';
-include 'footer.php';
+
+require_once 'paths.php';
+require_once 'header.php';
+require_once 'footer.php';
 
 headerHTML('Bio');
 echo '
 			<div class = "row">
 				<div class = "page">
 					<center>
-						<img class="photo" src = "img/photo.jpg">
+						<img class="photo" src = "' . PHOTO_FULL_HTML . '">
 					</center>
 					<p>Lesley Paige Rutherford grew up in McLean, Virginia, a suburb of Washington DC.  Her mother exposed her to art at a young age.   Lesley took several art classes as a child, including courses at the Corcoran Gallery of Art.  Once in college, at Denison University in Ohio, Lesley decided to major in Studio Art with an emphasis in photography.  She graduated from Denison in 1997.</p>
 					<p>In 1998, Lesley moved to Los Angeles.  Although she created a series of paintings during this time period, she decided to pursue a career in education.  She earned her teaching credential and a Master of Arts in special education from California State University, Los Angeles.  Lesley was hired as an elementary school teacher in Los Angeles.</p>
