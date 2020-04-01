@@ -16,7 +16,7 @@
 	$imagick->resizeImage($newwidth, $newheight, imagick::FILTER_SINC, 1);
 	$imagick->setImageFormat(EXT);
 	$imagick->writeImage($filepath . UPLOAD_FORMATTED . '.' . EXT);
-	header('Location: ' . ADMIN_HTML . 'rotate.php');
+	header('Location: ' . ADMIN['html'] . 'rotate.php');
 	die();
 
 	function autorotate(Imagick $image) {

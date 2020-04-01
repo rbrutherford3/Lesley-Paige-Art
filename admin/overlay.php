@@ -5,7 +5,7 @@
 	$imagick1 = new Imagick();
 	$imagick2 = new Imagick();
 	$imagick1->readImage($filepath . UPLOAD_CROPPED . '.' . EXT);
-	$imagick2->readImage(STAMP_FULL);
+	$imagick2->readImage(STAMP_FULL['sys']);
 	$dimensions1 = $imagick1->getImageGeometry();
 	$width1 = $dimensions1['width'];
 	$height1 = $dimensions1['height'];
@@ -30,6 +30,6 @@
 	$imagick1->setImageFormat(EXT);
 	$imagick1->writeImage($filepath . UPLOAD_WATERMARKED . '.' . EXT);
 	//echo '<img src="upload/' . $filename . ' (cropped, stamp).jpg">';
-	header('Location: ' . ADMIN_HTML . 'thumbnail.php');
+	header('Location: ' . ADMIN['html'] . 'thumbnail.php');
 	die();
 ?>

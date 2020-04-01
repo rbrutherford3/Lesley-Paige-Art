@@ -40,8 +40,8 @@ echo '
 echo	'						<br> */
 echo '
 						<p>
-							<a href = "' . ROOT_HTML . 'artfull.php?id=' . $id . '">
-								<img class = "art" src = "' . THUMBNAILS_HTML . $filename . '.' . EXT . '" alt = "', $name, '">
+							<a href = "' . ROOT['html'] . 'artfull.php?id=' . $id . '">
+								<img class = "art" src = "' . THUMBNAILS['html'] . $filename . '.' . EXT . '" alt = "', $name, '">
 							</a>
 						</p>
 						<h1>', $name, '</h1>

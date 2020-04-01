@@ -11,7 +11,7 @@
 		$angle = $_POST['angle'];
 		$imagick->rotateImage("#000", (int)$angle);
 		$imagick->writeImage($filepath . UPLOAD_FORMATTED . '.' . EXT);
-		header('Location: ' . ADMIN_HTML . 'crop.php');
+		header('Location: ' . ADMIN['html'] . 'crop.php');
 		die();
 	}
 	else {
@@ -34,10 +34,10 @@
 <html>
 	<head>
 		<title>Crop image' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
-		<script type="text/javascript" src="' . ADMIN_HTML . 'rotate.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<script type="text/javascript" src="' . ADMIN['html'] . 'rotate.js"></script>
 	</head>
 	<body>
 		<div class="page">
@@ -47,7 +47,7 @@
 					Click image to rotate, click button when complete
 				</p>
 				<div class="box-child">
-					<img class="thickborder" src="' . UPLOAD_HTML . rawurlencode($filename) . '/' . rawurlencode(UPLOAD_FORMATTED . '.' . EXT) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
+					<img class="thickborder" src="' . UPLOAD['html'] . rawurlencode($filename) . '/' . rawurlencode(UPLOAD_FORMATTED . '.' . EXT) . '" id="image" width="' .  $dispW. '" height="' . $dispH . '" onclick="rotate();">
 				</div>
 				<input type="hidden" name="angle" id="angle" value=0>
 				<div class="float">

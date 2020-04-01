@@ -18,6 +18,6 @@
 	$imagick->resizeImage($newwidth, $newheight, imagick::FILTER_SINC, 1);
 	$imagick->setImageFormat(EXT);
 	$imagick->writeImage($filepath . UPLOAD_THUMBNAIL . '.' . EXT);
-	header('Location: ' . ADMIN_HTML . 'artinfo.php');
+	header('Location: ' . ADMIN['html'] . 'artinfo.php');
 	die();
 ?>

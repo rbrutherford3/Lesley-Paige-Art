@@ -18,7 +18,7 @@
 		$imagick->cropImage($width-$left-$right, $height-$top-$bottom, $left, $top);
 		$imagick->writeImage($filepath . UPLOAD_CROPPED . '.' . EXT);
 		//echo '<img src="upload/' . $filename . ' (cropped).jpg">';
-		header('Location: ' . ADMIN_HTML . 'overlay.php');
+		header('Location: ' . ADMIN['html'] . 'overlay.php');
 		die();
 	}
 	else {
@@ -48,10 +48,10 @@
 <html>
 	<head>
 		<title>Crop image' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
-		<script type="text/javascript" src="' . ADMIN_HTML . 'crop.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<script type="text/javascript" src="' . ADMIN['html'] . 'crop.js"></script>
 	</head>
 	<body>
 		<div class="page">
@@ -76,7 +76,7 @@
 				<p>
 					<div class="grid-container">
 						<div class="grid-item item-middle">
-							<img class="thickborder below" src="' . UPLOAD_HTML . rawurlencode($filename) . '/' . rawurlencode(UPLOAD_FORMATTED . '.' . EXT) . '" width="' .  $dispW . '" height="' . $dispH . '" id="image" alt="' . $filename . '">
+							<img class="thickborder below" src="' . UPLOAD['html'] . rawurlencode($filename) . '/' . rawurlencode(UPLOAD_FORMATTED . '.' . EXT) . '" width="' .  $dispW . '" height="' . $dispH . '" id="image" alt="' . $filename . '">
 							<canvas class="above" id="canvas" width="' .  $dispW . '" height="' . $dispH . '"></canvas>
 						</div>
 						<div class="grid-item item-top">

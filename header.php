@@ -20,22 +20,22 @@ function headerHTML() {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Lesley Paige Art', ($hasTitle ? ' - ' . $title : '') , '</title>
-		<link href="' . BOOTSTRAP_CSS_HTML . '" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
-		<link rel="SHORTCUT ICON" href="' . FAVICON_HTML . '">
+		<link href="' . BOOTSTRAP_CSS['html'] . '" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
+		<link rel="SHORTCUT ICON" href="' . FAVICON['html'] . '">
 	</head>
 	<body>
 		<div class = "container" style = "background-color: #000000;">
 			<div class = "row">
 				<div class="header">
 					<div class="hidden-xs" style="display:inline-block;">
-						<img class="header" src="' . PHOTO_HTML . '">
-						<img class="header" src="' . TITLE_HTML . '">
-						<img class="header" src="' . STAMP_HTML . '">
+						<img class="header" src="' . PHOTO['html'] . '">
+						<img class="header" src="' . TITLE['html'] . '">
+						<img class="header" src="' . STAMP['html'] . '">
 					</div>
 					<div class="visible-xs" style="display:inline-block;">
-						<img class="header-mobile" src="' . TITLE_SMALL_HTML . '">
+						<img class="header-mobile" src="' . TITLE_SMALL['html'] . '">
 					</div>
 					<br>
 					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
@@ -52,12 +52,12 @@ function headerHTML() {
 					</div>
 					<br>
 					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
-						<a href="' . ROOT_HTML . 'index.php" type="button" class="btn btn-default" style="background: #EFEAFF;">
+						<a href="' . ROOT['html'] . 'index.php" type="button" class="btn btn-default" style="background: #EFEAFF;">
 							<span class="buttontext">
 								Art
 							</span>
 						</a>
-						<a href="' . ROOT_HTML . 'bio.php" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+						<a href="' . ROOT['html'] . 'bio.php" type="button" class="btn btn-default" style="background: #EFEAFF; ">
 							<span class="buttontext">
 								Bio
 							</span>

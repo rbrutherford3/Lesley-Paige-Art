@@ -18,7 +18,7 @@ $name = $row['name'];
 $filename = $row['filename'];
 
 headerHTML($name);
-echo '<img class="fullsize" src="', WATERMARKED_HTML, $filename, '.', EXT, '">';
+echo '<img class="fullsize" src="', WATERMARKED['html'], $filename, '.', EXT, '">';
 footerHTML();
 
 ?>

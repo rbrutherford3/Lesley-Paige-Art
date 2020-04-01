@@ -1,136 +1,134 @@
 <?php
 
 function definepaths() {
-	$ds = DIRECTORY_SEPARATOR;
-	$dsHTML = '/';
-	$svrroot = $_SERVER['DOCUMENT_ROOT'];
-	if (substr(__DIR__, -1) == $ds) {
+	
+	// Determine root path and root HTML path (gets complicated when server root or root is system root)
+	if (substr(__DIR__, -1) == DIRECTORY_SEPARATOR) {
 		$root = __DIR__;
-		$rootHTML = $dsHTML;
+		$rootHTML = '/';
 	}
 	else {
-		$root = __DIR__ . $ds;
-		if (substr($svrroot, -1) == $ds) {
-			$dirstart = strlen($svrroot) - 1;
+		$root = __DIR__ . DIRECTORY_SEPARATOR;
+		if (substr($_SERVER['DOCUMENT_ROOT'], -1) == DIRECTORY_SEPARATOR) {
+			$dirstart = strlen($_SERVER['DOCUMENT_ROOT']) - 1;
 		}
 		else {
-			$dirstart = strlen($svrroot);
+			$dirstart = strlen($_SERVER['DOCUMENT_ROOT']);
 		}
-		$rootHTML = str_replace($ds, $dsHTML, substr($root, $dirstart));
+		$rootHTML = str_replace(DIRECTORY_SEPARATOR, '/', substr($root, $dirstart));
 	}
+
+	// Default extension for image files
+	define('EXT', 'png');
 	
-	$ext = 'png';
+	// Main paths;
+	define('ROOT', [
+		'sys' => $root,
+		'html' => $rootHTML
+		]);
+	define('IMG', [
+		'sys' => ROOT['sys'] . 'img' . DIRECTORY_SEPARATOR,
+		'html' => ROOT['html'] . 'img' . '/'
+		]);
+	define('HEADER', [
+		'sys' => IMG['sys'] . 'header' . DIRECTORY_SEPARATOR,
+		'html' => IMG['html'] . 'header' . '/'
+		]);
+	define('CSS', [
+		'sys' => ROOT['sys'] . 'css' . DIRECTORY_SEPARATOR,
+		'html' => ROOT['html'] . 'css' . '/'
+		]);
+	define('JS', [
+		'sys' => ROOT['sys'] . 'js' . DIRECTORY_SEPARATOR,
+		'html' => ROOT['html'] . 'js' . '/'
+		]);
+	define('ADMIN', [
+		'sys' => ROOT['sys'] . 'admin' . DIRECTORY_SEPARATOR,
+		'html' => ROOT['html'] . 'admin' . '/'
+		]);
+	define('UPLOAD', [
+		'sys' => ADMIN['sys'] . 'upload' . DIRECTORY_SEPARATOR,
+		'html' => ADMIN['html'] . 'upload' . '/'
+		]);
 
-	$img = $root . 'img' . $ds;
-	$imgHTML = $rootHTML . 'img' . $dsHTML;
-	$header = $img . 'header' . $ds;
-	$headerHTML = $imgHTML . 'header' . $dsHTML;
-	$css = $root . 'css' . $ds;
-	$cssHTML = $rootHTML . 'css' . $dsHTML;
-	$js = $root . 'js' . $ds;
-	$jsHTML = $rootHTML . 'js' . $dsHTML;
-	$admin = $root . 'admin' . $ds;
-	$adminHTML = $rootHTML . 'admin' . $dsHTML;
-	$upload = $admin . 'upload' . $ds;
-	$uploadHTML = $adminHTML . 'upload' . $dsHTML;
-
-	$cssmain = $css . 'main.css';
-	$cssmainHTML = $cssHTML . 'main.css';
-	$csstext = $css . 'text.css';
-	$csstextHTML = $cssHTML . 'text.css';
-	$cssadmin = $admin . 'admin.css';
-	$cssadminHTML = $adminHTML . 'admin.css';
-	$bootstrapcss = $css . 'bootstrap.min.css';
-	$bootstrapcssHTML = $cssHTML . 'bootstrap.min.css';
-	$bootstrapjs = $js . 'bootstrap.min.js';
-	$bootstrapjsHTML = $jsHTML . 'bootstrap.min.js';
+	// CSS files:
+	define('CSS_MAIN', [
+		'sys' => CSS['sys'] . 'main.css',
+		'html' => CSS['html'] . 'main.css'
+		]);
+	define('CSS_TEXT', [
+		'sys' => CSS['sys'] . 'text.css',
+		'html' => CSS['html'] . 'text.css'
+		]);
+	define('CSS_ADMIN', [
+		'sys' => ADMIN['sys'] . 'admin.css',
+		'html' => ADMIN['html'] . 'admin.css'
+		]);
 	
-	$stampfull = $admin . 'stamp.png';
-	$stampfullHTML = $adminHTML . 'stamp.png';
+	//Bootstrap files:
+	define('BOOTSTRAP_CSS', [
+		'sys' => CSS['sys'] . 'bootstrap.min.css',
+		'html' => CSS['html'] . 'bootstrap.min.css'
+		]);
+	define('BOOTSTRAP_JS', [
+		'sys' => JS['sys'] . 'bootstrap.min.js',
+		'html' => JS['html'] . 'bootstrap.min.js'
+		]);
 
-	$favicon = $img . 'favicon.ico';
-	$faviconHTML = $imgHTML . 'favicon.ico';
-	$photofull = $img . 'photo.jpg';
-	$photofullHTML = $imgHTML . 'photo.jpg';
-
-	$photo = $header . 'photo.png';
-	$photoHTML = $headerHTML . 'photo.png';
-	$stamp = $header . 'stamp.png';
-	$stampHTML = $headerHTML . 'stamp.png';
-	$title = $header . 'title.png';
-	$titleHTML = $headerHTML . 'title.png';
-	$titlesmall = $header . 'titlesmall.png';
-	$titlesmallHTML = $headerHTML . 'titlesmall.png';
-
-	$originals = $img . 'originals' . $ds;
-	$originalsHTML = $imgHTML . 'originals' . $dsHTML;
-	$formatted = $img . 'formatted' . $ds;
-	$formmatedHTML = $imgHTML . 'formatted' . $dsHTML;
-	$cropped = $img . 'cropped' . $ds;
-	$croppedHTML = $imgHTML . 'cropped' . $dsHTML;
-	$watermarked = $img . 'watermarked' . $ds;
-	$watermarkedHTML = $imgHTML . 'watermarked' . $dsHTML;
-	$thumbnails = $img . 'thumbnails' . $ds;
-	$thumbnailsHTML = $imgHTML . 'thumbnails' . $dsHTML;
-
-	define('DS', $ds);
-	define('DS_HTML', $dsHTML);
-	define('EXT', $ext);
-
-	define('ROOT', $root);
-	define('ROOT_HTML', $rootHTML);
-	define('IMG', $img);
-	define('IMG_HTML', $imgHTML);
-	define('HEADER', $header);
-	define('HEADER_HTML', $headerHTML);
-	define('CSS', $css);
-	define('CSS_HTML', $cssHTML);
-	define('JS', $js);
-	define('JS_HTML', $jsHTML);
-	define('ADMIN', $admin);
-	define('ADMIN_HTML', $adminHTML);
-	define('UPLOAD', $upload);
-	define('UPLOAD_HTML', $uploadHTML);
-
-	define('CSS_MAIN', $cssmain);
-	define('CSS_MAIN_HTML', $cssmainHTML);
-	define('CSS_TEXT', $csstext);
-	define('CSS_TEXT_HTML', $csstextHTML);
-	define('CSS_ADMIN', $cssadmin);
-	define('CSS_ADMIN_HTML', $cssadminHTML);
-	define('BOOTSTRAP_CSS', $bootstrapcss);
-	define('BOOTSTRAP_CSS_HTML', $bootstrapcssHTML);
-	define('BOOTSTRAP_JS', $bootstrapjs);
-	define('BOOTSTRAP_JS_HTML', $bootstrapjsHTML);
+	//Header files
+	define('PHOTO', [
+		'sys' => HEADER['sys'] . 'photo.png',
+		'html' => HEADER['html'] . 'photo.png'
+		]);
+	define('STAMP', [
+		'sys' => HEADER['sys'] . 'stamp.png',
+		'html' => HEADER['html'] . 'stamp.png'
+		]);
+	define('TITLE', [
+		'sys' => HEADER['sys'] . 'title.png',
+		'html' => HEADER['html'] . 'title.png'
+		]);
+	define('TITLE_SMALL', [
+		'sys' => HEADER['sys'] . 'titlesmall.png',
+		'html' => HEADER['html'] . 'titlesmall.png'
+		]);
 	
-	define('STAMP_FULL', $stampfull);
-	define('STAMP_FULL_HTML', $stampfullHTML);	
+	// Art image paths:
+	define('ORIGINALS', [
+		'sys' => IMG['sys'] . 'originals' . DIRECTORY_SEPARATOR,
+		'html' => IMG['html'] . 'originals' . '/'
+		]);
+	define('FORMATTED', [
+		'sys' => IMG['sys'] . 'formatted' . DIRECTORY_SEPARATOR,
+		'html' => IMG['html'] . 'formatted' . '/'
+		]);
+	define('CROPPED', [
+		'sys' => IMG['sys'] . 'cropped' . DIRECTORY_SEPARATOR,
+		'html' => IMG['html'] . 'cropped' . '/'
+		]);
+	define('WATERMARKED', [
+		'sys' => IMG['sys'] . 'watermarked' . DIRECTORY_SEPARATOR,
+		'html' => IMG['html'] . 'watermarked' . '/'
+		]);	
+	define('THUMBNAILS', [
+		'sys' => IMG['sys'] . 'thumbnails' . DIRECTORY_SEPARATOR,
+		'html' => IMG['html'] . 'thumbnails' . '/'
+		]);	
 
-	define('FAVICON', $favicon);
-	define('FAVICON_HTML', $faviconHTML);
-	define('PHOTO_FULL', $photofull);
-	define('PHOTO_FULL_HTML', $photofullHTML);
-
-	define('PHOTO', $photo);
-	define('PHOTO_HTML', $photoHTML);
-	define('STAMP', $stamp);
-	define('STAMP_HTML', $stampHTML);
-	define('TITLE', $title);
-	define('TITLE_HTML', $titleHTML);
-	define('TITLE_SMALL', $titlesmall);
-	define('TITLE_SMALL_HTML', $titlesmallHTML);
-
-	define('ORIGINALS', $originals);
-	define('ORIGINALS_HTML', $originalsHTML);
-	define('FORMATTED', $formatted);
-	define('FORMATTED_HTML', $formmatedHTML);
-	define('CROPPED', $cropped);
-	define('CROPPED_HTML', $croppedHTML);
-	define('WATERMARKED', $watermarked);
-	define('WATERMARKED_HTML', $watermarkedHTML);
-	define('THUMBNAILS', $thumbnails);
-	define('THUMBNAILS_HTML', $thumbnailsHTML);
-	
+	//Miscellaeous:
+	define('STAMP_FULL', [
+		'sys' => ADMIN['sys'] . 'stamp.png',
+		'html' => ADMIN['html'] . 'stamp.png'
+		]);
+	define('FAVICON', [
+		'sys' => IMG['sys'] . 'favicon.ico',
+		'html' => IMG['html'] . 'favicon.ico'
+		]);
+	define('PHOTO_FULL', [
+		'sys' => IMG['sys'] . 'photo.jpg',
+		'html' => IMG['html'] . 'photo.jpg'
+		]);	
+		
 	//TEMPORARY:
 	define('UPLOAD_ORIGINAL', 'original');
 	define('UPLOAD_FORMATTED','formatted');

@@ -33,11 +33,11 @@
 			checkunique($db, 'filename', $_SESSION['artinfo']['filename'], $id);
 			checkunique($db, 'etsy', $_SESSION['artinfo']['etsy'], $id);
 			checkunique($db, 'fineartamerica', $_SESSION['artinfo']['fineartamerica'], $id);
-			header('Location: ' . ADMIN_HTML . 'confirmartinfo.php');
+			header('Location: ' . ADMIN['html'] . 'confirmartinfo.php');
 		}
 		elseif (isset($_POST['image_x'])) {
 			// SAVE SESSION VARIABLES, IF NECESSARY
-			header('Location: ' . ADMIN_HTML . 'upload.php');
+			header('Location: ' . ADMIN['html'] . 'upload.php');
 			die();
 		}
 		die();
@@ -101,12 +101,12 @@
 		//SET UP FILE INFORMATION:
 		if (isset($_SESSION['upload'])) {
 			$extoriginal = $_SESSION['upload']['extoriginal'];
-			$thumbnailHTML = UPLOAD_HTML . $_SESSION['upload']['dirname'] . '/' . UPLOAD_THUMBNAIL . '.' . EXT;
+			$thumbnailHTML = UPLOAD['html'] . $_SESSION['upload']['dirname'] . '/' . UPLOAD_THUMBNAIL . '.' . EXT;
 			$_SESSION['thumbnailHTML'] = $thumbnailHTML;
 		}
 		elseif (isset($_SESSION['database'])) {
 			$extoriginal = $_SESSION['database']['extoriginal'];
-			$thumbnailHTML = THUMBNAILS_HTML . $_SESSION['database']['filename'] . '.' . EXT;
+			$thumbnailHTML = THUMBNAILS['html'] . $_SESSION['database']['filename'] . '.' . EXT;
 			$_SESSION['thumbnailHTML'] = $thumbnailHTML;
 		}
 		else {
@@ -127,10 +127,10 @@
 <html>
 	<head>
 		<title>Enter information' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
-		<script type="text/javascript" src="' . ADMIN_HTML . 'validateform.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<script type="text/javascript" src="' . ADMIN['html'] . 'validateform.js"></script>
 	</head>
 	<body>
 		<div class="page">
@@ -205,10 +205,10 @@
 			if ($stmt->rowCount() > 0) {
 				$_SESSION['infoerror'] = $value . ' already exists as an entry for another artpiece, please try again.';
 				if (is_null($id)) {	// to maintain URL only, not necessary if $_SESSION['id'] is set
-					header('Location: ' . ADMIN_HTML . 'artinfo.php');
+					header('Location: ' . ADMIN['html'] . 'artinfo.php');
 				}
 				else {
-					header('Location: ' . ADMIN_HTML . 'artinfo.php?id=' . $id);
+					header('Location: ' . ADMIN['html'] . 'artinfo.php?id=' . $id);
 				}
 				die();
 			}

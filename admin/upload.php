@@ -38,8 +38,8 @@
 			}
 			if (empty($errors)==true) {
 				$filenamenew = createfilename($filename);
-				$filepath = UPLOAD . $filenamenew;
-				$filepathds = $filepath . DS;
+				$filepath = UPLOAD['sys'] . $filenamenew;
+				$filepathds = $filepath . DIRECTORY_SEPARATOR;
 				if (file_exists($filepath)) {
 					die("This file or one with the same name previously uploaded, but not processed");
 				}
@@ -51,7 +51,7 @@
 							$_SESSION['upload']['extoriginal'] = $fileext;
 							$_SESSION['upload']['dirpath'] = $filepath;
 							$_SESSION['upload']['dirpathds'] = $filepathds;
-							header('Location: ' . ADMIN_HTML . 'resize.php');
+							header('Location: ' . ADMIN['html'] . 'resize.php');
 							die();
 						} else {
 							die("There was an error uploading the image");
@@ -101,9 +101,9 @@
 <html>
 	<head>
 		<title>Upload an image file' . (isset($title) ? ' for ' . $title : '') . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
 	</head>
 	<body>
 		<div class="page">

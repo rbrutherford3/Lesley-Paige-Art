@@ -94,7 +94,7 @@
 			$rowid = $stmtid->fetch();
 			$_SESSION['newid'] = $rowid['lastid'];
 		}
-		header('Location:' . ADMIN_HTML . 'movefiles.php');
+		header('Location:' . ADMIN['html'] . 'movefiles.php');
 		die();
 	}
 	else {
@@ -102,10 +102,10 @@
 <html>
 	<head>
 		<title>Confirm information for "' . $_SESSION['artinfo']['name'] . '"</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT_HTML . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN_HTML . '">
-		<script type="text/javascript" src="' . ADMIN_HTML . 'validateform.js"></script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<script type="text/javascript" src="' . ADMIN['html'] . 'validateform.js"></script>
 	</head>
 	<body>
 		<div class="page">

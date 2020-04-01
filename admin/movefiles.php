@@ -13,21 +13,21 @@
 		$filenamefulloriginalold = $filenameold . '.' . $extoriginalold;
 
 		if (isset($_SESSION['upload'])) {
-			removefile(ORIGINALS . $filenamefulloriginalold);
-			removefile(FORMATTED . $filenamefullold);
-			removefile(CROPPED . $filenamefullold);
-			removefile(WATERMARKED . $filenamefullold);
-			removefile(THUMBNAILS . $filenamefullold);
+			removefile(ORIGINALS['sys'] . $filenamefulloriginalold);
+			removefile(FORMATTED['sys'] . $filenamefullold);
+			removefile(CROPPED['sys'] . $filenamefullold);
+			removefile(WATERMARKED['sys'] . $filenamefullold);
+			removefile(THUMBNAILS['sys'] . $filenamefullold);
 		}
 		else {
 			if ($filenameold != $filename) {
 				$filenamefulloriginal = $filename . '.' . $extoriginalold;
 
-				movefile(ORIGINALS . $filenamefulloriginalold, ORIGINALS . $filenamefulloriginal, false);
-				movefile(FORMATTED . $filenamefullold, FORMATTED . $filenamefull, false);
-				movefile(CROPPED . $filenamefullold, CROPPED . $filenamefull, false);
-				movefile(WATERMARKED . $filenamefullold, WATERMARKED . $filenamefull, false);
-				movefile(THUMBNAILS . $filenamefullold, THUMBNAILS . $filenamefull, false);
+				movefile(ORIGINALS['sys'] . $filenamefulloriginalold, ORIGINALS['sys'] . $filenamefulloriginal, false);
+				movefile(FORMATTED['sys'] . $filenamefullold, FORMATTED['sys'] . $filenamefull, false);
+				movefile(CROPPED['sys'] . $filenamefullold, CROPPED['sys'] . $filenamefull, false);
+				movefile(WATERMARKED['sys'] . $filenamefullold, WATERMARKED['sys'] . $filenamefull, false);
+				movefile(THUMBNAILS['sys'] . $filenamefullold, THUMBNAILS['sys'] . $filenamefull, false);
 			}
 		}
 	}
@@ -38,11 +38,11 @@
 		$extoriginal = $_SESSION['upload']['extoriginal'];
 		$filenamefulloriginal = $filename . '.' . $extoriginal;
 
-		movefile($uploadedpathds . UPLOAD_ORIGINAL . '.' . $extoriginal, ORIGINALS . $filenamefulloriginal, true);
-		movefile($uploadedpathds . UPLOAD_FORMATTED . '.' . EXT, FORMATTED . $filenamefull, true);
-		movefile($uploadedpathds . UPLOAD_CROPPED . '.' . EXT, CROPPED . $filenamefull, true);
-		movefile($uploadedpathds . UPLOAD_WATERMARKED . '.' . EXT, WATERMARKED . $filenamefull, true);
-		movefile($uploadedpathds . UPLOAD_THUMBNAIL . '.' . EXT, THUMBNAILS . $filenamefull, true);
+		movefile($uploadedpathds . UPLOAD_ORIGINAL . '.' . $extoriginal, ORIGINALS['sys'] . $filenamefulloriginal, true);
+		movefile($uploadedpathds . UPLOAD_FORMATTED . '.' . EXT, FORMATTED['sys'] . $filenamefull, true);
+		movefile($uploadedpathds . UPLOAD_CROPPED . '.' . EXT, CROPPED['sys'] . $filenamefull, true);
+		movefile($uploadedpathds . UPLOAD_WATERMARKED . '.' . EXT, WATERMARKED['sys'] . $filenamefull, true);
+		movefile($uploadedpathds . UPLOAD_THUMBNAIL . '.' . EXT, THUMBNAILS['sys'] . $filenamefull, true);
 
 		removefolder($uploadedpath, true);
 	}
@@ -53,6 +53,6 @@
 
 	session_destroy();
 	$_SESSION = array();
-	echo '<script>window.location = "' . ADMIN_HTML . 'sequence.php#' . $id . '";</script>';
+	echo '<script>window.location = "' . ADMIN['html'] . 'sequence.php#' . $id . '";</script>';
 
 ?>
