@@ -39,19 +39,6 @@ function headerHTML() {
 					</div>
 					<br>
 					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
-						<a target="_blank" href="http://fineartamerica.com/profiles/1-lesley-rutherford.html" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-							<span class="buttontext">
-								fineartamerica.com
-							</span>
-						</a>
-						<a target="_blank" href="https://www.etsy.com/people/LesleyPaige" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-							<span class="buttontext">
-								etsy.com
-							</span>
-						</a>
-					</div>
-					<br>
-					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
 						<a href="' . ROOT['html'] . 'index.php" type="button" class="btn btn-default" style="background: #EFEAFF;">
 							<span class="buttontext">
 								Art
@@ -62,11 +49,23 @@ function headerHTML() {
 								Bio
 							</span>
 						</a>
-						<a target="_blank" href="mailto:lesleypaigerutherford@gmail.com" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+						<a target="_blank" href="mailto:art@lesleypaige.com" type="button" class="btn btn-default" style="background: #EFEAFF; ">
 							<span class="buttontext">
 								E-mail
 							</span>
 						</a>
+						<a target="_blank" href="https://fineartamerica.com/profiles/1-lesley-rutherford.html" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+							<span class="buttontext">
+								fineartamerica.com
+							</span>
+						</a>
+						<!--
+						<a target="_blank" href="https://www.etsy.com/people/LesleyPaige" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+							<span class="buttontext">
+								etsy.com
+							</span>
+						</a>
+						-->
 					</div>
 				</div>
 			</div>';

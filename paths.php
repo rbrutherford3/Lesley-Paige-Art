@@ -1,5 +1,11 @@
 <?php
 
+// Set global variables for common paths and files, set error reporting
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 function definepaths() {
 	
 	// Determine root path and root HTML path (gets complicated when server root or root is system root)
@@ -19,7 +25,12 @@ function definepaths() {
 	}
 
 	// Default extension for image files
-	define('EXT', 'png');
+	define('EXT', 'jpg');
+	define('FORMATTED_DIMENSION', 600);
+	define('THUMBNAIL_DIMENSION', 250);
+	define('WATERMARK_TRANSPARENCY', 0.2);
+	define('WATERMARK_FILL', 0.9);
+	define('MAX_PIXELS', 800*800);
 	
 	// Main paths;
 	define('ROOT', [
@@ -50,8 +61,12 @@ function definepaths() {
 		'sys' => ADMIN['sys'] . 'upload' . DIRECTORY_SEPARATOR,
 		'html' => ADMIN['html'] . 'upload' . '/'
 		]);
+	define('TMP', [
+		'sys' => IMG['sys'] . 'tmp' . DIRECTORY_SEPARATOR,
+		'html' => IMG['html'] . 'tmp' . '/'
+		]);
 
-	// CSS files:
+	// CSS files
 	define('CSS_MAIN', [
 		'sys' => CSS['sys'] . 'main.css',
 		'html' => CSS['html'] . 'main.css'
@@ -92,33 +107,45 @@ function definepaths() {
 		'sys' => HEADER['sys'] . 'titlesmall.png',
 		'html' => HEADER['html'] . 'titlesmall.png'
 		]);
-	
+		
 	// Art image paths:
 	define('ORIGINALS', [
 		'sys' => IMG['sys'] . 'originals' . DIRECTORY_SEPARATOR,
 		'html' => IMG['html'] . 'originals' . '/'
 		]);
-	define('FORMATTED', [
-		'sys' => IMG['sys'] . 'formatted' . DIRECTORY_SEPARATOR,
-		'html' => IMG['html'] . 'formatted' . '/'
-		]);
-	define('CROPPED', [
-		'sys' => IMG['sys'] . 'cropped' . DIRECTORY_SEPARATOR,
-		'html' => IMG['html'] . 'cropped' . '/'
-		]);
+	
 	define('WATERMARKED', [
 		'sys' => IMG['sys'] . 'watermarked' . DIRECTORY_SEPARATOR,
 		'html' => IMG['html'] . 'watermarked' . '/'
-		]);	
+		]);
 	define('THUMBNAILS', [
 		'sys' => IMG['sys'] . 'thumbnails' . DIRECTORY_SEPARATOR,
 		'html' => IMG['html'] . 'thumbnails' . '/'
-		]);	
+		]);
+
+	// Upload image paths:
+	define('UPLOAD_ORIGINALS', [
+		'sys' => UPLOAD['sys'] . 'originals' . DIRECTORY_SEPARATOR,
+		'html' => UPLOAD['html'] . 'originals' . '/'
+		]);
+	
+	define('UPLOAD_WATERMARKED', [
+		'sys' => UPLOAD['sys'] . 'watermarked' . DIRECTORY_SEPARATOR,
+		'html' => UPLOAD['html'] . 'watermarked' . '/'
+		]);
+	define('UPLOAD_THUMBNAILS', [
+		'sys' => UPLOAD['sys'] . 'thumbnails' . DIRECTORY_SEPARATOR,
+		'html' => UPLOAD['html'] . 'thumbnails' . '/'
+		]);
 
 	//Miscellaeous:
 	define('STAMP_FULL', [
 		'sys' => ADMIN['sys'] . 'stamp.png',
 		'html' => ADMIN['html'] . 'stamp.png'
+		]);
+	define('STAMP_SVG', [
+		'sys' => ADMIN['sys'] . 'stamp.svg',
+		'html' => ADMIN['html'] . 'stamp.svg'
 		]);
 	define('FAVICON', [
 		'sys' => IMG['sys'] . 'favicon.ico',
@@ -128,13 +155,14 @@ function definepaths() {
 		'sys' => IMG['sys'] . 'photo.jpg',
 		'html' => IMG['html'] . 'photo.jpg'
 		]);	
-		
-	//TEMPORARY:
-	define('UPLOAD_ORIGINAL', 'original');
-	define('UPLOAD_FORMATTED','formatted');
-	define('UPLOAD_CROPPED', 'cropped');
-	define('UPLOAD_WATERMARKED', 'watermarked');
-	define('UPLOAD_THUMBNAIL', 'thumbnail');
+	define('NOT_FOUND', [
+		'sys' => ADMIN['sys'] . 'notfound.jpg',
+		'html' => ADMIN['html'] . 'notfound.jpg'
+		]);
+	define('NOT_FOUND_LARGE', [
+		'sys' => ADMIN['sys'] . 'notfoundlarge.jpg',
+		'html' => ADMIN['html'] . 'notfoundlarge.jpg'
+		]);				
 }
 
 definepaths();

@@ -4,7 +4,7 @@ Site designed by Robert Rutherford, 2014 - 2020
 <?php
 
 require_once 'paths.php';
-require_once 'connection.php';
+require_once 'database.php';
 require_once 'header.php';
 require_once 'footer.php';
 
@@ -12,6 +12,7 @@ $names = array();
 $rows = array();
 $ids = array();
 
+$db = database::connect();
 $sql = "SELECT *
     FROM `info`
 	WHERE `sequence` IS NOT NULL

@@ -1,5 +1,4 @@
 img/
-img (retired)/
 admin/upload/
 
 css/bootstrap*
@@ -8,14 +7,13 @@ js/
 
 .git-ftp-ignore
 
-connection.php
-admin/connection.php
-admin/stamp.png
-admin/phpinfo.php
-admin/test*
-admin/delete.php
-admin/reset.php
-*artpiece*
-pathsnew.php
+admin/stamp*
+admin/notfound*
+admin/test/
 
 sys/
+
+credentials*.php
+admin/credentials*.php
+
+css/main.php

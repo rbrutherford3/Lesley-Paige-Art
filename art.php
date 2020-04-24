@@ -4,9 +4,11 @@ Site designed by Robert Rutherford, 2014 - 2019
  <?php
 
 require_once 'paths.php';
-require_once 'connection.php';
+require_once 'database.php';
 require_once 'header.php';
 require_once 'footer.php';
+
+$db = database::connect();
 
 $id = $_GET["id"];
 
@@ -31,6 +33,25 @@ $famlink = $row['fineartamerica'];
 $etsylink = $row['etsy'];
 $filename = $row['filename'];
 
+switch($row['sold']) {
+	case 0:
+		$sold = 'Not for sale';
+		$price = NULL;
+		break;
+	case 1:
+		$sold = 'For sale';
+		$price = '$' . $row['price'];
+		break;
+	case 2:
+		$sold = 'Sold';
+		$price = NULL;
+		break;
+	default:
+		$soldstatus = NULL;
+		$price = NULL;
+}
+
+
 headerHTML($name);
 echo '
 			<div class = "row">
@@ -51,36 +72,49 @@ echo '
 							</p>
 							<p>
 								', $widthInteger, $widthFraction, ' x ', $heightInteger, $heightFraction, ' inches
-							</p>
+							</p>';
+if (!is_null($sold)) {
+	echo '
+							<p>
+								' . $sold . (is_null($price) ? '' : ': ' . $price);
+	if (!is_null($price)) {
+		echo '
+								<br>
+								Please email for purchase information';
+	}
+	echo '
+							</p>';
+}
+echo '
 						</b>
 					</center>
 					<p>
 						', $desc, '
-					</p>
+					</p>';
+if (!is_null($famlink)) {
+	echo '
 					<center>
 						<p>
 							Purchase original, prints, or various other products of this piece from:
-							<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px; font-family: Century Gothic, sans-serif;">';
-if (!is_null($famlink)) {
-	echo '
+							<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px; font-family: Century Gothic, sans-serif;">
 								<a target="_blank" href="', $famlink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
 									<span class="buttontext">
 										fineartamerica.com
 									</span>
 								</a>';
-}
-if (!is_null($etsylink)) {
+// if (!is_null($etsylink)) {
+//	echo '
+//								<a target="_blank" href="', $etsylink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+//									<span class="buttontext">
+//										etsy.com
+//									</span>
+//								</a>';
 	echo '
-								<a target="_blank" href="', $etsylink , '" type="button" class="btn btn-default" style="background: #EFEAFF; ">
-									<span class="buttontext">
-										etsy.com
-									</span>
-								</a>';
-}
-echo '
 							</div>
 						</p>
-					</center>
+					</center>';
+}
+echo '
 				</div>
 			</div>';
 footerHTML();

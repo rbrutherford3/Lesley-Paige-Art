@@ -1,10 +1,11 @@
 <?php
 
 require_once 'paths.php';
-require_once 'connection.php';
+require_once 'database.php';
 require_once 'header.php';
 require_once 'footer.php';
 
+$db = database::connect();
 $id = $_GET['id'];
 $sql = "SELECT `name`, `filename` FROM `info` WHERE `id` = :id;";
 $stmt = $db->prepare($sql);
