@@ -102,7 +102,6 @@
 <html>
 	<head>
 		<title>' . $title . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
 		<script type="text/javascript" src="' . ADMIN['html'] . 'crop.js"></script>
 	</head>

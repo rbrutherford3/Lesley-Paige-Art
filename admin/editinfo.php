@@ -143,7 +143,6 @@
 <html>
 	<head>
 		<title>' . $title . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
 	</head>
 	<body>

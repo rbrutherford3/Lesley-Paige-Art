@@ -108,7 +108,6 @@
 <html>
 	<head>
 		<title>Edit art pieces</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
 		<script type="text/javascript" src="' .  ADMIN['html'] . 'sequence.js"></script>
 	</head>
