@@ -144,7 +144,7 @@ class image {
 		$height = $dimensions['height'];
 		$newwidth = (int)($width*$scalefactor);
 		$newheight = (int)($height*$scalefactor);
-		$image->scaleImage($newwidth, $newheight, true);
+		$image->resizeImage($newwidth, $newheight, imagick::FILTER_SINC, 1);
 	}
 
 	// IMAGE MANIPULATION FUNCTIONS

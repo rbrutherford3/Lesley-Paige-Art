@@ -45,6 +45,10 @@ function definepaths() {
 		'sys' => IMG['sys'] . 'header' . DIRECTORY_SEPARATOR,
 		'html' => IMG['html'] . 'header' . '/'
 		]);
+	define('FONTS', [
+		'sys' => ROOT['sys'] . 'fonts' . DIRECTORY_SEPARATOR,
+		'html' => ROOT['html'] . 'fonts' . '/'
+		]);
 	define('CSS', [
 		'sys' => ROOT['sys'] . 'css' . DIRECTORY_SEPARATOR,
 		'html' => ROOT['html'] . 'css' . '/'
@@ -68,12 +72,16 @@ function definepaths() {
 
 	// CSS files
 	define('CSS_MAIN', [
-		'sys' => CSS['sys'] . 'main.css',
-		'html' => CSS['html'] . 'main.css'
+		'sys' => CSS['sys'] . 'main.php',
+		'html' => CSS['html'] . 'main.php'
+		]);
+	define('CSS_LESLEY', [
+		'sys' => FONTS['sys'] . 'Lesley.css',
+		'html' => FONTS['html'] . 'Lesley.css'
 		]);
 	define('CSS_TEXT', [
-		'sys' => CSS['sys'] . 'text.css',
-		'html' => CSS['html'] . 'text.css'
+		'sys' => CSS['sys'] . 'text.php',
+		'html' => CSS['html'] . 'text.php'
 		]);
 	define('CSS_ADMIN', [
 		'sys' => ADMIN['sys'] . 'admin.css',
@@ -162,7 +170,11 @@ function definepaths() {
 	define('NOT_FOUND_LARGE', [
 		'sys' => ADMIN['sys'] . 'notfoundlarge.jpg',
 		'html' => ADMIN['html'] . 'notfoundlarge.jpg'
-		]);				
+		]);
+	define('HSL2RGB', [
+		'sys' => ADMIN['sys'] . 'hsl2rgb.php',
+		'html' => ADMIN['html'] . 'hsl2rgb.php'
+		]);
 }
 
 definepaths();

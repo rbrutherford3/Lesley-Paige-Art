@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'Lesley';
+	src: url('Lesley.eot');
+	src: url('Lesley.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/Lesley.woff2') format('woff2'),
+		url('../fonts/Lesley.woff') format('woff'),
+		url('../fonts/Lesley.ttf') format('truetype'), 
+		url('../fonts/Lesley.svg#Lesley') format('svg'),
+		url('../fonts/Lesley.otf') format('opentype');
+}

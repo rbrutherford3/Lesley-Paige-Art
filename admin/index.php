@@ -23,6 +23,9 @@
 		<p>
 			<a href="' . ADMIN['html'] . 'sequence.php"><input type="button" value="Edit existing pieces"></a>
 		</p>
+		<p>
+			<a href="' . ADMIN['html'] . 'style.php"><input type="button" value="Change page style"></a>
+		</p>
 	</body>
 </html>';
 

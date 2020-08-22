@@ -15,5 +15,3 @@ sys/
 
 credentials*.php
 admin/credentials*.php
-
-css/main.php

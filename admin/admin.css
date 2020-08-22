@@ -1,7 +1,12 @@
+
 /* Styles associated with large images and their structure (when rotating or cropping, for example) */
 
 input[type=number]{
 	width: 50px;
+}
+
+input[type=range]{
+	width: 400px;
 }
 
 .thickborder {
@@ -118,4 +123,57 @@ div.thumbnail {
 
 .error {
 	color: red;
+}
+
+.colorpreview {
+	display: block;
+	width: 100px;
+	height: 100px;
+	border: 1px solid black;
+}
+
+.stylepreview {
+	display: block;
+	width: 250px;
+	height: 250px;
+	border: 50px solid;
+	margin: 20px 0px;
+	text-align: center;
+}
+
+.dropdown {
+	position: relative;
+	border: 1px solid black;
+	background-color: WhiteSmoke;
+	padding: 5px;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: WhiteSmoke;
+	box-shadow: 0px  8px 16px 0px rgba(0,0,0,0.5);
+	border: 1px solid gray;
+	padding: 15px;
+	z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown-preview {
+	display: flex;
+	width: 200px;
+	height: 50px;
+	border: 10px solid;
+	margin: 5px 0px;
+	justify-content: center;
+	align-items: center;
+}
+
+a:link, a:visited, a:hover, a:active {
+	color: black;
+	text-decoration: none;
 }

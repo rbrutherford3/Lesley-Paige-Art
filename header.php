@@ -21,12 +21,13 @@ function headerHTML() {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Lesley Paige Art', ($hasTitle ? ' - ' . $title : '') , '</title>
 		<link href="' . BOOTSTRAP_CSS['html'] . '" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '">
-		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_MAIN['html'] . '?' . time() . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_LESLEY['html'] . '?' . time() . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_TEXT['html'] . '?' . time() . '">
 		<link rel="SHORTCUT ICON" href="' . FAVICON['html'] . '">
 	</head>
 	<body>
-		<div class = "container" style = "background-color: #000000;">
+		<div class = "container bgcolor">
 			<div class = "row">
 				<div class="header">
 					<div class="hidden-xs" style="display:inline-block;">
