@@ -26,6 +26,9 @@
 		<p>
 			<a href="' . ADMIN['html'] . 'style.php"><input type="button" value="Change page style"></a>
 		</p>
+		<p>
+			<a href="' . ADMIN['html'] . 'bio.php"><input type="button" value="Edit biography"></a>
+		</p>
 	</body>
 </html>';
 
