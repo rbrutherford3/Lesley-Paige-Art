@@ -46,14 +46,27 @@
 	<head>
 		<title>' . $title . '</title>
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<script type="text/javascript">
+			var isHuman = function() {
+				if (grecaptcha.getResponse() == "") {
+					alert("Please prove you\'re not a robot by checking the box");
+					return false;
+				}
+				else {
+					return true;
+				}
+			};
+		</script>
 	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="bioform" method="POST">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="bioform" method="POST" onsubmit="return isHuman();">
 		<h1>' . $title . '</h1>
 			<h3>Please separate paragraphs with a blank line</h3>
 			<p>
 				<textarea name="bio" id="bio" style="resize: none;" rows="30" cols="100">' . htmlspecialchars_decode(htmlspecialchars_decode($bio)) . '</textarea>
 			</p>
+			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
 			<input type="submit" name="submit" value="Save">
 		</form>
 	</body>

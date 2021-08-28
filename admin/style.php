@@ -131,10 +131,22 @@
 		<link rel="stylesheet" type="text/css" href="' . CSS_LESLEY['html'] . '">
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
 		<script type="text/javascript" src="style.js"></script>
+		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<script type="text/javascript">
+			var isHuman = function() {
+				if (grecaptcha.getResponse() == "") {
+					alert("Please prove you\'re not a robot by checking the box");
+					return false;
+				}
+				else {
+					return true;
+				}
+			};
+		</script>
 	</head>
 	<body>
 		<h1>' . $title . ':</h1>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="colorpicker" method="POST" onkeydown="return event.key != \'Enter\';">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="colorpicker" method="POST" onkeydown="return event.key != \'Enter\';"  onsubmit="return isHuman();">
 			<h2>Previous styles</h2>
 				<div class="dropdown">
 					Select previous style &#9660;
@@ -222,10 +234,11 @@
 		echo '
 				</div>
 			<h2>Preview:</h2>
-				<div class="stylepreview" id="preview">
-					<h1 id="primaryfontpreview">Heading:</h1>
-					<p id="secondaryfontpreview">The quick brown fox jumps ovwr the lazy dog.  The quick brown fox jumps over the lazy dog.</p>
-				</div>
+			<div class="stylepreview" id="preview">
+				<h1 id="primaryfontpreview">Heading:</h1>
+				<p id="secondaryfontpreview">The quick brown fox jumps ovwr the lazy dog.  The quick brown fox jumps over the lazy dog.</p>
+			</div>
+			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
 			<input type="submit" value="Submit">
 		</form>
 	</body>

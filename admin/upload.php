@@ -127,6 +127,18 @@
 	<head>
 		<title>' . $title . '</title>
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<script type="text/javascript">
+			var isHuman = function() {
+				if (grecaptcha.getResponse() == "") {
+					alert("Please prove you\'re not a robot by checking the box");
+					return false;
+				}
+				else {
+					return true;
+				}
+			};
+		</script>
 	</head>
 	<body>
 		<h1>' . $title . '</h1>';
@@ -142,11 +154,12 @@
 		</span>';
 		}
 		echo '
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST" enctype="multipart/form-data">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST" enctype="multipart/form-data" onsubmit="return isHuman();">
 			<h2>Upload file:</h2>
 			<p>
 				<input type="file" name="image" onchange="getElementById(\'upload\').disabled = false;">
 			</p>
+			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
 			<p>
 				<input type="submit" name="upload" id="upload" value="Upload" disabled="disabled">
 			</p>';

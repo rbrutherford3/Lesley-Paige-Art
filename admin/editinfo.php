@@ -144,9 +144,21 @@
 	<head>
 		<title>' . $title . '</title>
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<script type="text/javascript">
+			var isHuman = function() {
+				if (grecaptcha.getResponse() == "") {
+					alert("Please prove you\'re not a robot by checking the box");
+					return false;
+				}
+				else {
+					return true;
+				}
+			};
+		</script>		
 	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoform" method="POST">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoform" method="POST" onsubmit="return isHuman();">
 		<h1>' . $title . '</h1>
 		<h2>Edit image:<h2>';
 		// If there's no image file, don't try to display one
@@ -232,7 +244,8 @@
 				<input type="text" name="fineartamerica" id="fineartamerica" value="' . $fineartamerica . '" size="40"' . $disabled . '>
 				' . ($errorsfineartamerica ? '<span class="error">' . $errorsfineartamerica . '</span>' : '') . '
 			</p>
-			<input type="submit" name="submit" value="Save"' . $disabled . '>
+			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
+			<input type="submit" name="submit" value="Save"' . $disabled . ' onreturn>
 		</form>
 	</body>
 </html>';
