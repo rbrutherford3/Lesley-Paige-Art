@@ -1,5 +1,15 @@
-img/
-admin/upload/
+img/originals/*
+!img/originals/.git-keep
+img/watermarked/*
+!img/watermarked/.git-keep
+img/thumbnails/*
+!img/thumbnails/.git-keep
+admin/upload/originals/*
+!admin/upload/originals/.git-keep
+admin/upload/watermarked/*
+!admin/upload/watermarked/.git-keep
+admin/upload/thumbnails/*
+!admin/upload/thumbnails/.git-keep
 
 css/bootstrap*
 fonts/glyphicons*
