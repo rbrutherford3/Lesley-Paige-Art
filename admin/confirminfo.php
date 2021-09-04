@@ -7,6 +7,7 @@
 
 	require_once '../paths.php';
 	require_once 'artpiece.php';
+	require_once 'recaptcha.php';
 
 	session_start();
 
@@ -21,6 +22,9 @@
 
 	// Upon confrmation, move files and commit information to database
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		
+		recaptcha::verify('g-recaptcha-response');
+		
 		$_SESSION['artpiece']->movefiles();
 		$_SESSION['artpiece']->setdb();
 		header('Location: ' . ADMIN['html'] . 'sequence.php#' . $_SESSION['artpiece']->getid());
@@ -46,11 +50,13 @@
 <html>
 	<head>
 		<title>' . $title . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">';
+		echo recaptcha::javascript('artinfoconfirm', false);
+		echo '
 	</head>
 	<body>
 		<h1>' . $title . ':</h1>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoconfirm" method="POST">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoconfirm" id="artinfoconfirm" method="POST">
 			<p>
 				<img src="' . $_SESSION['artpiece']->getfile()->getthumbnailHTML() . '">
 			</p>
@@ -100,8 +106,9 @@
 				' . (is_null($info['fineartamerica']) ? '<i>none</i>' : $info['fineartamerica']) . '
 			</p>
 			<p>
-				<a href="' . ADMIN['html'] . 'editinfo.php"><input type="button" value="Re-edit"></a>
-				<input type="submit" name="submit" value="Confirm">
+				<a href="' . ADMIN['html'] . 'editinfo.php"><input type="button" value="Re-edit"></a>';
+			echo recaptcha::submitbutton('confirmartinfosubmit', 'Confirm', 'submit', false);
+			echo '
 			</p>
 		</form>
 	</body>

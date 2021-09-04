@@ -5,6 +5,7 @@
 
 	require_once '../paths.php';
 	require_once 'artpiece.php';
+	require_once 'recaptcha.php';
 
 	session_start();
 
@@ -12,6 +13,10 @@
 		$_SESSION['artpiece'] = new artpiece();
 
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		
+		$resp = recaptcha::verify('token');
+		
+		$action = $resp->action;
 		
 		// Taking out trash (leftover processed but unmoved files)
 		$watermarked = glob(UPLOAD_WATERMARKED['sys'] . '*');
@@ -26,7 +31,7 @@
 		$deleted = false;
 		
 		// Delete previously uploaded file if selected, and raise 'deleted flag'
-		if (isset($_POST['delete'])) {
+		if ($action == "delete") {
 			if (!isset($_POST['filechoice'])) {
 				$errors[] = "No file selected for deletion";
 			}
@@ -38,7 +43,7 @@
 		
 		// Use previously uploaded file, if selected
 		// Bypasses most error-checking of a new upload
-		elseif (isset($_POST['select'])) {
+		elseif ($action == "select") {
 			if (!isset($_POST['filechoice'])) {
 				$errors[] = "No file selected for editing";
 			}
@@ -57,7 +62,7 @@
 		}
 		
 		// Process newly uploaded file
-		else {
+		elseif ($action == "upload") {
 			if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
 				// Grab all information from upload
 				$filename = pathinfo($_FILES['image']['name'], PATHINFO_FILENAME);
@@ -101,6 +106,9 @@
 			else
 				$errors[] = "Upload failure: " . $_FILES['image']['error'];
 		}
+		else {
+			$errors[] = "Invalid action selected";
+		}
 	}
 	
 	// Display page if not submitting, but also if no errors were found or if a deletion was chosen
@@ -126,19 +134,9 @@
 <html>
 	<head>
 		<title>' . $title . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
-		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
-		<script type="text/javascript">
-			var isHuman = function() {
-				if (grecaptcha.getResponse() == "") {
-					alert("Please prove you\'re not a robot by checking the box");
-					return false;
-				}
-				else {
-					return true;
-				}
-			};
-		</script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">';
+		echo recaptcha::javascript("uploadform", true);
+		echo '
 	</head>
 	<body>
 		<h1>' . $title . '</h1>';
@@ -154,14 +152,16 @@
 		</span>';
 		}
 		echo '
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST" enctype="multipart/form-data" onsubmit="return isHuman();">
+		<form id="uploadform" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST" enctype="multipart/form-data">';
+			echo recaptcha::tokeninput();
+			echo '
 			<h2>Upload file:</h2>
 			<p>
-				<input type="file" name="image" onchange="getElementById(\'upload\').disabled = false;">
+				<input type="file" id="image" name="image" onchange="document.getElementById(\'upload\').style.visibility = \'visible\';">
 			</p>
-			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
-			<p>
-				<input type="submit" name="upload" id="upload" value="Upload" disabled="disabled">
+			<p>';
+			echo recaptcha::submitbutton("upload", "Upload", "upload", true);
+			echo '
 			</p>';
 		if ($uploads) {	// Display uploaded but unprocessed files if they exist
 			echo '
@@ -169,14 +169,15 @@
 			foreach ($uploadedfiles as $file) {
 				echo  '
 			<p>
-				<input type="radio" name="filechoice" id="' . $file . '" value="' . $file . '" onchange="getElementById(\'delete\').disabled = false; getElementById(\'select\').disabled = false;">
+				<input type="radio" name="filechoice" id="' . $file . '" value="' . $file . '" onchange="getElementById(\'delete\').style.visibility=\'visible\'; getElementById(\'select\').style.visibility=\'visible\'";">
 				<label for="' . $file . '">' . basename($file) . '</label>
 			</p>';
 			}
 			echo '
-			<p>
-				<input type="submit" name="delete" id="delete" value="Delete" onclick="return confirm(\'Are you sure you want to delete this file?\');" disabled="disabled">
-				<input type="submit" name="select" id="select" value="Select" disabled="disabled">
+			<p>';
+			echo recaptcha::submitbutton("delete", "Delete", "delete", true);
+			echo recaptcha::submitbutton("select", "Select", "select", true);
+			echo '
 			</p>';
 		}
 		echo '

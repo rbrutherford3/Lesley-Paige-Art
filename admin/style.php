@@ -18,9 +18,13 @@
 	require_once 'database.php';
 	require_once '../paths.php';
 	require_once HSL2RGB['sys'];
+	require_once 'recaptcha.php';
 
 	// If saving...
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		
+		recaptcha::verify('g-recaptcha-response');
+		
 		// Grab values
 		$hue = $_POST['hue'];
 		$saturation = $_POST['saturation'];
@@ -66,7 +70,7 @@
 		// Return to main menu
 		header('Location: ' . ADMIN['html'] . 'index.php');
 	}
-	if (($_SERVER['REQUEST_METHOD'] != "POST") || (($_SERVER['REQUEST_METHOD'] != "POST") && (!empty($errors)))) {
+	else if (($_SERVER['REQUEST_METHOD'] != "POST") || (($_SERVER['REQUEST_METHOD'] == "POST") && (!empty($errors)))) {
 
 		// Get all fonts, their backup fonts, and font families
 		$db = database::connect();
@@ -130,23 +134,13 @@
 		<title>' . $title . '</title>
 		<link rel="stylesheet" type="text/css" href="' . CSS_LESLEY['html'] . '">
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
-		<script type="text/javascript" src="style.js"></script>
-		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
-		<script type="text/javascript">
-			var isHuman = function() {
-				if (grecaptcha.getResponse() == "") {
-					alert("Please prove you\'re not a robot by checking the box");
-					return false;
-				}
-				else {
-					return true;
-				}
-			};
-		</script>
+		<script type="text/javascript" src="style.js"></script>';
+		echo recaptcha::javascript('styleform', false);
+		echo '
 	</head>
 	<body>
 		<h1>' . $title . ':</h1>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="colorpicker" method="POST" onkeydown="return event.key != \'Enter\';"  onsubmit="return isHuman();">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="styleform" id="styleform" method="POST" onkeydown="return event.key != \'Enter\';">
 			<h2>Previous styles</h2>
 				<div class="dropdown">
 					Select previous style &#9660;
@@ -238,8 +232,10 @@
 				<h1 id="primaryfontpreview">Heading:</h1>
 				<p id="secondaryfontpreview">The quick brown fox jumps ovwr the lazy dog.  The quick brown fox jumps over the lazy dog.</p>
 			</div>
-			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
-			<input type="submit" value="Submit">
+			<p>';
+			echo recaptcha::submitbutton('styleformsubmit', 'Save', 'submit', false);
+			echo '
+			</p>
 		</form>
 	</body>
 </html>';

@@ -2,11 +2,14 @@
 	include_once 'reset.php'; // destroy session for good measure
 	require_once '../paths.php';
 	require_once 'database.php';
+	require_once 'recaptcha.php';
 
 	$db = database::connect();
 
 	// "Sequence" form processing
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		
+		recaptcha::verify('g-recaptcha-response');
 
 		// Only do anything if there were any changes
 		if ($_POST['anychanged']) {
@@ -109,23 +112,13 @@
 	<head>
 		<title>Edit art pieces</title>
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
-		<script type="text/javascript" src="' .  ADMIN['html'] . 'sequence.js"></script>
-		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
-		<script type="text/javascript">
-			var isHuman = function() {
-				if (grecaptcha.getResponse() == "") {
-					alert("Please prove you\'re not a robot by checking the box");
-					return false;
-				}
-				else {
-					return true;
-				}
-			};
-		</script>		
+		<script type="text/javascript" src="' .  ADMIN['html'] . 'sequence.js"></script>';
+	echo recaptcha::javascript('sequenceform', false);
+	echo '
 	</head>
 	<body>
 		<h1>Edit artwork (click a title to edit an individual piece):</h1>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="sequence" method="POST" onsubmit="return isHuman();">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="sequenceform" id="sequenceform" method="POST" onsubmit="return isHuman();">
 			<input type="hidden" name="numpublished" id="numpublished" value="' . $numpublished . '">
 			<input type="hidden" name="numunpublished" id="numunpublished" value="' . $numunpublished . '">
 			<input type="hidden" name="anychanged" id="anychanged" value="0">';
@@ -263,11 +256,9 @@
 				<p>
 					<a href="' . ADMIN['html'] . 'upload.php"><input type="button" value="Add new artpiece"></a>
 				</p>
-				<p>
-					<div class="g-recaptcha" id="recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e" ' . $invisibleHTML . '></div>
-				</p>
-				<p>
-					<input type="submit" id="submit" value="Submit unsaved changes" ' . $invisibleHTML . '>
+				<p>';
+	echo recaptcha::submitbutton('sequenceformsubmit', 'Submit unsaved changes', 'submit', true);
+	echo '
 				</p>
 			</div>
 		</form>

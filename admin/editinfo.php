@@ -7,6 +7,7 @@
 
 	require_once '../paths.php';
 	require_once 'artpiece.php';
+	require_once 'recaptcha.php';
 
 	session_start();
 
@@ -30,6 +31,9 @@
 
 	// Upon submission, validate inputs and save them
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		
+		recaptcha::verify('g-recaptcha-response');
+		
 		// Grab all fields
 		$name = $_POST['name'];
 		$width = $_POST['width'];
@@ -143,22 +147,12 @@
 <html>
 	<head>
 		<title>' . $title . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
-		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
-		<script type="text/javascript">
-			var isHuman = function() {
-				if (grecaptcha.getResponse() == "") {
-					alert("Please prove you\'re not a robot by checking the box");
-					return false;
-				}
-				else {
-					return true;
-				}
-			};
-		</script>		
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">';
+		echo recaptcha::javascript('artinfoform', false);
+		echo '
 	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoform" method="POST" onsubmit="return isHuman();">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="artinfoform" id="artinfoform" method="POST" onsubmit="return isHuman();">
 		<h1>' . $title . '</h1>
 		<h2>Edit image:<h2>';
 		// If there's no image file, don't try to display one
@@ -243,9 +237,9 @@
 				<br>
 				<input type="text" name="fineartamerica" id="fineartamerica" value="' . $fineartamerica . '" size="40"' . $disabled . '>
 				' . ($errorsfineartamerica ? '<span class="error">' . $errorsfineartamerica . '</span>' : '') . '
-			</p>
-			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
-			<input type="submit" name="submit" value="Save"' . $disabled . ' onreturn>
+			</p>';
+			echo recaptcha::submitbutton('artinfosubmit', 'Save', 'submit', false);
+			echo '
 		</form>
 	</body>
 </html>';

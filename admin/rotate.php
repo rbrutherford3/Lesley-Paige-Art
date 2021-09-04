@@ -7,6 +7,7 @@
 
 	require_once '../paths.php';
 	require_once 'artpiece.php';
+	require_once 'recaptcha.php';
 
 	session_start();
 
@@ -17,6 +18,9 @@
 
 	// Process submitted rotated image
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		
+		recaptcha::verify('g-recaptcha-response');
+		
 		$angle = $_POST['angle'];	// Get angle 
 		
 		// Add rotation to storef rotation (if it exists) and only allow 0, 90, 180, or 270 degree values
@@ -51,11 +55,13 @@
 	<head>
 		<title>' . $title . '</title>
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
-		<script type="text/javascript" src="' . ADMIN['html'] . 'rotate.js"></script>
+		<script type="text/javascript" src="' . ADMIN['html'] . 'rotate.js"></script>';
+		echo recaptcha::javascript('rotateform', false);
+		echo '
 	</head>
 	<body>
 		<h1>' . $title . ':</h1>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="rotateform" method="POST">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="rotateform" id="rotateform" method="POST">
 			<p>
 				Click image to rotate, click button when complete
 			</p>
@@ -63,8 +69,9 @@
 				<img src="' . $_SESSION['artpiece']->getfile()->getformattedHTML() . '" id="image" width="' . $width . '" height="' . $height . '" onclick="rotate(90);" style="border: 1px solid black;">
 			</div>
 			<input type="hidden" name="angle" id="angle" value=0>
-			<p>
-				<input type="submit" name="submit" value="Apply Rotation">
+			<p>';
+			echo recaptcha::submitbutton('rotatesubmit', 'Apply Rotation', 'submit', false);
+			echo '
 			</p>
 		</form>
 	</body>

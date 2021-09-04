@@ -4,9 +4,13 @@
 
 	require_once '../paths.php';
 	require_once 'database.php';
+	require_once 'recaptcha.php';
 
 	// Upon submission, save bio to database
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+		
+		recaptcha::verify('g-recaptcha-response');
+		
 		// Grab input
 		$bio = trim($_POST['bio']);
 		$db = database::connect();
@@ -45,29 +49,21 @@
 <html>
 	<head>
 		<title>' . $title . '</title>
-		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
-		<script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
-		<script type="text/javascript">
-			var isHuman = function() {
-				if (grecaptcha.getResponse() == "") {
-					alert("Please prove you\'re not a robot by checking the box");
-					return false;
-				}
-				else {
-					return true;
-				}
-			};
-		</script>
+		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">';
+		echo recaptcha::javascript('bioform', false);
+		echo '
 	</head>
 	<body>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="bioform" method="POST" onsubmit="return isHuman();">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="bioform" id="bioform" method="POST" onsubmit="return isHuman();">
 		<h1>' . $title . '</h1>
 			<h3>Please separate paragraphs with a blank line</h3>
 			<p>
 				<textarea name="bio" id="bio" style="resize: none;" rows="30" cols="100">' . htmlspecialchars_decode(htmlspecialchars_decode($bio)) . '</textarea>
 			</p>
-			<div class="g-recaptcha" data-sitekey="6LdbgCscAAAAAFHelEq7Q2QsaIFlzfZlhraGu5_e"></div>
-			<input type="submit" name="submit" value="Save">
+			<p>';
+			echo recaptcha::submitbutton('bioformsubmit', 'Save', 'submit', false);
+			echo '
+			</p>
 		</form>
 	</body>
 </html>';

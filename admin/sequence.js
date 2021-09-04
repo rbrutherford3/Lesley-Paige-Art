@@ -155,6 +155,5 @@ function setbuttonsvisilibity(div) {
 
 function changesmade() {
 	document.getElementById("anychanged").value = "true";
-	document.getElementById("submit").style.display = "block";
-	document.getElementById("recaptcha").style.display = "block";
+	document.getElementById("sequenceformsubmit").style.visibility = "visible";
 }

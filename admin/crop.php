@@ -10,6 +10,7 @@
 	
 	require_once '../paths.php';
 	require_once 'artpiece.php';
+	require_once 'recaptcha.php';
 
 	session_start();
 
@@ -35,7 +36,10 @@
 	}
 
 	// After submitting, store values
-	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		
+		recaptcha::verify('g-recaptcha-response');
+		
 		// Get crop margins (relative to original unrotated and unresized image)
 		$left = $_POST['left'];
 		$right = $_POST['right'];
@@ -103,11 +107,13 @@
 	<head>
 		<title>' . $title . '</title>
 		<link rel="stylesheet" type="text/css" href="' . CSS_ADMIN['html'] . '">
-		<script type="text/javascript" src="' . ADMIN['html'] . 'crop.js"></script>
+		<script type="text/javascript" src="' . ADMIN['html'] . 'crop.js"></script>';
+		echo recaptcha::javascript('cropform', false);
+		echo '
 	</head>
 	<body>
 		<h1>' . $title . ':</h1>
-		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="cropform" method="POST" onkeydown="return event.key != \'Enter\';">
+		<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" name="cropform" id="cropform" method="POST" onkeydown="return event.key != \'Enter\';">
 			<p>
 				Use the arrows to change the crop margins.  The "adjustment" setting changes the step size of one arrow click.
 			</p>
@@ -157,8 +163,9 @@
 					</div>
 				</div>
 			</p>
-			<p>
-				<input type="submit" value="Apply Crop">
+			<p>';
+			echo recaptcha::submitbutton('cropsubmit', 'Apply Crop', 'submit', false);
+			echo '
 			</p>
 		</form>
 	</body>
