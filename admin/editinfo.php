@@ -187,7 +187,7 @@
 			<p>
 				<label for="year">Year: </label>
 				<br>
-				<input type="number" name="year" id="year" step="1" value="' . $year . '" min="1975" max="' . date("Y") . '"' . $disabled . '>
+				<input type="number" name="year" id="year" step="1" value="' . $year . '" max="' . date("Y") . '"' . $disabled . '>
 				' . ($errorsyear ? '<span class="error">' . $errorsyear . '</span>' : '') . '
 			</p>
 			<p>
@@ -229,13 +229,13 @@
 			<p>
 				<label for="etsy">etsy.com URL:</label>
 				<br>
-				<input type="text" name="etsy" id="etsy" value="' . $etsy . '" size="40"' . $disabled . '>
+				<input type="text" name="etsy" id="etsy" value="' . $etsy . '" size="100"' . $disabled . '>
 				' . ($errorsetsy ? '<span class="error">' . $errorsetsy . '</span>' : '') . '
 			</p>
 				<p>
 				<label for="fineartamerica">fineartamerica.com URL:</label>
 				<br>
-				<input type="text" name="fineartamerica" id="fineartamerica" value="' . $fineartamerica . '" size="40"' . $disabled . '>
+				<input type="text" name="fineartamerica" id="fineartamerica" value="' . $fineartamerica . '" size="100"' . $disabled . '>
 				' . ($errorsfineartamerica ? '<span class="error">' . $errorsfineartamerica . '</span>' : '') . '
 			</p>';
 			echo recaptcha::submitbutton('artinfosubmit', 'Save', 'submit', false);

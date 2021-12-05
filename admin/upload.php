@@ -14,6 +14,8 @@
 
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		
+		echo '<script>function setcursor() { document.body.style.cursor = \'progress\'; } setcursor();</script>';
+		
 		$resp = recaptcha::verify('token');
 		
 		$action = $resp->action;

@@ -160,8 +160,8 @@ function definepaths() {
 		'html' => IMG['html'] . 'favicon.ico'
 		]);
 	define('PHOTO_FULL', [
-		'sys' => IMG['sys'] . 'photo.jpg',
-		'html' => IMG['html'] . 'photo.jpg'
+		'sys' => IMG['sys'] . 'photo.png',
+		'html' => IMG['html'] . 'photo.png'
 		]);	
 	define('NOT_FOUND', [
 		'sys' => ADMIN['sys'] . 'notfound.jpg',

@@ -64,7 +64,7 @@ echo '
 echo '
 							</ol>
 							<!-- Wrapper for slides -->
-							<div class="carousel-inner" role="listbox">';
+							<div class="carousel-inner" role="listbox" style="height: 375px;">';
 for ($i=0; $i<$n; $i++) {
 	if ($i==0) {
 		echo '

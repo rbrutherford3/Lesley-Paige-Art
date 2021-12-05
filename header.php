@@ -36,7 +36,7 @@ function headerHTML() {
 						<img class="header" src="' . STAMP['html'] . '">
 					</div>
 					<div class="visible-xs" style="display:inline-block;">
-						<img class="header-mobile" src="' . TITLE_SMALL['html'] . '">
+						<img class="header-mobile" src="' . TITLE['html'] . '">
 					</div>
 					<br>
 					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
@@ -50,7 +50,7 @@ function headerHTML() {
 								Bio
 							</span>
 						</a>
-						<a target="_blank" href="mailto:art@lesleypaige.com" type="button" class="btn btn-default" style="background: #EFEAFF; ">
+						<a target="_blank" href="mailto:lesleypaigeart@gmail.com" type="button" class="btn btn-default" style="background: #EFEAFF; ">
 							<span class="buttontext">
 								E-mail
 							</span>
