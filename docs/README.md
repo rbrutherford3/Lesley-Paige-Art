@@ -30,7 +30,7 @@ Server installations will vary from system to system and will not be discussed. 
 1. Install imagick for PHP on the server, if not already present.  **If your server doesn't have imagick installed, then the admin area of the site will not work.**
 1. Modify `php.ini` to increase the upload limit, the max memory allocation, and possibly the timeout limit.  *(Note: You may find that your web service does not allow this, or that you are experiencing problems even after raising these limits.  If this is the case, then your only other option is to reduce the size of an image prior to upload)*
 1. Test to make sure that MySQL and imagick are working before proceeding.
-1. Clone the [git project](https://github.com/robbie9485/Lesley-Paige.git) to a directory that your web service can access.
+1. Clone the [git project](https://github.com/rbrutherford3/Lesley-Paige.git) to a directory that your web service can access.
 1. Password protect the admin directory through your server.  (ex: on Apache2, create an `.htaccess` file in the admin folder and configure appropriately)
 1. Run the `data.sql` file to set up the database.  *(Note: you may wish to remove the data from `data.sql` and have it simply set up empty tables)*
 1. Create two users for MySQL: one for viewing (limited permissions), and one for the admin area (full permissions).  Dividing access between users isn't absolutely necessary, but highly recommended.
@@ -213,7 +213,7 @@ To test the admin area, however, one should:
 
 ## Deployment
 
-[lesleypaige.com](https://lesleypaige.com/), using [Hostinger](https://www.hostinger.com/) shared web hosting
+[lesleypaigeart.com](https://lesleypaigeart.com/), using [Hostinger](https://www.hostinger.com/) shared web hosting
 
 ## Built With
 
@@ -237,7 +237,7 @@ Robert Rutherford
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.txt](license.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details
 
 ## Acknowledgments
 
