@@ -11,7 +11,6 @@ function definepaths() {
 	// Determine root path and root HTML path (gets complicated when server root or root is system root)
 	if (substr(__DIR__, -1) == DIRECTORY_SEPARATOR) {
 		$root = __DIR__;
-		$rootHTML = '/';
 	}
 	else {
 		$root = __DIR__ . DIRECTORY_SEPARATOR;
@@ -21,8 +20,8 @@ function definepaths() {
 		else {
 			$dirstart = strlen($_SERVER['DOCUMENT_ROOT']);
 		}
-		$rootHTML = str_replace(DIRECTORY_SEPARATOR, '/', substr($root, $dirstart));
 	}
+	$rootHTML = abspathHTML();
 
 	// Default extension for image files
 	define('EXT', 'jpg');
@@ -178,5 +177,19 @@ function definepaths() {
 }
 
 definepaths();
+
+function abspathHTML () {
+    $ds = DIRECTORY_SEPARATOR;
+    $dsHTML = '/';
+	if (substr($_SERVER['REQUEST_URI'], strlen($_SERVER['REQUEST_URI'])-1, 1) == $dsHTML)
+		return $_SERVER['REQUEST_URI'];
+	else {
+		$dirpath = substr($_SERVER['REQUEST_URI'], 0, strlen($_SERVER['REQUEST_URI']) - strlen(basename($_SERVER['REQUEST_URI'])));
+		if (substr($dirpath, strlen($dirpath) - 6, 6) == "admin/")
+			return substr($dirpath, 0, strlen($dirpath) - 6);
+		else
+			return $dirpath;
+	}
+}
 
 ?>
