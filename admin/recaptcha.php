@@ -11,7 +11,7 @@ class recaptcha {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, [
-			'secret' => RECPATCHA_SECRET_KEY_V3,
+			'secret' => RECAPTCHA_SECRET_KEY_V3,
 			'response' => $_POST[$response_label],
 			'remoteip' => $_SERVER['REMOTE_ADDR']
 		]);
@@ -58,7 +58,7 @@ class recaptcha {
 					type="submit" 
 					name="' . $buttonname . '" 
 					id="' . $buttonname . '" 
-					data-sitekey="' . RECPATCHA_SITE_KEY_V3 . '" 
+					data-sitekey="' . RECAPTCHA_SITE_KEY_V3 . '" 
 					data-callback=\'onSubmit\' 
 					data-action=\'' . $action . '\'';
 		if ($hidden) {
