@@ -67,6 +67,11 @@ function headerHTML() {
 							</span>
 						</a>
 						-->
+						<a target="_blank" href="admin/index.php" type="button" class="btn btn-default" style="background: #FF4040; ">
+							<span class="buttontext">
+								ADMIN DEMO
+							</span>
+						</a>
 					</div>
 				</div>
 			</div>';
