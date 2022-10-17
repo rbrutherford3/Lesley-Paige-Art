@@ -21,3 +21,6 @@ sys/
 
 credentials*.php
 admin/credentials*.php
+
+data.sql
+new*.sql
