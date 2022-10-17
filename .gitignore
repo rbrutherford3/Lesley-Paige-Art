@@ -11,10 +11,6 @@ admin/upload/watermarked/*
 admin/upload/thumbnails/*
 !admin/upload/thumbnails/.git-keep
 
-css/bootstrap*
-fonts/glyphicons*
-js/
-
 .git-ftp-ignore
 
 admin/stamp*
