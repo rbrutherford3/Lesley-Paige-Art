@@ -13,7 +13,6 @@ admin/upload/thumbnails/*
 
 .git-ftp-ignore
 
-admin/stamp*
 admin/notfound*
 admin/test/
 
