@@ -23,3 +23,5 @@ admin/credentials*.php
 
 data.sql
 new*.sql
+
+admin/demo.php
