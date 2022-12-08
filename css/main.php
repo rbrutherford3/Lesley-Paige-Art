@@ -151,6 +151,13 @@ img.header {
 img.header-mobile {
 	text-align: center;
 	vertical-align: middle;
+	max-width: 100%;
+	width: auto;
+	height: auto;
+}
+
+img.title {
+	padding: 0px 5px;
 }
 
 img.art {

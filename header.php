@@ -31,12 +31,12 @@ function headerHTML() {
 			<div class = "row">
 				<div class="header">
 					<div class="hidden-xs" style="display:inline-block;">
-						<img class="header" src="' . PHOTO['html'] . '">
-						<img class="header" src="' . TITLE['html'] . '">
-						<img class="header" src="' . STAMP['html'] . '">
+						<img src="' . PHOTO['html'] . '">
+						<img class="title" src="' . TITLE['html'] . '">
+						<img src="' . STAMP['html'] . '">
 					</div>
 					<div class="visible-xs" style="display:inline-block;">
-						<img class="header-mobile" src="' . TITLE['html'] . '">
+						<img class="title header-mobile" src="' . TITLE['html'] . '">
 					</div>
 					<br>
 					<div class="btn-group" role="group" aria-label="..." style="margin-top: 5px">
