@@ -60,3 +60,7 @@ CREATE TABLE `style` (
   `secondaryfont` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `shuffle` (
+  `shuffle` tinyint(1) unsigned NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

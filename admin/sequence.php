@@ -63,6 +63,14 @@
 				}
 			}
 
+			// Update `shuffle` variable
+			$shuffle = (isset($_POST['shuffle']) ? 1 : 0);
+			$sqlshuffle = "UPDATE `shuffle` SET `shuffle`=:shuffle;";
+			$stmtshuffle = $db->prepare($sqlshuffle);
+			$stmtshuffle->bindValue(":shuffle", $shuffle, PDO::PARAM_INT);
+			if (!$stmtshuffle->execute())
+				die('Error executing query: ' . $db->errorInfo());
+
 			// Perform previous queries, all at once
 			$db->commit();
 		}
@@ -84,6 +92,16 @@
 	else {
 		echo '<script>alert("Database is empty");</script>';
 	}
+
+	// Grab `shuffle` option
+	$sqlshuffle = "SELECT `shuffle` FROM `shuffle`;";
+	$stmtshuffle = $db->prepare($sqlshuffle);
+	if(!$stmtshuffle->execute())
+		die("Error executing general query: " . $db->errorInfo());
+	if ($rowshuffle = $stmtshuffle->fetch(PDO::FETCH_ASSOC))
+		$shuffle = $rowshuffle['shuffle'];
+	else
+		die('Database entry for `shuffle` not found');
 
 	$db = NULL;
 
@@ -255,6 +273,9 @@
 			<div class="float">
 				<p>
 					<a href="' . ADMIN['html'] . 'upload.php"><input type="button" value="Add new artpiece"></a>
+				</p>
+				<p>
+					<input type="checkbox" id="shuffle" name="shuffle" onchange="changesmade();" ' . ($shuffle > 0 ? ' checked' : '' ) . '><label for="shuffle">Shuffle Sequence</label>
 				</p>
 				<p>';
 	echo recaptcha::submitbutton('sequenceformsubmit', 'Submit unsaved changes', 'submit', true);

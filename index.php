@@ -13,10 +13,26 @@ $rows = array();
 $ids = array();
 
 $db = database::connect();
-$sql = "SELECT *
-    FROM `info`
-	WHERE `sequence` IS NOT NULL
-	ORDER BY `sequence` ASC;";
+
+$sqlshuffle = "SELECT `shuffle` FROM `shuffle`;";
+$stmtshuffle = $db->prepare($sqlshuffle);
+if(!$stmtshuffle->execute())
+    die('There was an error running the query [' . $db->errorInfo() . ']');
+if ($rowshuffle = $stmtshuffle->fetch(PDO::FETCH_ASSOC))
+	$shuffle = $rowshuffle['shuffle'];
+else
+	die('Database entry for `shuffle` not found');
+
+if ($shuffle > 0)
+	$sql = "SELECT *
+		FROM `info`
+		WHERE `sequence` IS NOT NULL
+		ORDER BY RAND();";	
+else
+	$sql = "SELECT *
+		FROM `info`
+		WHERE `sequence` IS NOT NULL
+		ORDER BY `sequence` ASC;";
 $stmt = $db->prepare($sql);
 if(!$stmt->execute()){
     die('There was an error running the query [' . $db->errorInfo() . ']');
