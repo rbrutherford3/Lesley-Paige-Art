@@ -51,7 +51,8 @@ class artpiece {
 
 		$this->oldinfo = new artpieceinfo($row['name'], $row['width'],
 			$row['height'], $row['year'], $row['sold'], $row['price'],
-			$row['description'], $row['fineartamerica'], $row['etsy']);
+			$row['description'], $row['fineartamerica'], $row['etsy'],
+			$row['sequence']);
 		$this->oldfile = new artpiecefile(false, $row['filename'],
 			$row['md5'], $row['rotation'], $row['leftcrop'],
 			$row['rightcrop'], $row['topcrop'], $row['bottomcrop']);
@@ -74,7 +75,7 @@ class artpiece {
 			`fineartamerica` = :fineartamerica, `etsy` = :etsy, 
 			`md5` = :md5, `rotation` = :rotation, `leftcrop` = :leftcrop,
 			`rightcrop` = :rightcrop, `topcrop` = :topcrop,
-			`bottomcrop` = :bottomcrop
+			`bottomcrop` = :bottomcrop, `sequence` = :sequence
 			WHERE
 			`id` = :id;';
 		}
@@ -82,11 +83,13 @@ class artpiece {
 			$sql = 'INSERT INTO `info` (
 			`name`, `filename`, `width`, `height`, `year`, `sold`,
 			`price`, `description`, `fineartamerica`, `etsy`, `md5`,
-			`rotation`, `leftcrop`, `rightcrop`, `topcrop`, `bottomcrop`
+			`rotation`, `leftcrop`, `rightcrop`, `topcrop`, `bottomcrop`,
+			`sequence`
 			) VALUES (
 			:name, :filename, :width, :height, :year, :sold,
 			:price, :description, :fineartamerica, :etsy, :md5,
-			:rotation, :leftcrop, :rightcrop, :topcrop, :bottomcrop
+			:rotation, :leftcrop, :rightcrop, :topcrop, :bottomcrop,
+			:sequence
 			);';
 		}
 		
@@ -108,6 +111,7 @@ class artpiece {
 		$stmt->bindValue(':rightcrop', $this->file->getrightcrop(), PDO::PARAM_INT);
 		$stmt->bindValue(':topcrop', $this->file->gettopcrop(), PDO::PARAM_INT);
 		$stmt->bindValue(':bottomcrop', $this->file->getbottomcrop(), PDO::PARAM_INT);
+		$stmt->bindValue(':sequence', $this->info->getsequence(), PDO::PARAM_STR);
 
 		if (isset($this->id))
 			$stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
@@ -256,8 +260,8 @@ class artpiece {
 	}
 
 	// Add newly entered artpiece information (after cross-checking database)
-	function addinfo($name, $width = NULL, $height = NULL, $year = NULL, $sold = NULL, $price = NULL, $description = NULL, $fineartamerica = NULL, $etsy = NULL) {
-		$info = new artpieceinfo($name, $width, $height, $year, $sold, $price, $description, $fineartamerica, $etsy);
+	function addinfo($name, $width = NULL, $height = NULL, $year = NULL, $sold = NULL, $price = NULL, $description = NULL, $fineartamerica = NULL, $etsy = NULL, $sequence = NULL) {
+		$info = new artpieceinfo($name, $width, $height, $year, $sold, $price, $description, $fineartamerica, $etsy, $sequence);
 		if ($dbname = $this->checkexistsdb('name', $info->getname(), false))
 			throw new Exception('Class "artpiece" - addinfo function error: name exists in database for entry `' . $dbname . '`');
 		elseif ($dbname = $this->checkexistsdb('filename', $this->createfilename($info->getname()), false))

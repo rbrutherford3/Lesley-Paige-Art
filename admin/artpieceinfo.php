@@ -15,11 +15,12 @@ class artpieceinfo {
 	private $description;	// Description (long string)
 	private $fineartamerica; // URL link for purchases (string)
 	private $etsy;		// URL link for purchases (string) - DEPRECATED
+	private $sequence;	// Order of piece in presentation
 
 	//constructor
 	function __construct(string $name, $width = NULL, $height = NULL,
 		$year = NULL, $sold = NULL, $price = NULL, string $description = NULL, 
-		string $fineartamerica = NULL, string $etsy = NULL) {
+		string $fineartamerica = NULL, string $etsy = NULL, int $sequence = NULL) {
 			$this->setname($name);
 			$this->setwidth($width);
 			$this->setheight($height);
@@ -29,6 +30,7 @@ class artpieceinfo {
 			$this->setdescription($description);
 			$this->setfineartamerica($fineartamerica);
 			$this->setetsy($etsy);
+			$this->setsequence($sequence);
 	}
 
 	// FUNCTIONS TO VALIDATE MEMBER VALUES (STATIC)
@@ -193,6 +195,14 @@ class artpieceinfo {
 			throw new InvalidArgumentException('Class "artpieceinfo" - error setting `etsy` property as `' . strval($etsy) . '`: not a valid URL');
 	}
 
+	public function setsequence($sequence) {
+		if ($this->posint($sequence))
+			$this->sequence = $sequence;
+		else if (($sequence === '') || is_null($sequence))
+			$this->sequence = NULL;
+		else
+			throw new InvalidArgumentException('Class "artpieceinfo" - error setting `sequence` property as `' . strval($sequence) . '`: must be a positive integer');
+	}
 	// FUNCTIONS TO GET MEMBER VALUE FUNCTIONS
 
 	public function getname() {
@@ -231,6 +241,10 @@ class artpieceinfo {
 		return $this->etsy;
 	}
 
+	public function getsequence() {
+		return $this->sequence;
+	}
+
 	public function getall() {
 		$all['name'] = $this->name;
 		$all['width'] = $this->width;
@@ -241,6 +255,7 @@ class artpieceinfo {
 		$all['description'] = $this->description;
 		$all['fineartamerica'] = $this->fineartamerica;
 		$all['etsy'] = $this->etsy;
+		$all['sequence'] = $this->sequence;
 		return $all;
 	}
 }
