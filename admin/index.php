@@ -32,6 +32,9 @@
 		<p>
 			<a href="' . ADMIN['html'] . 'backup.php"><input type="button" value="Back up site data"></a>
 		</p>
+		<p>
+			<a href="' . ADMIN['html'] . 'restore.php"><input type="button" value="Restore site data"  onclick="return confirm(\'This operation will overwrite existing data.  Continue?\');"></a>
+		</p>
 	</body>
 </html>';
 

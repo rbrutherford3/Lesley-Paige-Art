@@ -12,6 +12,8 @@ admin/upload/thumbnails/*
 !admin/upload/thumbnails/.git-keep
 admin/upload/backup/*
 !admin/upload/backup/.git-keep
+admin/upload/restore/*
+!admin/upload/restore/.git-keep
 
 .git-ftp-ignore
 
