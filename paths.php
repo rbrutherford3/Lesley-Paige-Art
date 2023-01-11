@@ -174,6 +174,10 @@ function definepaths() {
 		'sys' => ADMIN['sys'] . 'hsl2rgb.php',
 		'html' => ADMIN['html'] . 'hsl2rgb.php'
 		]);
+	define('BACKUP', [
+		'sys' => UPLOAD['sys'] . 'backup' . DIRECTORY_SEPARATOR,
+		'html' => UPLOAD['html'] . 'backup' . '/'
+		]);
 }
 
 definepaths();

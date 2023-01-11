@@ -10,6 +10,8 @@ admin/upload/watermarked/*
 !admin/upload/watermarked/.git-keep
 admin/upload/thumbnails/*
 !admin/upload/thumbnails/.git-keep
+admin/upload/backup/*
+!admin/upload/backup/.git-keep
 
 .git-ftp-ignore
 
@@ -25,3 +27,5 @@ data.sql
 new*.sql
 
 admin/demo.php
+admin/PHPMailer-master/
+admin/aws_sas.php

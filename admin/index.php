@@ -29,6 +29,9 @@
 		<p>
 			<a href="' . ADMIN['html'] . 'bio.php"><input type="button" value="Edit biography"></a>
 		</p>
+		<p>
+			<a href="' . ADMIN['html'] . 'backup.php"><input type="button" value="Back up site data"></a>
+		</p>
 	</body>
 </html>';
 
